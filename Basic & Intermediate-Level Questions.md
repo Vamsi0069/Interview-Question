@@ -136,15 +136,15 @@ HPA automatically scales the number of pods in a Deployment or ReplicaSet based 
 
 #### 17Q. HPA vs VPA in Kubernetes
 
-| **Aspect**            | **HPA (Horizontal Pod Autoscaler)**               | **VPA (Vertical Pod Autoscaler)**                        |
-| --------------------- | --------------------------------------------------- -------------------------------------------------------- |
-| **Scaling Direction** | Horizontal  – scales the number of Pods           | Vertical– adjusts CPU/Memory of a single Pod             |
-| **Purpose**           | Handle increased load by adding/removing Pods     | Optimize resource usage within Pods                      |
-| **Metrics Used**      | CPU, memory,or custom metrics (via Metrics Server)| Historical usage and live metrics                        |
-| **Pod Restart**       | No restart (new Pods added/removed)               | Pod restart required to apply new resource values        |
-| **Best Use Case**     | Stateless apps with variable load(e.g,web servers)| Long-running apps with consistent load patterns          |
-| **Kubernetes Object** | `HorizontalPodAutoscaler` resource                | `VerticalPodAutoscaler` resource                         |
-| **Limitations**       | Can’t optimize within a Pod                       | Not suitable for rapid load spikes or multi-replica apps |
+| **Aspect**            | **HPA (Horizontal Pod Autoscaler)**                   | **VPA (Vertical Pod Autoscaler)**                        |
+| --------------------- | ----------------------------------------------------- | -------------------------------------------------------- |
+| **Scaling Direction** | **Horizontal** – scales the number of Pods            | **Vertical** – adjusts CPU/Memory of a single Pod        |
+| **Purpose**           | Handle increased load by adding/removing Pods         | Optimize resource usage within Pods                      |
+| **Metrics Used**      | CPU, memory, or custom metrics (via Metrics Server)   | Historical usage and live metrics                        |
+| **Pod Restart**       | No restart (new Pods added/removed)                   | **Pod restart required** to apply new resource values    |
+| **Best Use Case**     | Stateless apps with variable load (e.g., web servers) | Long-running apps with consistent load patterns          |
+| **Kubernetes Object** | `HorizontalPodAutoscaler` resource                    | `VerticalPodAutoscaler` resource                         |
+| **Limitations**       | Can’t optimize within a Pod                           | Not suitable for rapid load spikes or multi-replica apps |
 
 #### 18Q. What is a DaemonSet in Kubernetes?
 Answer:
@@ -317,12 +317,11 @@ COPY . .
 CMD ["python", "app.py"]
 
 #### 37Q. What is the difference between ADD and ENTRYPOINT?
---------------|------------------------------------------------------------|-----------------------------------------------------|
-Feature	      |         ADD	                                           |                  ENTRYPOINT                         |
---------------|------------------------------------------------------------|-----------------------------------------------------|
-Purpose	      |     Copies files + supports remote URLs & unpacking	   |       Sets the main command to run in container     |
-Advanced use  |   Not often required	                                   |      Good for wrapper scripts or default commands   |
---------------|------------------------------------------------------------|-----------------------------------------------------|
+| **Instruction**  | **Purpose**                                          | **Functionality**                                       |
+| ---------------- | ---------------------------------------------------- | ------------------------------------------------------- |
+| **`ADD`**        | Copies files/directories into the image              | Also supports remote URLs and auto-extracts tar files   |
+| **`ENTRYPOINT`** | Defines the **main command** to run in the container | Makes the container behave like a standalone executable |
+
 #### 38Q. What is the command to delete all containers with a single command?
 
 docker rm -f $(docker ps -aq)
@@ -419,18 +418,17 @@ Vertical Pod Autoscaler (VPA): adjusts resource requests/limits of pods.
 Cluster Autoscaler: adds/removes nodes based on pending pods.
 
 #### 51Q. Difference between StatefulSet & Deployment
-----------------------------------------------------------------------------------------------------------------------------------------
-| **Feature**             | **Deployment**                                  | **StatefulSet**                                          |
-| ------------------------|-------------------------------------------------|---------------------------------------------- ---------- |
-| **Use Case**            | Stateless applications (e.g., web servers, APIs)| Stateful applications (e.g., databases, Kafka)           |
-| **Pod Identity**        | Pods are **interchangeable**, no fixed identity | Pods have **stable, unique identities**                  |
-| **Pod Naming**          | Randomized (e.g., `web-abc123`)                 | Predictable (e.g., `db-0`, `db-1`)                       |
-| **Storage**             | Shared or ephemeral storage                     | **Persistent Volume** per Pod (retained across restarts) |
-| **DNS Hostnames**       | No stable DNS per Pod                           | Each Pod gets a **stable network identity**              |
-| **Startup/Termination** | All Pods start/stop in **parallel**             | Ordered **start/stop** and **rolling updates**           |
-| **Scaling**             | Fast and simple scaling                         | Slower, ordered scaling                                  |
-| **Pod Replacement**     | New Pod is identical to old                     | Maintains **state and identity** even after restart      |
-----------------------------------------------------------------------------------------------------------------------------------------
+| **Feature**             | **Deployment**                                         | **StatefulSet**                                          |
+| ----------------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| **Use Case**            | Stateless applications (e.g., web servers, APIs)       | Stateful applications (e.g., databases, Kafka)           |
+| **Pod Identity**        | Pods are **interchangeable**, no fixed identity        | Pods have **stable, unique identities**                  |
+| **Pod Naming**          | Randomized (e.g., `web-abc123`)                        | Predictable (e.g., `db-0`, `db-1`)                       |
+| **Storage**             | Shared or ephemeral storage                            | **Persistent Volume** per Pod (retained across restarts) |
+| **DNS Hostnames**       | No stable DNS per Pod                                  | Each Pod gets a **stable network identity**              |
+| **Startup/Termination** | All Pods start/stop in **parallel**                    | Ordered **start/stop** and **rolling updates**           |
+| **Scaling**             | Fast and simple scaling                                | Slower, ordered scaling                                  |
+| **Pod Replacement**     | New Pod is identical to old (no identity preservation) | Maintains **state and identity** even after restart      |
+
 
 #### 52Q. What is the concept of Ingress in Kubernetes?
 Answer:
@@ -487,19 +485,17 @@ Answer:
 Yes, Kubernetes supports both YAML and JSON for manifests, but YAML is more human-readable and widely used.
 
 #### 60Q. Difference between Docker Container & Kubernetes
----------------------------------------------------------------------------------------------------------------------------------------
-| **Aspect**               | **Docker (Container)**                           |      **Kubernetes**                                   |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------|
-| **Primary Function**     | Containerization platform–builds&runs containers | Container orchestration – manages container clusters  |
-| **Scope**                | Works on a single host                           | Manages multiple containers across multiple hosts     |
-| **Container Lifecycle**  | Manual (start/stop/restart)                      | Automated (scheduling, self-healing, rolling updates) |
-| **Scaling**              | Manual scaling                                   | Auto-scaling and load balancing                       |
-| **Networking**           | Basic network configuration                      | Advanced service discovery, DNS, and network policies |
-| **Storage**              | Local volumes                                    | Supports persistent volumes, dynamic provisioning     |
-| **High Availability**    | Not built-in                                     | Built-in via replica management and node distribution |
-| **Monitoring & Logging** | Basic logging                                    | Integrated with tools like Prometheus, Grafana, ELK   |
-| **Multi-container apps** | Managed via `docker-compose`                     | Managed via Pods, Deployments, StatefulSets, etc.     |
----------------------------------------------------------------------------------------------------------------------------------------
+| **Aspect**               | **Docker (Container)**                               | **Kubernetes**                                        |
+| ------------------------ | ---------------------------------------------------- | ----------------------------------------------------- |
+| **Primary Function**     | Containerization platform – builds & runs containers | Container orchestration – manages container clusters  |
+| **Scope**                | Works on a single host                               | Manages multiple containers across multiple hosts     |
+| **Container Lifecycle**  | Manual (start/stop/restart)                          | Automated (scheduling, self-healing, rolling updates) |
+| **Scaling**              | Manual scaling                                       | Auto-scaling and load balancing                       |
+| **Networking**           | Basic network configuration                          | Advanced service discovery, DNS, and network policies |
+| **Storage**              | Local volumes                                        | Supports persistent volumes, dynamic provisioning     |
+| **High Availability**    | Not built-in                                         | Built-in via replica management and node distribution |
+| **Monitoring & Logging** | Basic logging                                        | Integrated with tools like Prometheus, Grafana, ELK   |
+| **Multi-container apps** | Managed via `docker-compose`                         | Managed via Pods, Deployments, StatefulSets, etc.     |
 
 #### 61Q. How will you monitor your Docker containers?
 Answer:
@@ -704,18 +700,19 @@ Answer:
 Files written using Jinja2 syntax.
 Defined in playbooks like:
 
-yaml
+```yaml
 
 tasks:
   - name: Apply nginx config
     template:
       src: nginx.conf.j2
       dest: /etc/nginx/nginx.conf
-	  
+```	  
 #### 89Q. What are Ingress and Egress in Kubernetes?
 Answer:
 
 Ingress: Rules to allow external traffic into the cluster.
+
 Egress: Outbound traffic from pods to outside the cluster.
 
 #### 90Q. Can we use ArgoCD without Helm?
@@ -730,6 +727,7 @@ Jsonnet
 Helm is optional.
 
 #### 91Q: How do you create handlers in Ansible?
+```
 #### playbook.yml
 tasks:
   - name: Install nginx
@@ -743,7 +741,7 @@ handlers:
     service:
       name: nginx
       state: restarted
-    
+```    
 #### 92Q: What is the typical directory structure of an Ansible project?
 ```
 project/
@@ -763,10 +761,13 @@ project/
 #### 93.Q: How can you set up password-less authentication in Linux using SSH?
 1.Generate SSH key
     ssh-keygen
+    
 2.Copy public key to remote server:
     ssh-copy-id user@remote-server
+    
 3. Now you can SSH without a password:
     ssh user@remote-server
+   
 #### 94.Q: What is SELinux and how does it work?
 SELinux (Security-Enhanced Linux) is a security module in Linux that provides mandatory access control (MAC). It defines access policies for users, processes, and files.
 
@@ -780,11 +781,14 @@ Disabled: Completely off.
 #### 95.Q: What is AWS Serverless and what are its key benefits?
 
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
-•	AWS Lambda – run code in response to events.
-•	Amazon API Gateway – expose APIs.
-•	Amazon DynamoDB – NoSQL database.
-•	AWS Step Functions – orchestrate workflows
 
+•	AWS Lambda – run code in response to events.
+
+•	Amazon API Gateway – expose APIs.
+
+•	Amazon DynamoDB – NoSQL database.
+
+•	AWS Step Functions – orchestrate workflows
 
 #### 96Q. What is the difference between Declarative and Scripted Pipeline in Jenkins?
 Declarative Pipeline: Uses a more structured and predefined syntax. Easier to write and read, especially for beginners.
@@ -793,9 +797,13 @@ Scripted Pipeline: Uses Groovy-based syntax. Offers more flexibility and is suit
 #### 97Q. How can you upgrade Jenkins?
 1, Backup Jenkins (Recommended) 
 Backup your Jenkins home directory (usually /var/lib/jenkins):(sudo cp -r /var/lib/jenkins /var/lib/jenkins_backup)
+
 2, Upgrade Jenkins (Using Package Manager)
+
 sudo yum check-update
+
 sudo yum upgrade jenkins
+
 sudo systemctl restart jenkins
 
 #### 98Q. What is Jenkins Master-Slave Architecture?
@@ -991,10 +999,15 @@ provider "aws" {
 #### 127Q. How can we secure Docker containers?
 Answer:
 •	Use minimal base images (e.g., alpine).
+
 •	Run containers as non-root users.
+
 •	Regularly scan images for vulnerabilities.
+
 •	Use Docker secrets for sensitive data.
+
 •	Enable network and runtime restrictions.
+
 •	Keep Docker and host OS updated.
 
 #### 128Q. count vs for_each in Terraform
@@ -1007,12 +1020,19 @@ Best for	                      Lists                                            
 #### 129Q. Inbuilt Terraform functions you use
 Answer:
 •	length() – get list length
+
 •	lookup() – safe map value lookup
+
 •	join() – join strings
+
 •	split() – split string to list
+
 •	merge() – merge maps
+
 •	format() – formatted strings
+
 •	element() – get item by index
+
 •	file() – read local file
 
 #### 130Q. Difference between ALB and NLB
@@ -1054,19 +1074,22 @@ output "instance_type" {
   value = var.env == "prod" ? "t3.large" : "t2.micro"
 }
 
-
-
 #### 136Q. What is rollback mechanism in Jenkins?
 Answer:
 •	Use Git to revert to a previous commit and re-deploy.
+
 •	In pipeline, define a rollback stage to deploy last stable artifact (e.g., using Nexus/S3).
+
 •	Tools like ArgoCD, Ansible, or Helm can assist with rollbacks in CD.
 
 #### 137Q. What is Maven lifecycle?
 Answer:
 Maven has 3 built-in lifecycles:
+
 •	clean – cleans previous build (mvn clean)
+
 •	default – main build (compile, test, package, install, deploy)
+
 •	site – generates documentation
 
 #### 138Q. How can you skip test phase in Maven?
@@ -1096,25 +1119,35 @@ Ingress exposes HTTP and HTTPS routes from outside the cluster to services insid
 
 #### 143Q. Difference between Docker and Kubernetes?
 Answer:
-------------------------------------|-----------------------------------------|
-Feature         	Docker	        |         Kubernetes                      |
-------------------------------------|-----------------------------------------|
-Purpose	      Containerization	    |   Orchestration of containers           |
-Focus	      Single container	    |   Managing many containers              |
-Deployment	  Manual or Compose	    |   Declarative YAML with auto-scaling    |
-------------------------------------|-----------------------------------------|
- 
+| **Aspect**               | **Docker**                        | **Kubernetes**                                         |
+| ------------------------ | --------------------------------- | ------------------------------------------------------ |
+| **Type**                 | Containerization platform         | Container orchestration platform                       |
+| **Primary Function**     | Build, ship, and run containers   | Deploy, manage, scale, and orchestrate containers      |
+| **Scope**                | Works on a **single host**        | Manages **clusters of nodes** (multi-host)             |
+| **Component**            | Uses Docker CLI and Docker Engine | Uses Master (Control Plane) and Nodes                  |
+| **Container Management** | Manual or via `docker-compose`    | Automated (via Deployments, StatefulSets, etc.)        |
+| **Scaling**              | Manual                            | Auto-scaling supported                                 |
+| **Networking**           | Basic networking                  | Advanced service discovery and load balancing          |
+| **High Availability**    | Not built-in                      | Built-in redundancy and failover                       |
+| **Monitoring & Logging** | Basic logging                     | Supports monitoring/logging with Prometheus, ELK, etc. |
+| **Installation**         | Simple, lightweight               | More complex, requires cluster setup                   |
+
 #### 144Q. How many ways can you create Docker images?
 Answer:
 #### 1.	Using a Dockerfile (recommended)
+
 #### 2.	Using docker commit from a running container
+
 #### 3.	Programmatically with Docker SDK
 
 #### 145Q. What are other lines than shebang in shell scripts?
 Answer:
 •	Comments (#)
+
 •	Variable declarations
+
 •	Logic/commands (if, echo, loops)
+
 •	Function definitions
 
 #### 146Q. What does a Shebang line represent?
@@ -1132,7 +1165,9 @@ Use chown to change ownership:
 #### 148Q. What is crontab, and what are allow/deny files?
 Answer:
 •	crontab schedules jobs.
+
 •	/etc/cron.allow – only users in this file can use crontab.
+
 •	/etc/cron.deny – users listed here cannot use crontab.
 
 #### 149Q. How can you kill a process in Linux?
@@ -1164,15 +1199,21 @@ tail -n 20 filename.log
 #### 154Q. What are the features of Jenkins?
 Answer:
 •	Open-source CI/CD tool
+
 •	Supports pipeline-as-code
+
 •	Plugins for Docker, Kubernetes, Git, etc.
+
 •	Can build, test, deploy automatically
 
 #### 155Q. How can you build pipelines in Jenkins?
 Answer:
 •	Use Declarative or Scripted pipeline in a Jenkinsfile
+
 •	Use UI to create pipeline jobs and add stages
+
 •	Example:
+```
 groovy
 pipeline {
   stages {
@@ -1183,7 +1224,7 @@ pipeline {
     }
   }
 }
-
+```
 #### 156Q. What is SNS and how do you create it?
 A:
 SNS (Simple Notification Service) is an AWS service used to send notifications via email, SMS, HTTP, or Lambda.
@@ -1202,14 +1243,19 @@ Example use: Installing software, restarting services, or copying files across s
 #### 158Q. How do you execute commands in Linux?
 Answer:
 •	Directly in shell: ls, echo, cd
+
 •	Or in script files with .sh extension
+
 •	Use bash script.sh or ./script.sh
 
 #### 159Q. In which environments do you work?
 Answer:
 •	Dev – Development
+
 •	QA – Testing
+
 •	UAT – User Acceptance Testing
+
 •	Prod – Live/production
 
 #### 160Q. How can you recover a deleted S3 object?
