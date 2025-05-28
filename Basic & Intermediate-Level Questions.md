@@ -114,12 +114,12 @@ No, the API server and other control plane components are usually run as static 
 | **Feature**           | **Deployment**                                  | **StatefulSet**                                |
 | --------------------- | ----------------------------------------------- | ---------------------------------------------- |
 | **Use Case**          | Stateless applications (e.g., web servers)      | Stateful applications (e.g., databases)        |
-| **Pod Identity**      | Pods are **interchangeable**, no fixed identity | Each Pod has a **stable, unique identity**     |
+| **Pod Identity**      | Pods are interchangeable, no fixed identity     | Each Pod has a stable, unique identity         |
 | **Pod Name**          | Random suffix (e.g., `nginx-xyz12`)             | Predictable names (e.g., `db-0`, `db-1`)       |
-| **Storage (Volumes)** | Shared or ephemeral                             | Each Pod gets its **own persistent volume**    |
+| **Storage (Volumes)** | Shared or ephemeral                             | Each Pod gets its own persistent volume        |
 | **Scaling**           | Easy and fast; Pods treated equally             | Slower, one Pod updated at a time              |
-| **Network Identity**  | No stable DNS for individual Pods               | Each Pod gets a **stable DNS hostname**        |
-| **Pod Ordering**      | No guaranteed order for startup/termination     | Follows **ordered deployment and termination** |
+| **Network Identity**  | No stable DNS for individual Pods               | Each Pod gets a stable DNS hostname            |
+| **Pod Ordering**      | No guaranteed order for startup/termination     | Follows   ordered deployment and terminationb  |
 | **Use With**          | Frontend apps, APIs, microservices              | Databases (e.g., MySQL, Cassandra, Kafka)      |
 ----------------------------------------------------------------------------------------------------------------------------
 
@@ -138,10 +138,10 @@ HPA automatically scales the number of pods in a Deployment or ReplicaSet based 
 ----------------------------------------------------------------------------------------------------------------------------------------
 | **Aspect**            | **HPA (Horizontal Pod Autoscaler)**               | **VPA (Vertical Pod Autoscaler)**                        |
 | --------------------- | --------------------------------------------------- -------------------------------------------------------- |
-| **Scaling Direction** | **Horizontal** – scales the number of Pods        | **Vertical** – adjusts CPU/Memory of a single Pod        |
+| **Scaling Direction** | Horizontal  – scales the number of Pods           | Vertical– adjusts CPU/Memory of a single Pod             |
 | **Purpose**           | Handle increased load by adding/removing Pods     | Optimize resource usage within Pods                      |
 | **Metrics Used**      | CPU, memory,or custom metrics (via Metrics Server)| Historical usage and live metrics                        |
-| **Pod Restart**       | No restart (new Pods added/removed)               | **Pod restart required** to apply new resource values    |
+| **Pod Restart**       | No restart (new Pods added/removed)               | Pod restart required to apply new resource values        |
 | **Best Use Case**     | Stateless apps with variable load(e.g,web servers)| Long-running apps with consistent load patterns          |
 | **Kubernetes Object** | `HorizontalPodAutoscaler` resource                | `VerticalPodAutoscaler` resource                         |
 | **Limitations**       | Can’t optimize within a Pod                       | Not suitable for rapid load spikes or multi-replica apps |
@@ -318,10 +318,10 @@ CMD ["python", "app.py"]
 
 #### 37Q. What is the difference between ADD and ENTRYPOINT?
 --------------|------------------------------------------------------------|-----------------------------------------------------|
-Feature	      |         ADD	                                               |                  ENTRYPOINT                         |
+Feature	      |         ADD	                                           |                  ENTRYPOINT                         |
 --------------|------------------------------------------------------------|-----------------------------------------------------|
-Purpose	      |     Copies files + supports remote URLs & unpacking	       |       Sets the main command to run in container     |
-Advanced use  |   Not often required	                                     |      Good for wrapper scripts or default commands   |
+Purpose	      |     Copies files + supports remote URLs & unpacking	   |       Sets the main command to run in container     |
+Advanced use  |   Not often required	                                   |      Good for wrapper scripts or default commands   |
 --------------|------------------------------------------------------------|-----------------------------------------------------|
 #### 38Q. What is the command to delete all containers with a single command?
 
@@ -351,22 +351,26 @@ check_load – for CPU load
 check_ping – for network availability
 
 #### 42Q. What are the default port numbers for Grafana and Prometheus?
-Tool	Default Port
-Grafana	3000
-Prometheus	9090
-
+|----------------|-----------------------|
+|Tool	         |      Default Port     |
+|----------------|-----------------------|
+|Grafana         | 	3000             |
+|Prometheus	 |       9090            |
+|----------------|-----------------------| 
 #### 43Q. What is the main configuration file in Grafana?
 Answer:
 grafana.ini
-Located by default at /etc/grafana/grafana.ini
+Located by default at  /etc/grafana/grafana.ini
 
 #### 44Q. What is the difference between a hard link and a soft link
-Feature	                   Hard Link	                      Soft Link (Symbolic Link)
-Inode sharing	        Shares the same inode	             Points to the original inode
-Broken link	Works     even if original is deleted	       Breaks if the target is deleted
-File systems	        Must be on the same file system	   Can link across file systems
+---------------------------------------------------------------------------------------------------
+Feature	                   Hard Link	                       Soft Link (Symbolic Link)
+---------------------------------------------------------------------------------------------------
+Inode sharing	        Shares the same inode	               Points to the original inode
+Broken link	    Works even if original is deleted	       Breaks if the target is deleted
+File systems	    Must be on the same file system	       Can link across file systems
 Appearance	            File	                                     Shortcut
-
+---------------------------------------------------------------------------------------------------
 #### 45Q. Servers got rebooted → How do you tell why it got rebooted?
 Answer:
 
