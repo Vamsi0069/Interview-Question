@@ -43,7 +43,7 @@ sudo usermod -aG devteam username
 groups username
 
 #### 5.Q: How do you create an RDS instance in a specific VPC using Terraform? 
-
+```
 resource "aws_db_instance" "example" {
   identifier         = "mydb"
   engine             = "mysql"
@@ -60,7 +60,7 @@ resource "aws_db_subnet_group" "example" {
   name       = "my-subnet-group"
   subnet_ids = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
 }
-
+```
 #### 6Q: How to configure multi-region failover if one region goes down?
 A: Use Route 53 with failover routing policy and health checks. Primary region serves traffic; if it fails, Route 53 redirects to the secondary region.
 
@@ -112,13 +112,13 @@ IP or DNS name incorrect
 Answer:
 
 The ELK Stack is a powerful log aggregation and analytics platform composed of three main open-source components:
---------------------------------------|-------------------------------------------------------------------------------------------------
-Component	                          |                          Description
---------------------------------------|-------------------------------------------------------------------------------------------------
-Elasticsearch	                      |                    Search and analytics engine.Stores and indexes logs.
-Logstash	                          |                    Data processing pipeline that collects and parses logs from various sources.
-Kibana	                              |                    Visualization tool for exploring data stored in Elasticsearch.
---------------------------------------|-------------------------------------------------------------------------------------------------
+
+| **Component**     | **Function**                                                                           |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| **Elasticsearch** | A distributed, RESTful search and analytics engine that stores and indexes logs.       |
+| **Logstash**      | A data processing pipeline that collects, filters, and forwards logs to Elasticsearch. |
+| **Kibana**        | A web-based UI to visualize and explore data stored in Elasticsearch.                  |
+
 ELK is used for centralized logging, monitoring, and visualizing logs from servers, applications, containers, and cloud infrastructure.
 
 #### 14Q. Script for Fetching the Memory Utilization of 2 Servers
@@ -128,22 +128,29 @@ Here is a simple Bash script using ssh to fetch memory utilization from two remo
 
 #!/bin/bash
 
-# List of servers (replace with actual IPs or hostnames)
+**# List of servers (replace with actual IPs or hostnames)**
 servers=("server1.example.com" "server2.example.com")
 
-# Loop through each server
+**# Loop through each server**
+
 for server in "${servers[@]}"; do
   echo "----- Memory usage on $server -----"
   ssh user@$server free -h
   echo ""
 done
-How it works:
+
+**How it works:**
+
 Uses ssh to connect to each server.
+
 Runs free -h to display memory usage in a human-readable format.
+
 Prints the output with a header for each server.
 
-Prerequisites:
+**Prerequisites:**
+
 Passwordless SSH access (using SSH keys) must be set up.
+
 Replace user with your actual username and hostnames accordingly.
 
 #### 15Q. You have static & dynamic web apps using high EC2 + NGINX, causing high cost & low availability. What's your solution?
@@ -227,48 +234,70 @@ Components:
 #### 21Q: What is AWS EventBridge Scheduler and how is it used?
 A:
 Amazon EventBridge Scheduler (formerly CloudWatch Events Scheduler) is a fully managed scheduler for running tasks or workflows at defined times or intervals.
-Use cases:
+
+**Use cases:**
+
 •	Schedule Lambda functions or Step Functions.
+
 •	Start/stop EC2 or RDS instances.
+
 •	Trigger Glue jobs or ECS tasks periodically.
-Example:
-json
-CopyEdit
+
+**Example:**
+```
 {
   "ScheduleExpression": "rate(5 minutes)",
   "Target": {
     "Arn": "arn:aws:lambda:region:account-id:function:MyFunction"
   }
 }
-
+```
 #### 22Q. What is Amazon ECS (Elastic Container Service)?
 A:
 Amazon ECS is a fully managed container orchestration service that lets you run and scale Docker containers.
-Key Concepts:
+
+**Key Concepts:**
+
 •	Cluster – logical grouping of tasks or services.
+
 •	Task Definition – blueprint for your container (image, CPU, memory, etc.).
+
 •	Services – keep tasks running, support scaling and load balancing.
-Modes:
+
+**Modes:**
+
 •	EC2 launch type
+
 •	Fargate launch type (serverless)
 
 #### 23Q: What is Amazon ECR (Elastic Container Registry)?
 A:
 Amazon ECR is a fully managed Docker container registry that makes it easy to store, manage, and deploy container images.
-Features:
+
+**Features:**
+
 •	Integrated with ECS, EKS, and Lambda.
+
 •	Secure access via IAM.
+
 •	Supports image versioning and scanning.
-Common Commands:
-#### Authenticate Docker to ECR
+
+**Common Commands:**
+
+**#### Authenticate Docker to ECR**
+
 aws ecr get-login-password | docker login --username AWS --password-stdin <account_id>.dkr.ecr.<region>.amazonaws.com
 
-#### Push Docker image
+**#### Push Docker image**
+
 docker build -t my-image .
+
 docker tag my-image:latest <account_id>.dkr.ecr.<region>.amazonaws.com/my-image:latest
+
 docker push <account_id>.dkr.ecr.<region>.amazonaws.com/my-image:latest
 
-#### 24Q. Do you know about UAT?
+**#### 24Q. Do you know about UAT?**
+
 Answer:
 Yes. User Acceptance Testing is the final testing phase where end-users validate the software before going to production.
 
@@ -291,19 +320,28 @@ A CRD lets you define a custom resource (e.g., MySQLCluster) and use it like a n
 #### 29Q. What are common Kubernetes Operations (Day2 Ops)?
 Answer:
 •	Scaling workloads
+
 •	Monitoring & logging
+
 •	Rolling updates
+
 •	Backup & restore (etcd, volumes)
+
 •	Debugging pods
+
 •	Resource limits and quota management
 
 #### 30Q. What is a Service Mesh?
 Answer:
 A Service Mesh manages communication between services. Features:
+
 •	Traffic management
+
 •	Security (mTLS)
+
 •	Observability (metrics, tracing)
-Examples: Istio, Linkerd
+
+**Examples:** Istio, Linkerd
 
 #### 31Q. What is Sidecar Injection?
 Answer:
@@ -312,50 +350,72 @@ Sidecar injection is the process of automatically adding a sidecar container (li
 #### 32Q. What is Envoy Proxy?
 Answer:
 Envoy is a high-performance proxy used in service meshes (e.g., Istio) for:
+
 •	Load balancing
+
 •	Traffic routing
+
 •	TLS termination
+
 •	Observability
 
 #### 33Q. What is a Pod Disruption Budget (PDB)?
 Answer:
 PDB ensures a minimum number of pods are always available during voluntary disruptions (like node drain). You can define:
+
 •	minAvailable
+
 •	maxUnavailable
 
 #### 34Q. What are Probes in Kubernetes?
 Answer:
 Used to check pod health:
+
 •	Liveness Probe: Restarts container if it's stuck.
+
 •	Readiness Probe: Controls pod availability to services.
+
 •	Startup Probe: For slow-starting apps.
 
 #### 35Q. What is the difference between Voluntary and Involuntary Disruption?
 Answer:
 •	Voluntary: Triggered by user (e.g., kubectl drain, rolling update).
+
 •	Involuntary: System-triggered (e.g., node crash, OOM).
+
 #### 36Q. What is Safe Eviction vs Hard Eviction?
 Answer:
 •	Safe Eviction: Graceful shutdown respecting Pod Disruption Budgets and lifecycle hooks.
+
 •	Hard Eviction: Forced eviction due to resource pressure or system errors.
 
 #### 37Q. What are Pod Security Policies (PSP)?
 Answer:
 (Deprecated in Kubernetes v1.25)
 PSPs controlled security-related settings like:
+
 •	Privileged mode
+
 •	Host namespaces
+
 •	Volume types
+
 •	User IDs
+
 Use Pod Security Admission (PSA) instead in newer versions.
 
 #### 38Q. What is CrashLoopBackOff error?
 Answer:
 This occurs when a container keeps crashing repeatedly. Causes:
+
 •	Application error
+
 •	Misconfiguration
+
 •	Unavailable dependencies
-Fix:
+
+**Fix:**
+
 •	Check logs, describe pod, check readiness/liveness probes.
 
 #### 39Q.what is step functions in aws?
@@ -364,9 +424,9 @@ of steps that your application follows.  These steps can involve calling other A
 
 Here are some of the key benefits of using Step Functions:
 
-Visual Workflows: Step Functions provides a drag-and-drop interface to define your workflows, making it easier to design and understand complex processes.
-Simplified Automation: You can automate workflows across a variety of AWS services without having to write and maintain a lot of custom code.
-Error Handling and Resilience: Step Functions includes built-in error handling, retries, and timeouts to make your workflows more robust.
-Event-Driven Architecture: Step Functions integrates well with event-driven architectures, allowing you to define workflows that are triggered by events.
+**Visual Workflows:** Step Functions provides a drag-and-drop interface to define your workflows, making it easier to design and understand complex processes.
+**Simplified Automation:** You can automate workflows across a variety of AWS services without having to write and maintain a lot of custom code.
+**Error Handling and Resilience:** Step Functions includes built-in error handling, retries, and timeouts to make your workflows more robust.
+**Event-Driven Architecture:** Step Functions integrates well with event-driven architectures, allowing you to define workflows that are triggered by events.
 Overall, Step Functions is a powerful tool that can help you build and manage complex workflows in the AWS cloud.
 
