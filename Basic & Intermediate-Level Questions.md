@@ -896,70 +896,106 @@ A: Multi-stage builds allow you to use multiple FROM statements in a Dockerfile 
 A: Stateful services retain state across restarts. StatefulSets manage pods with stable network identity, persistent storage, and ordered, graceful deployment.
 
 #### 116Q. what is the kubernetes architecture?
-o	Master Node: Controls the Kubernetes cluster. It contains several components:
-o	API Server: Exposes the Kubernetes API.
-o	Controller Manager: Ensures that the cluster is in the desired state (e.g., creating new pods when needed).
-•	Scheduler: Assigns workloads to nodes.
-•	ETCD: is a distributed key-value store used to store all cluster data, including configuration data, secrets, and state information.
-•	Worker Node: Runs the containerized applications. Components include:
-•	Kubelet: Ensures the containers are running in a Pod.
-•	Kube Proxy: Maintains network rules for Pod communication.
-•	Container Runtime: Runs the containers (e.g., Docker).
+o	**Master Node:** Controls the Kubernetes cluster. It contains several components:
+
+o	**API Server:** Exposes the Kubernetes API.
+
+o	**Controller Manager:** Ensures that the cluster is in the desired state (e.g., creating new pods when needed).
+
+•	**Scheduler:** Assigns workloads to nodes.
+
+•	**ETCD:** is a distributed key-value store used to store all cluster data, including configuration data, secrets, and state information.
+
+•	**Worker Node:** Runs the containerized applications. Components include:
+
+•	**Kubelet:** Ensures the containers are running in a Pod.
+
+•	**Kube Proxy:** Maintains network rules for Pod communication.
+
+•	**Container Runtime:** Runs the containers (e.g., Docker).
 
 #### 117Q.What are different types of Kubernetes Services?
 A:
-ClusterIP – Default, internal-only access
-NodePort – Exposes service on a port on each node
-LoadBalancer – Uses external load balancer
-ExternalName – Maps service to external DNS name
-Headless Service – Created by setting clusterIP: None, used for direct pod access, useful in StatefulSets and DNS discovery.
+**ClusterIP** – Default, internal-only access
+**NodePort** – Exposes service on a port on each node
+**LoadBalancer** – Uses external load balancer
+**ExternalName** – Maps service to external DNS name
+**Headless Service** – Created by setting clusterIP: None, used for direct pod access, useful in StatefulSets and DNS discovery.
 
 #### 118Q. Q: What is AWS Serverless and what are its key benefits?
 A:
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
-•	AWS Lambda – run code in response to events.
-•	Amazon API Gateway – expose APIs.
-•	Amazon DynamoDB – NoSQL database.
-•	AWS Step Functions – orchestrate workflows.
-Benefits:
-•	No server provisioning or management.
-•	Auto-scaling and high availability.
-•	Pay only for what you use (event-driven).
 
+•	AWS Lambda – run code in response to events.
+
+•	Amazon API Gateway – expose APIs.
+
+•	Amazon DynamoDB – NoSQL database.
+
+•	AWS Step Functions – orchestrate workflows.
+
+**Benefits:**
+
+•	No server provisioning or management.
+
+•	Auto-scaling and high availability.
+
+•	Pay only for what you use (event-driven).
 
 #### 119Q: What AWS resources have you worked with?
 A:
 I’ve worked with a wide range of AWS resources, including:
+
 •	EC2 (virtual machines)
+
 •	S3 (object storage)
+
 •	RDS (managed databases)
+
 •	ECS/Fargate (containers)
+
 •	Lambda (serverless compute)
+
 •	IAM (access control)
+
 •	CloudWatch (monitoring/logs)
+
 •	VPC (networking)
+
 •	Route 53 (DNS)
+
 •	Auto Scaling Groups
+
 •	ALB/NLB (load balancers)
+
 •	Elastic Beanstalk, CloudFormation, and Terraform for provisioning
 
 #### 120Q: What AWS services do you use for scaling instances?
 A:
 For automatic and manual scaling, I’ve used:
-•	Auto Scaling Groups (ASG): Automatically add/remove EC2 instances based on CPU, memory, or custom metrics.
-•	Elastic Load Balancer (ELB): Distributes traffic across instances to balance load.
-•	CloudWatch Alarms: Used to trigger scaling actions.
-•	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
+
+•	**Auto Scaling Groups (ASG):** Automatically add/remove EC2 instances based on CPU, memory, or custom metrics.
+
+•	**Elastic Load Balancer (ELB):** Distributes traffic across instances to balance load.
+
+•	**CloudWatch Alarms:** Used to trigger scaling actions.
+
+•	**ECS with Fargate or EC2:** Task-based scaling based on request load or queue depth.
 
 #### 121Q: Which command is used in Linux to check disk usage?
 A:
-df -h       #### Shows disk usage in human-readable format
-du -sh *    #### Shows folder sizes in the current directory
+df -h           **Shows disk usage in human-readable format**
+
+du -sh *        **Shows folder sizes in the current directory**
+
 #### 122Q: How can you delete the contents of a file in Linux without deleting the file itself?
 A:
-> filename           #### Truncates the file
-: > filename         #### Same as above
+> filename           **Truncates the file**
+
+: > filename         **Same as above**
+
 truncate -s 0 filename  # Explicitly sets file size to 0
+
 #### 123Q. If we get a lock while executing terraform plan, how to unlock it?
  Answer:
 Use the following command to manually unlock the Terraform state:
@@ -969,21 +1005,29 @@ Only use it if you're sure no other process is actively using the state.
 #### 124Q. If we get an error while pipeline execution, how do you solve it?
 Answer:
 •	Check pipeline logs to identify the exact stage and error message.
+
 •	Reproduce the issue locally (if possible).
+
 •	Fix config or script issues (e.g., syntax, credentials).
+
 •	Rerun the pipeline and monitor.
 
 #### 125Q . What are the steps to push your code to a central repo (e.g., GitHub)?
 Answer:
-git init                                     # Initialize local repo
-git add .                                    # Stage changes
-git commit -m "message"                      # Commit changes
-git remote add origin <repo-url>             # Link to central repo
-git push -u origin main                      # Push code
+git init                                     **# Initialize local repo**
+
+git add .                                    **# Stage changes**
+
+git commit -m "message"                      **# Commit changes**
+
+git remote add origin <repo-url>             **# Link to central repo**
+
+git push -u origin main                      **# Push code**
 
 #### 126Q . How can you create infrastructure at a time in two AWS accounts using Terraform?
 Answer:
-•	Define two different provider blocks with different credentials:
+• Define two different provider blocks with different credentials:
+
 provider "aws" {
   alias  = "account1"
   region = "us-east-1"
@@ -994,7 +1038,8 @@ provider "aws" {
   region = "us-west-2"
   profile = "account2-profile"
 }
-•	Use provider = aws.account1 and provider = aws.account2 in resources.
+
+• Use provider = aws.account1 and provider = aws.account2 in resources.
 
 #### 127Q. How can we secure Docker containers?
 Answer:
@@ -1045,7 +1090,9 @@ Use Case	Web apps, HTTP APIs	Low latency apps, real-time systems
 #### 131Q. How do you connect to a private subnet?
 Answer:
 •	Use a bastion host (jump box) in the public subnet.
+
 •	Or use Session Manager (SSM) if agents are installed.
+
 •	Optionally use a VPN or Direct Connect.
 
 #### 132Q. AWS Lambda vs AWS Fargate
@@ -1327,8 +1374,9 @@ By default, you can create 5 VPCs per region per AWS account. This limit can be 
 
 #### 172Q. What is the difference between a private and public subnet?
 Answer:
-•	Public Subnet: A subnet that is associated with a route table that has a route to an Internet Gateway (IGW). Resources in this subnet can access the internet.
-•	Private Subnet: A subnet that does not have a route to the Internet Gateway. Used for internal resources like databases.
+• **Public Subnet:** A subnet that is associated with a route table that has a route to an Internet Gateway (IGW). Resources in this subnet can access the internet.
+
+•**Private Subnet:** A subnet that does not have a route to the Internet Gateway. Used for internal resources like databases.
 
 #### 173Q. What is a Transit Gateway?
 Answer:
@@ -1375,17 +1423,23 @@ Run the playbook: ansible-playbook -i inventory.ini playbook.yml
 #### 178Q. How can you troubleshoot if an application is not working on an EC2 instance?
 Answer:
 •	Check EC2 instance status (Running/Reachable).
-•	Verify Security Groups and NACLs (port access).
-•	Check application logs (/var/log/, journalctl, etc.).
-•	Confirm service status (systemctl status).
-•	Check CPU/memory/disk usage.
-•	Test network connectivity (ping, telnet, curl).
 
+•	Verify Security Groups and NACLs (port access).
+
+•	Check application logs (/var/log/, journalctl, etc.).
+
+•	Confirm service status (systemctl status).
+
+•	Check CPU/memory/disk usage.
+
+•	Test network connectivity (ping, telnet, curl).
 
 #### 179Q. How can you connect S3 to an EC2 instance?
 Answer:
 •	Attach an IAM Role to EC2 with S3 access permissions (e.g., AmazonS3ReadOnlyAccess).
+
 •	Use AWS CLI or SDK on EC2:
+
 aws s3 ls s3://your-bucket-name
 
 #### 180Q. What is the difference between Security Group and Network ACL (NACL)?
@@ -1401,74 +1455,101 @@ Default Behavior	Deny all unless allowed	Allow all unless changed
 Answer:
 EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
-Instance        Series	Type	                 Use Case	                             Examples
-t-series	   Burstable general purpose	     Low-cost, spiky workloads	           t2.micro, t3.small
-m-series	   General purpose	               Balanced compute, memory, network	   m5.large, m6g.medium
-c-series	   Compute optimized	             High-performance compute workloads	   c5.large, c6g.xlarge
-r-series     Memory optimized	               In-memory databases, caching	         r5.large, r6g.xlarge
-i-series	   Storage optimized	             High IOPS storage workloads	         i3.large, i4i.xlarge
-g/p-series	 GPU/Accelerated computing	     ML, AI, video processing	             g4dn.xlarge, p3.2xlarge
-
+| **Instance Series** | **Type**                    | **Use Case**                       | **Examples**                |
+| ------------------- | --------------------------- | ---------------------------------- | --------------------------- |
+| **t-series**        | Burstable general purpose   | Low-cost, spiky workloads          | `t2.micro`, `t3.small`      |
+| **m-series**        | General purpose             | Balanced compute, memory, network  | `m5.large`, `m6g.medium`    |
+| **c-series**        | Compute optimized           | High-performance compute workloads | `c5.large`, `c6g.xlarge`    |
+| **r-series**        | Memory optimized            | In-memory databases, caching       | `r5.large`, `r6g.xlarge`    |
+| **i-series**        | Storage optimized           | High IOPS storage workloads        | `i3.large`, `i4i.xlarge`    |
+| **g/p-series**      | GPU / Accelerated computing | ML, AI, video processing           | `g4dn.xlarge`, `p3.2xlarge` |
 
 
 #### 182Q. What should you do if a Pod crashes?
 Answer:
 •	Check logs: kubectl logs <pod-name>
+
 •	Describe pod: kubectl describe pod <pod-name>
+
 •	Check events and container status for error messages.
-•	Investigate issues like:
+
+•	**Investigate issues like:**
 o	CrashLoopBackOff
+
 o	ImagePull errors
+
 o	OOMKilled (Out of Memory)
+
 o	Misconfigurations in YAML (ports, env vars, etc.)
 
 #### 183Q. What are the different scaling strategies in Kubernetes?
 Answer:
-•	Manual Scaling: Using kubectl scale command or editing the deployment.
-•	Horizontal Pod Autoscaler (HPA): Scales pods based on CPU/memory utilization.
-•	Vertical Pod Autoscaler (VPA): Adjusts CPU/memory requests/limits.
-•	Cluster Autoscaler: Automatically adds/removes nodes based on pod needs.
+•	**Manual Scaling:** Using kubectl scale command or editing the deployment.
+
+•	**Horizontal Pod Autoscaler (HPA):** Scales pods based on CPU/memory utilization.
+
+•	**Vertical Pod Autoscaler (VPA):** Adjusts CPU/memory requests/limits.
+
+•	**Cluster Autoscaler:** Automatically adds/removes nodes based on pod needs.
 
 #### 184Q. What are the Deployment strategies in Kubernetes?
 Answer:
-•	Rolling Update (default): Gradually replaces old pods with new ones.
-•	Recreate: Deletes old pods before creating new ones.
-•	Blue/Green Deployment: Deploys new version alongside old one, then switches.
-•	Canary Deployment: Gradually rolls out to a small subset before full rollout.
+•	**Rolling Update (default):** Gradually replaces old pods with new ones.
+
+•	**Recreate:** Deletes old pods before creating new ones.
+
+•	**Blue/Green Deployment:** Deploys new version alongside old one, then switches.
+
+•	**Canary Deployment:** Gradually rolls out to a small subset before full rollout.
 
 #### 185Q. How can you pause a container?
 Answer:
 Kubernetes doesn't directly support pausing containers, but you can:
+
 •	Use kubectl rollout pause deployment/<deployment-name> to pause updates.
+
 •	Use Linux SIGSTOP/SIGCONT signals in advanced container runtime setups.
 
 #### 186Q. What are Init Containers?
 Answer:
 Init containers are special containers that run before app containers in a Pod. They:
+
 •	Run sequentially.
+
 •	Are used for initial setup tasks (e.g., configs, waiting for DB readiness).
+
 •	Must complete successfully for the main container to start.
 
 #### 187Q. What are Sidecar Containers?
 Answer:
 Sidecars are helper containers that run alongside the main container in the same pod.
-Examples:
+
+**Examples:**
+
 •	Logging agent
+
 •	Data synchronizer
+
 •	Proxy (like Envoy for service mesh)
 
 #### 188Q. What are the different types of containers in Kubernetes?
 Answer:
-•	App Containers: Primary application logic.
-•	Init Containers: Run before app containers for setup tasks.
-•	Sidecar Containers: Provide supporting features (logging, monitoring).
-•	Ambassador Containers: Help with service communication/proxying.
+•	**App Containers:** Primary application logic.
+
+•	**Init Containers:** Run before app containers for setup tasks.
+
+•	**Sidecar Containers:** Provide supporting features (logging, monitoring).
+
+•	**Ambassador Containers:** Help with service communication/proxying.
 
 #### 189Q. How can you troubleshoot if a Namespace is renamed?
 Answer:
 •	Namespaces can’t be renamed, only deleted and recreated.
-•	If a resource disappears:
+
+•	**If a resource disappears:**
+
 o	Check with kubectl get all --all-namespaces
+
 o	Validate configs still reference the correct namespace.
 
 #### 190Q. What is etcd?
@@ -1478,37 +1559,52 @@ etcd is a distributed key-value store used by Kubernetes to store all cluster st
 #### 191Q. What is a StatefulSet?
 Answer:
 Used to manage stateful applications:
+
 •	Each pod has a persistent identity.
+
 •	Ordered, graceful deployment and scaling.
+
 •	Stable network names and storage (e.g., databases).
 
 #### 192Q. What is a Headless Service?
 Answer:
 A service with clusterIP: None:
+
 •	Doesn't assign a cluster IP.
+
 •	DNS returns the pod IPs directly.
+
 •	Used with StatefulSets for service discovery.
 
 #### 193Q. What is a ReplicaSet?
 Answer:B
 Maintains a stable set of pod replicas.
+
 •	Ensures desired number of pods are running.
+
 •	Used by Deployments internally.
 
 
 #### 194Q. What is a Deployment object in Kubernetes?
 Answer:
 A Deployment is used to:
+
 •	Manage ReplicaSets
+
 •	Perform rolling updates
+
 •	Rollback to previous versions
+
 •	Scale pods
 
 #### 195Q. What is a DaemonSet?
 Answer:
 Ensures that a copy of a pod runs on all (or selected) nodes.
-Use cases:
+
+**Use cases:**
+
 •	Log collection (e.g., Fluentd)
+
 •	Monitoring agents (e.g., Prometheus Node
 
 #### 196Q. What is GitHub Actions Pipeline?
@@ -1518,7 +1614,7 @@ Code build
 Test
 Deployment
 
-Structure:
+**Structure:**
 
 ```yaml
 
