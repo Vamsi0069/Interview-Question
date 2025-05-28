@@ -135,7 +135,7 @@ Answer:
 HPA automatically scales the number of pods in a Deployment or ReplicaSet based on metrics like CPU usage or custom metrics.
 
 #### 17Q. HPA vs VPA in Kubernetes
-----------------------------------------------------------------------------------------------------------------------------------------
+
 | **Aspect**            | **HPA (Horizontal Pod Autoscaler)**               | **VPA (Vertical Pod Autoscaler)**                        |
 | --------------------- | --------------------------------------------------- -------------------------------------------------------- |
 | **Scaling Direction** | Horizontal  – scales the number of Pods           | Vertical– adjusts CPU/Memory of a single Pod             |
@@ -145,7 +145,7 @@ HPA automatically scales the number of pods in a Deployment or ReplicaSet based 
 | **Best Use Case**     | Stateless apps with variable load(e.g,web servers)| Long-running apps with consistent load patterns          |
 | **Kubernetes Object** | `HorizontalPodAutoscaler` resource                | `VerticalPodAutoscaler` resource                         |
 | **Limitations**       | Can’t optimize within a Pod                       | Not suitable for rapid load spikes or multi-replica apps |
-----------------------------------------------------------------------------------------------------------------------------------------
+
 #### 18Q. What is a DaemonSet in Kubernetes?
 Answer:
 A DaemonSet ensures that a specific pod runs on all (or selected) nodes in the cluster.
@@ -194,7 +194,7 @@ Use case	Advanced scheduling requirements	Basic filtering
 #### 25Q. What is the Terraform directory structure?
 Answer:
 
-
+```
 project/
 ├── main.tf        # Main configuration file
 ├── variables.tf   # Input variables
@@ -209,7 +209,7 @@ project/
 └── envs/          # Environment-specific configs
     ├── dev/
     ├── prod/
-
+```
 
 #### 26Q. How do you connect one EC2 instance to another across multiple regions?
 Answer:
@@ -351,26 +351,23 @@ check_load – for CPU load
 check_ping – for network availability
 
 #### 42Q. What are the default port numbers for Grafana and Prometheus?
-|----------------|-----------------------|
+
 |Tool	         |      Default Port     |
 |----------------|-----------------------|
 |Grafana         | 	3000             |
 |Prometheus	 |       9090            |
-|----------------|-----------------------| 
+
 #### 43Q. What is the main configuration file in Grafana?
 Answer:
 grafana.ini
 Located by default at  /etc/grafana/grafana.ini
 
 #### 44Q. What is the difference between a hard link and a soft link
----------------------------------------------------------------------------------------------------
 Feature	                   Hard Link	                       Soft Link (Symbolic Link)
----------------------------------------------------------------------------------------------------
 Inode sharing	        Shares the same inode	               Points to the original inode
 Broken link	    Works even if original is deleted	       Breaks if the target is deleted
 File systems	    Must be on the same file system	       Can link across file systems
 Appearance	            File	                                     Shortcut
----------------------------------------------------------------------------------------------------
 #### 45Q. Servers got rebooted → How do you tell why it got rebooted?
 Answer:
 
