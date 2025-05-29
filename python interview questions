@@ -1,4 +1,16 @@
-### 3.Q: How do you read and write key-value pairs from a text.json file in Python?
+#### 2.Q:  Write code for CPU and RAM utilization using Python?
+
+```python
+import psutil
+# CPU usage
+cpu_percent = psutil.cpu_percent(interval=1)
+print(f"CPU Usage: {cpu_percent}%")
+# RAM usage
+memory = psutil.virtual_memory()
+print(f"RAM Usage: {memory.percent}%")
+```
+
+#### 3.Q: How do you read and write key-value pairs from a text.json file in Python?
 
 ```python
 import json
