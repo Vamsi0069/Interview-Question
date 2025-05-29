@@ -1,4 +1,4 @@
-3.Q: How do you read and write key-value pairs from a text.json file in Python?
+### 3.Q: How do you read and write key-value pairs from a text.json file in Python?
 
 ```python
 import json
@@ -13,4 +13,4 @@ data['new_key'] = 'new_value'
 #### Write back to the file
 with open('text.json', 'w') as f:
     json.dump(data, f, indent= 4)
-    ```
+```
