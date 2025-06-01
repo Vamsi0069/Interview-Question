@@ -159,3 +159,17 @@ In repository settings → Branches → Add branch protection rules.
 50.	How to grant access to a GitHub repository?
 Go to Settings → Collaborators → Invite user by GitHub username.
 
+51. what is the difference between git revert and git reset?
+git revert creates a new commit that undoes changes of a specific commit without altering commit history (safe for shared branches). git reset moves the HEAD and possibly updates the index or working directory (can rewrite history; not safe for shared branches).
+
+52. What are the steps to push your code to a central repo (e.g., GitHub)?
+Answer: git init # Initialize local repo
+
+git add . # Stage changes
+
+git commit -m "message" # Commit changes
+
+git remote add origin # Link to central repo
+
+git push -u origin main # Push code
+
