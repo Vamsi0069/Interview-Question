@@ -64,7 +64,9 @@ git reset HEAD <filename>
 #### 16.Difference between --soft, --mixed, and --hard reset?
 
 •	Soft: resets to commit, keeps changes staged
+
 •	Mixed: resets and unstages changes
+
 •	Hard: resets and discards changes
 
 #### 17.What is HEAD in Git?
@@ -98,6 +100,7 @@ git branch -m old_name new_name
 #### 24.How to delete local and remote branches?
 
 •	Local: git branch -d branch_name
+
 •	Remote: git push origin --delete branch_name
 
 #### 25.How to see all local and remote branches?
@@ -108,6 +111,7 @@ git branch -a
 #### 26.Difference between git fetch and git pull?
 
 •	Fetch: downloads changes
+
 •	Pull: fetch + merge
 
 #### 27.How to fetch a remote branch without merging?
@@ -149,13 +153,17 @@ Temporarily stores changes not ready to commit. Useful when switching branches m
 #### 36.Commands related to Git stash:
 
 •	Save: git stash save "msg"
+
 •	Apply: git stash apply stash@{0}
+
 •	Pop: git stash pop
+
 •	List: git stash list
 
 #### 37.How is git rebase different from git merge?
 
 •	Merge: creates a new commit
+
 •	Rebase: re-applies commits in a linear fashion; cleaner history
 
 #### 38.	How to revert a commit?
@@ -181,6 +189,7 @@ git push origin branch_name --force
 #### 43.How to tag a specific commit?
 ```
 git tag v1.0 <commit_id>
+
 Push tags: git push origin v1.0
 ```
 #### 44.Difference between annotated and lightweight tags?
@@ -190,6 +199,7 @@ Annotated has metadata and is stored in Git history. Lightweight is just a point
 #### 45.How to list and delete tags?
 
 •	List: git tag
+
 •	Delete: git tag -d tagname
 
 #### 46.What is a detached HEAD state?
