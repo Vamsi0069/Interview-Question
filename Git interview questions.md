@@ -23,10 +23,12 @@ git init initializes a new Git repository.
 A Git repo without a working directory, typically used as a central shared repository.
 
 # 7.How do you configure Git user details globally?
-
+```
 git config --global user.name "Your Name"
+```
+```
 git config --global user.email "your@email.com"
-
+```
 # 8.How to create aliases for Git commands?
 
 git config --global alias.co checkout makes git co work as git checkout.
@@ -44,21 +46,21 @@ Moves changes from the working directory to the staging area.
 An intermediate area to review and format commits before finalizing them.
 
 # 12.How to commit with both add and message in one step?
-
+```
 git commit -a -m "message"
-
+```
 # 13.How to edit a commit message?
-
+```
 git commit --amend -m "New message"
-
+```
 # 14.How to undo a commit but keep the changes staged?
-
+```
 git reset --soft HEAD~1
-
+```
 # 15.How to remove a file from staging area?
-
+```
 git reset HEAD <filename>
-
+```
 # 16.Difference between --soft, --mixed, and --hard reset?
 
 •	Soft: resets to commit, keeps changes staged
@@ -78,39 +80,40 @@ To exclude files from being tracked by Git.
 git log, git log --oneline, git log --author="user"
 
 # 20.How to compare two commits?
-
+```
 git diff commit1 commit2
-
+```
 # 21.How to recover a deleted file?
-
+```
 git checkout -- <filename>
-
+```
 # 22.How to create and switch to a new branch?
-
+```
 git checkout -b new_branch
-
+```
 # 23.How to rename a branch?
-
+```
 git branch -m old_name new_name
-
+```
 # 24.How to delete local and remote branches?
 
 •	Local: git branch -d branch_name
 •	Remote: git push origin --delete branch_name
 
 # 25.How to see all local and remote branches?
+```
 
 git branch -a
-
+```
 # 26.Difference between git fetch and git pull?
 
 •	Fetch: downloads changes
 •	Pull: fetch + merge
 
 # 27.How to fetch a remote branch without merging?
-
+```bash
 git fetch origin branch_name
-
+```
 # 28.How to merge a branch?
 
 Be in the target branch, then: git merge source_branch
@@ -124,17 +127,17 @@ When changes in the same line/file differ across merged branches.
 Edit the file manually, then git add and git commit.
 
 # 31.How to abort a merge conflict?
-
+```bash
 git merge --abort
-
+```
 # 32.What does git rm do?
 
 Deletes files from working directory and stages the deletion.
 
 # 33.	How to check which branches have been merged into master?
-
+```bash
 git branch --merged
-
+```
 # 34.Describe Git branching strategy you've used.
 
 Feature, Task, and Release branching (explain with real project use).
@@ -156,13 +159,13 @@ Temporarily stores changes not ready to commit. Useful when switching branches m
 •	Rebase: re-applies commits in a linear fashion; cleaner history
 
 # 38.	How to revert a commit?
-
+```bash
 git revert <commit_id>
-
+```
 # 39.How to change the remote URL?
-
+```bash
 git remote set-url origin <new_url>
-
+```
 # 40.What is a pull request (PR)?
 
 A request to merge changes from one branch to another, usually with a code review.
@@ -172,14 +175,14 @@ A request to merge changes from one branch to another, usually with a code revie
 A merge where the target branch pointer is simply moved forward to the latest commit.
 
 # 42.How to force push changes?
-
+```bash
 git push origin branch_name --force
-
+```
 # 43.How to tag a specific commit?
-
+```
 git tag v1.0 <commit_id>
 Push tags: git push origin v1.0
-
+```
 # 44.Difference between annotated and lightweight tags?
 
 Annotated has metadata and is stored in Git history. Lightweight is just a pointer.
@@ -194,13 +197,13 @@ Annotated has metadata and is stored in Git history. Lightweight is just a point
 When HEAD points to a specific commit instead of a branch.
 
 # 47.How to cherry-pick a commit from another branch?
-
+```
 git cherry-pick <commit_id>
-
+```
 # 48.How to rebase interactively?
-
+```
 git rebase -i HEAD~n to squash/reword commits.
-
+```
 # 49.How do you lock a branch in GitHub?
 
 In repository settings → Branches → Add branch protection rules.
