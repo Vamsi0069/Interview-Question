@@ -27,142 +27,142 @@ git config --global alias.co checkout makes git co work as git checkout.
 9.What does git clone do?
 Downloads an entire remote repository to your local machine.
 
-10.	What is the purpose of git add?
+10.What is the purpose of git add?
 Moves changes from the working directory to the staging area.
 
-11.	What is the staging area in Git?
+11.What is the staging area in Git?
 An intermediate area to review and format commits before finalizing them.
 
-12.	How to commit with both add and message in one step?
+12.How to commit with both add and message in one step?
 git commit -a -m "message"
 
 13.How to edit a commit message?
 git commit --amend -m "New message"
 
-14.	How to undo a commit but keep the changes staged?
+14.How to undo a commit but keep the changes staged?
 git reset --soft HEAD~1
 
-15.	How to remove a file from staging area?
+15.How to remove a file from staging area?
 git reset HEAD <filename>
 
-16.	Difference between --soft, --mixed, and --hard reset?
+16.Difference between --soft, --mixed, and --hard reset?
 •	Soft: resets to commit, keeps changes staged
 •	Mixed: resets and unstages changes
 •	Hard: resets and discards changes
 
-17.	What is HEAD in Git?
+17.What is HEAD in Git?
 A pointer to the current branch reference.
 
-18.	What is the purpose of .gitignore?
+18.What is the purpose of .gitignore?
 To exclude files from being tracked by Git.
 
-19.	How to view the commit history?
+19.How to view the commit history?
 git log, git log --oneline, git log --author="user"
 
-20.	How to compare two commits?
+20.How to compare two commits?
 git diff commit1 commit2
 
-21.	How to recover a deleted file?
+21.How to recover a deleted file?
 git checkout -- <filename>
 
-22.	How to create and switch to a new branch?
+22.How to create and switch to a new branch?
 git checkout -b new_branch
 
-23.	How to rename a branch?
+23.How to rename a branch?
 git branch -m old_name new_name
 
-24.	How to delete local and remote branches?
+24.How to delete local and remote branches?
 •	Local: git branch -d branch_name
 •	Remote: git push origin --delete branch_name
 
-25.	How to see all local and remote branches?
+25.How to see all local and remote branches?
 git branch -a
 
-26.	Difference between git fetch and git pull?
+26.Difference between git fetch and git pull?
 •	Fetch: downloads changes
 •	Pull: fetch + merge
 
-27.	How to fetch a remote branch without merging?
+27.How to fetch a remote branch without merging?
 git fetch origin branch_name
 
-28.	How to merge a branch?
+28.How to merge a branch?
 Be in the target branch, then: git merge source_branch
 
-29.	What causes a Git merge conflict?
+29.What causes a Git merge conflict?
 When changes in the same line/file differ across merged branches.
 
-30.	How to resolve merge conflicts?
+30.How to resolve merge conflicts?
 Edit the file manually, then git add and git commit.
 
-31.	How to abort a merge conflict?
+31.How to abort a merge conflict?
 git merge --abort
 
-32.	What does git rm do?
+32.What does git rm do?
 Deletes files from working directory and stages the deletion.
 
 33.	How to check which branches have been merged into master?
 git branch --merged
 
-34.	Describe Git branching strategy you've used.
+34.Describe Git branching strategy you've used.
 Feature, Task, and Release branching (explain with real project use).
 
-35.	What is Git stash and when do you use it?
+35.What is Git stash and when do you use it?
 Temporarily stores changes not ready to commit. Useful when switching branches mid-work.
 
-36.	Commands related to Git stash:
+36.Commands related to Git stash:
 •	Save: git stash save "msg"
 •	Apply: git stash apply stash@{0}
 •	Pop: git stash pop
 •	List: git stash list
 
-37.	How is git rebase different from git merge?
+37.How is git rebase different from git merge?
 •	Merge: creates a new commit
 •	Rebase: re-applies commits in a linear fashion; cleaner history
 38.	How to revert a commit?
 git revert <commit_id>
 
-39.	How to change the remote URL?
+39.How to change the remote URL?
 git remote set-url origin <new_url>
 
-40.	What is a pull request (PR)?
+40.What is a pull request (PR)?
 A request to merge changes from one branch to another, usually with a code review.
 
-41.	What is a fast-forward merge?
+41.What is a fast-forward merge?
 A merge where the target branch pointer is simply moved forward to the latest commit.
 
-42.	How to force push changes?
+42.How to force push changes?
 git push origin branch_name --force
 
-43.	How to tag a specific commit?
+43.How to tag a specific commit?
 git tag v1.0 <commit_id>
 Push tags: git push origin v1.0
 
-44.	Difference between annotated and lightweight tags?
+44.Difference between annotated and lightweight tags?
 Annotated has metadata and is stored in Git history. Lightweight is just a pointer.
 
-45.	How to list and delete tags?
+45.How to list and delete tags?
 •	List: git tag
 •	Delete: git tag -d tagname
 
-46.	What is a detached HEAD state?
+46.What is a detached HEAD state?
 When HEAD points to a specific commit instead of a branch.
 
-47.	How to cherry-pick a commit from another branch?
+47.How to cherry-pick a commit from another branch?
 git cherry-pick <commit_id>
 
-48.	How to rebase interactively?
+48.How to rebase interactively?
 git rebase -i HEAD~n to squash/reword commits.
 
-49.	How do you lock a branch in GitHub?
+49.How do you lock a branch in GitHub?
 In repository settings → Branches → Add branch protection rules.
 
-50.	How to grant access to a GitHub repository?
+50.How to grant access to a GitHub repository?
 Go to Settings → Collaborators → Invite user by GitHub username.
 
-51. what is the difference between git revert and git reset?
+51.what is the difference between git revert and git reset?
 git revert creates a new commit that undoes changes of a specific commit without altering commit history (safe for shared branches). git reset moves the HEAD and possibly updates the index or working directory (can rewrite history; not safe for shared branches).
 
-52. What are the steps to push your code to a central repo (e.g., GitHub)?
+52.What are the steps to push your code to a central repo (e.g., GitHub)?
 Answer: git init # Initialize local repo
 
 git add . # Stage changes
