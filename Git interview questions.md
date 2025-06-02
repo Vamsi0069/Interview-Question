@@ -1,4 +1,4 @@
-1.What is Git?
+# 1.What is Git?
 
 Git is a distributed version control system used for tracking changes in source code during software development.
 
@@ -6,36 +6,36 @@ Git is a distributed version control system used for tracking changes in source 
 
 Git allows developers to work locally with full version history, then push changes to a remote repository like GitHub.
 
-3.Compare Git and SVN.
+# 3.Compare Git and SVN.
 
 Git is distributed and allows offline work; SVN is centralized and requires internet connectivity.
 
-4.What is a Git repository?
+# 4.What is a Git repository?
 
 It’s a storage space where Git tracks and saves all changes made to project files.
 
-5.How to initialize a Git repository?
+# 5.How to initialize a Git repository?
 
 git init initializes a new Git repository.
 
-6.What is a bare repository?
+# 6.What is a bare repository?
 
 A Git repo without a working directory, typically used as a central shared repository.
 
-7.How do you configure Git user details globally?
+# 7.How do you configure Git user details globally?
 
 git config --global user.name "Your Name"
 git config --global user.email "your@email.com"
 
-8.How to create aliases for Git commands?
+# 8.How to create aliases for Git commands?
 
 git config --global alias.co checkout makes git co work as git checkout.
 
-9.What does git clone do?
+# 9.What does git clone do?
 
 Downloads an entire remote repository to your local machine.
 
-10.What is the purpose of git add?
+# 10.What is the purpose of git add?
 
 Moves changes from the working directory to the staging area.
 
