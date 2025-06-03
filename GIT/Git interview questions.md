@@ -304,3 +304,43 @@ git remote add origin #### Link to central repo
 
 git push -u origin main #### Push code
 
+#### 53. git push vs git pull ?
+
+ git push
+
+- You use it to share your code with others.
+
+- Only works if your local branch is ahead of the remote.
+
+Example:
+
+git push origin main – pushes your local main to the remote origin.
+
+ git pull
+
+- Combines git fetch + git merge.
+
+- It brings in changes from the remote repository into your current branch.
+
+Example:
+
+git pull origin main – fetches and merges changes from origin/main.
+
+#### 54. GitHub vs Bitbucket ?
+
+GitHub
+
+- A popular platform for hosting Git repositories, especially used for open-source projects.
+
+- Owned by Microsoft and widely adopted by individual developers and the open-source community.
+
+- Strong features like GitHub Actions, Copilot, and seamless integration with VS Code.
+
+Bitbucket
+
+- A Git repository hosting service designed for teams and enterprises.
+
+- Owned by Atlassian, and integrates deeply with Jira, Trello, and Confluence.
+
+- Offers Bitbucket Pipelines for built-in CI/CD, great for managing private team projects.
+
