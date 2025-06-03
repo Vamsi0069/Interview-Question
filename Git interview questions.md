@@ -89,7 +89,11 @@ To exclude files from being tracked by Git.
 
 #### 19.How to view the commit history?
 
-git log, git log --oneline, git log --author="user"
+git log
+
+git log --oneline
+
+git log --author="user"
 
 #### 20.How to compare two commits?
 ```
