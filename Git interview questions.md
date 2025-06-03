@@ -178,9 +178,18 @@ Temporarily stores changes not ready to commit. Useful when switching branches m
 
 #### 37.How is git rebase different from git merge?
 
-•	Merge: creates a new commit
+•	Merge: 
+      - Preserves full history with a merge commit
+      - Combine two branches, keeping both histories
+      - Collaborative work, preserves all contributions
 
-•	Rebase: re-applies commits in a linear fashion; cleaner history
+•	Rebase: 
+      - Move (replay /rebase ) your changes onto another branch
+      - re-applies commits in a linear fashion; cleaner history
+      - Rewrites history – dangerous if used on public/shared branches
+
+      <img width="499" alt="image" src="https://github.com/user-attachments/assets/cf7c34e5-bd49-4464-a02b-fcfe9cf991f4" />
+
 
 #### 38.	How to revert a commit?
 ```bash
