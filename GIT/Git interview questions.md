@@ -344,3 +344,29 @@ Bitbucket
 
 - Offers Bitbucket Pipelines for built-in CI/CD, great for managing private team projects.
 
+#### 55. You have code on your local machine and have pushed it to a remote repository. Now you want to push the same code to a different (new) remote repository. How can you change the remote URL?
+
+To change the remote repository URL
+
+Check current remote URL:
+
+```
+git remote -v
+```
+Change the remote URL to the new repository:
+
+```
+git remote set-url origin <new-repo-url>
+```
+Replace <new-repo-url> with the URL of the new Git repository (e.g., from GitHub or Bitbucket).
+
+```
+git push origin main
+
+```
+(Use main or whatever your branch name is.)
+
+```
+git remote set-url origin https://github.com/username/new-repo.git
+git push origin main
+````
