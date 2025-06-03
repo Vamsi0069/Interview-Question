@@ -99,6 +99,8 @@ git diff commit1 commit2
 ```
 git checkout -- <filename>
 ```
+-  Note : It discards local changes in a file
+
 #### 22.How to create and switch to a new branch?
 ```
 git checkout -b new_branch
