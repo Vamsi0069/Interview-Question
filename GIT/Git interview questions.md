@@ -126,9 +126,22 @@ git branch -a
 ```
 #### 26.Difference between git fetch and git pull?
 
-•	Fetch: downloads changes
+##### git fetch
 
-•	Pull: fetch + merge
+- Downloads commits, files, and references from the remote repository into your local repository, but does not merge them into your working directory.
+
+- Safe to use because it doesn't change your working files.
+
+- Ideal when you want to see what others have changed before integrating it into your code.
+
+ ##### git pull
+ 
+- It is essentially: git fetch + git merge
+
+- It fetches changes from the remote and then automatically merges them into your current branch.
+
+- Can cause merge conflicts if your local changes conflict with remote ones.
+
 
 #### 27.How to fetch a remote branch without merging?
 ```bash
@@ -253,7 +266,31 @@ Go to Settings → Collaborators → Invite user by GitHub username.
 
 #### 51.what is the difference between git revert and git reset?
 
-git revert creates a new commit that undoes changes of a specific commit without altering commit history (safe for shared branches). git reset moves the HEAD and possibly updates the index or working directory (can rewrite history; not safe for shared branches).
+##### git revert
+
+- Creates a new commit that undoes the changes made by a previous commit.
+
+- Does NOT remove any commit from history.
+
+- Safe to use in shared/public branches (like main or develop), because it preserves history.
+
+##### git reset
+
+- Moves the HEAD and optionally updates the working directory and staging area.
+
+- Can be destructive (especially with --hard), because it removes commits from history.
+
+- Typically used in private branches or local development.
+
+Common options:
+
+git reset --soft <commit>: Keeps changes staged
+
+git reset --mixed <commit> (default): Keeps changes in working directory
+
+git reset --hard <commit>: Discards all changes
+
+
 
 #### 52.What are the steps to push your code to a central repo (e.g., GitHub)?
 
