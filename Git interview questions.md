@@ -21,6 +21,16 @@ git init initializes a new Git repository.
 #### 6.What is a bare repository?
 
 A Git repo without a working directory, typically used as a central shared repository.
+```
+git init --bare myproject.git
+```
+ -  This way, the bare repository acts like a GitHub or GitLab repository, but hosted in-house.
+
+ -  Since the repo is not meant for editing or working in, having a working directory is unnecessary.
+   
+ -  It avoids confusion or merge conflicts caused by someone accidentally editing files in a shared repo. 
+
+
 
 #### 7.How do you configure Git user details globally?
 ```
