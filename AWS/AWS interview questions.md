@@ -98,7 +98,7 @@ For immediate revocation: disable or delete the IAM user, or rotate their creden
 Use bastion host (jump box) in the public subnet
 
 Connect via SSH:
-ssh -i key.pem ec2-user@<bastion-ip> → ssh into private IP
+```ssh -i key.pem ec2-user@<bastion-ip> → ssh into private IP```
 
 Alternatively, set up:
 
@@ -183,13 +183,14 @@ Answer:
 Bucket policies are JSON-based rules that control access to an entire S3 bucket or objects inside.
 
 Example:
-
+```
 {
   "Effect": "Allow",
   "Principal": "*",
   "Action": ["s3:GetObject"],
   "Resource": "arn:aws:s3:::mybucket/*"
 }
+```
 #### If you get a 403 error (Access Denied) in S3, what do you check?
 Answer:
 
@@ -202,3 +203,195 @@ Ensure correct Region and signed URL, if applicable
 Answer:
 These are the S3 actions needed to download (GetObject) or upload (PutObject) files.
 Without them, you’ll get 403 errors.
+
+#### 81Q. What is 2/2 check in AWS EC2?
+Answer:
+
+EC2 passes 2 checks:
+System status check
+Instance status check
+Both must be "2/2 checks passed" for healthy status.
+
+#### Why did you use S3 in your project?
+Answer:
+
+Store logs, backups, artifacts.
+Host static websites.
+Use as Terraform backend (state file storage).
+
+#### What is a bucket policy in AWS?
+Answer:
+JSON document attached to a bucket to define access rules for users, roles, or the public.
+
+#### What is 403 error in S3 object permission?
+Answer:
+It means access denied. Possible causes:
+Missing s3:GetObject permission
+Object is private
+Bucket policy restricts access
+
+#### What is AWS Serverless and what are its key benefits?
+
+AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
+•	AWS Lambda – run code in response to events.
+•	Amazon API Gateway – expose APIs.
+•	Amazon DynamoDB – NoSQL database.
+•	AWS Step Functions – orchestrate workflows
+
+#### What is a Key Pair in AWS?
+A:
+A Key Pair is used for secure SSH access to EC2 instances. It includes a public key (stored in AWS) and a private key (downloaded by the user).
+You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
+
+
+#### What is AWS VPC peering?
+A: VPC peering is a networking connection between two VPCs that enables routing traffic between them using private IPs. Peering works across regions and accounts but does not support transitive peering.
+
+#### What AWS resources have you worked with?
+A:
+I’ve worked with a wide range of AWS resources, including:
+•	EC2 (virtual machines)
+•	S3 (object storage)
+•	RDS (managed databases)
+•	ECS/Fargate (containers)
+•	Lambda (serverless compute)
+•	IAM (access control)
+•	CloudWatch (monitoring/logs)
+•	VPC (networking)
+•	Route 53 (DNS)
+•	Auto Scaling Groups
+•	ALB/NLB (load balancers)
+•	Elastic Beanstalk, CloudFormation, and Terraform for provisioning
+
+#### What AWS services do you use for scaling instances?
+A:
+For automatic and manual scaling, I’ve used:
+•	Auto Scaling Groups (ASG): Automatically add/remove EC2 instances based on CPU, memory, or custom metrics.
+•	Elastic Load Balancer (ELB): Distributes traffic across instances to balance load.
+•	CloudWatch Alarms: Used to trigger scaling actions.
+•	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
+
+#### Difference between ALB and NLB
+Answer:
+Feature	ALB (Application Load Balancer)	NLB (Network Load Balancer)
+Layer	Layer7 (HTTP/HTTPS)	Layer4 (TCP/UDP)
+Features	Path-based, host-based routing	Fast TCP handling, static IP
+Use Case	Web apps, HTTP APIs	Low latency apps, real-time systems
+
+#### How do you connect to a private subnet?
+Answer:
+•	Use a bastion host (jump box) in the public subnet.
+•	Or use Session Manager (SSM) if agents are installed.
+•	Optionally use a VPN or Direct Connect.
+
+#### AWS Lambda vs AWS Fargate
+Answer:
+Feature	AWS Lambda	AWS Fargate
+Type	Serverless functions	Serverless containers
+Use Case	Short event-driven tasks	Long-running container apps
+Timeout	Max15 minutes	No hard timeout
+Pricing	Per request + duration	Based on vCPU and memory used
+
+#### What is OAI (Origin Access Identity) in CloudFront?
+Answer:
+OAI is used to restrict access to an S3 bucket so only CloudFront can fetch content, preventing direct access via S3 URL.
+
+#### What is SNS and how do you create it?
+A:
+SNS (Simple Notification Service) is an AWS service used to send notifications via email, SMS, HTTP, or Lambda.
+To create it:
+
+Go to AWS SNS in the console.
+Click “Create topic” → Choose Standard or FIFO.
+Name the topic and click Create.
+To add a subscriber, choose the topic → Create subscription → select protocol (e.g., Email) and provide the endpoint.
+
+#### How can you recover a deleted S3 object?
+Q: How do you restore a deleted S3 object?
+A: If versioning was enabled, I can retrieve the deleted object using a previous version. Without versioning, the object is permanently deleted unless S3 backup (e.g., replication or lifecycle rule to Glacier) is configured.
+
+#### How do you differentiate between a public and a private subnet in AWS?
+Q: How do you identify a public vs private subnet?
+A: A public subnet has a route to the internet via an internet gateway (IGW). A private subnet lacks this route and usually uses a NAT gateway for internet access. I verify this by checking route tables.
+
+#### How do you secure a 3-tier architecture?
+Q: How do you secure a 3-tier app (web, app, DB)?
+A: I use security groups and NACLs to isolate layers:
+•	Web tier: Public subnet with limited inbound (HTTP/HTTPS).
+•	App tier: Private subnet, allows traffic only from web tier.
+•	DB tier: Private subnet, accessible only by app tier.
+Enable encryption (TLS, KMS), IAM roles, and monitoring (CloudWatch, GuardDuty).
+
+#### How many VPCs can you create per region?
+Answer:
+By default, you can create 5 VPCs per region per AWS account. This limit can be increased by requesting a quota increase from AWS.
+
+#### What is the difference between a private and public subnet?
+Answer:
+•	Public Subnet: A subnet that is associated with a route table that has a route to an Internet Gateway (IGW). Resources in this subnet can access the internet.
+•	Private Subnet: A subnet that does not have a route to the Internet Gateway. Used for internal resources like databases.
+
+#### What is a Transit Gateway?
+Answer:
+An AWS Transit Gateway enables you to connect multiple VPCs and on-premises networks through a central hub, simplifying your network architecture and reducing the number of peering connections.
+
+#### What is VPC Peering?
+Answer:
+VPC Peering allows direct communication between two VPCs in the same or different AWS accounts/regions. It’s non-transitive and is used for point-to-point connectivity.
+
+#### What is a VPC Endpoint?
+Answer:
+A VPC Endpoint allows private connection between your VPC and AWS services (like S3, DynamoDB) without using the internet, improving security and performance.
+
+#### How can you restore an RDS snapshot with a custom database name?
+Answer:
+You cannot directly rename a database when restoring a snapshot. Instead:
+#### 1.	Restore the snapshot.
+#### 2.	Create a new DB instance.
+#### 3.	Use tools like pg_dump/mysqldump, or AWS DMS to export and import data into a DB with the desired name.
+
+#### How can you connect S3 to an EC2 instance?
+Answer:
+•	Attach an IAM Role to EC2 with S3 access permissions (e.g., AmazonS3ReadOnlyAccess).
+•	Use AWS CLI or SDK on EC2:
+aws s3 ls s3://your-bucket-name
+
+#### What is the difference between Security Group and Network ACL (NACL)?
+Answer:
+Feature	Security Group	NACL
+Level	Instance-level	Subnet-level
+Stateful	Yes	No
+Rules	Allow only	Allow and Deny
+Applies to	EC2 Instances	Subnets
+Default Behavior	Deny all unless allowed	Allow all unless changed
+
+#### What are EC2 instance types?
+Answer:
+EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
+
+Instance      Series	Type	                 Use Case	                             Examples
+t-series	Burstable general purpose	   Low-cost, spiky workloads	         t2.micro, t3.small
+m-series	General purpose	               Balanced compute, memory, network	 m5.large, m6g.medium
+c-series	Compute optimized	           High-performance compute workloads	 c5.large, c6g.xlarge
+r-series	Memory optimized	           In-memory databases, caching	         r5.large, r6g.xlarge
+i-series	Storage optimized	           High IOPS storage workloads	         i3.large, i4i.xlarge
+g/p-series	GPU/Accelerated computing	   ML, AI, video processing	             g4dn.xlarge, p3.2xlarge
+
+#### What is nslookup?
+- nslookup is a command-line tool to query DNS for domain or IP info, older than dig. Example: nslookup google.com.
+
+#### What is dnslookup?
+- No such standard command. Usually means performing DNS lookup using tools like nslookup or dig.
+
+#### Inode of Lambda function?
+- AWS Lambda functions don’t have inodes. Inodes are filesystem metadata; Lambda runs serverless, so no direct inode.
+
+#### CloudWatch vs CloudTrail comparison:
+| Feature          | CloudWatch                  | CloudTrail                       |
+|------------------|-----------------------------|----------------------------------|
+| Purpose          | Monitoring & metrics        | API call logging & auditing      |
+| Data Type        | Metrics, logs               | Management API event logs        |
+| Use Case         | Performance & alerts        | Security, compliance, auditing   |
+| Real-time?       | Yes                         | No                               |
+| Retention        | Configurable                | 90 days default + S3 archival    |
+
