@@ -56,7 +56,7 @@ DevOps/Cloud Engineer with 3+ years of experience
 
 ###  What are your salery expectations ?
 
-- As per copany standards
+- As per company standards
 - or As per  market standards  (nearly 30 -40 % ) hike
 - I am open for negotiations 
 
