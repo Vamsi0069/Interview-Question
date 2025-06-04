@@ -25,6 +25,9 @@ DevOps/Cloud Engineer with 3+ years of experience
 
 ###  Do you have any offers in hand?
 
+- ans depends on situation
+- They are in piepeline or you can say i have offer . 
+
 "Yes, I’m in discussion with a couple of organizations. But my focus is not just on the offer — it’s about finding the right fit in terms of team culture, learning opportunities, and long-term alignment. That’s why I’m genuinely interested in this role."
 
 ###  Your team has delayed delivery. How do you communicate this to the client?
@@ -47,13 +50,22 @@ DevOps/Cloud Engineer with 3+ years of experience
 * Trust and autonomy to take ownership
 * Support during challenges, but also space to grow independently
 
-###  What are your relocation/salary expectations?
+###  Are your open for relocation?
 
-"I’m open to relocation if needed and am flexible in terms of salary. My focus is more on learning, work culture, and long-term growth. That said, I’d be open to discussing compensation in the range aligned with market standards — with flexibility based on the role."
+"I’m open to relocation if needed and am flexible in terms of salary. My focus is more on learning, work culture, and long-term growth. 
 
-###  Soft Ending Statement for Manager Round
+###  What are your salery expectations ?
 
-"I truly value team collaboration, learning, and taking initiative. I believe my technical background and proactive mindset can add value to your team. I’m excited about the possibility of working with you and contributing to impactful projects."
+- As per copany standards
+- or As per  market standards  (nearly 30 -40 % ) hike
+- I am open for negotiations 
+
+###  Soft Ending Statement for Manager Round / Do you have any questions ?
+
+- Thank you so much for your time
+- Great discussion
+- I truly value team collaboration, learning, and taking initiative. I believe my technical background and proactive mindset can add value to your team. I’m excited about the possibility of working with you and contributing to impactful projects.
+- If I get selected , what are my roles and responsibilities . Can you kindly explain .
 
 ## 🔹 BEHAVIORAL / SCENARIO-BASED QUESTIONS
 
@@ -167,6 +179,7 @@ Great chance to mention:
 
 ###  How do you keep yourself updated with new tools/technologies?
 
+* I refer Official documentation 
 * Blogs: DevOps.com, AWS blogs
 * YouTube: TechWorld with Nana, AWS official
 * Hands-on labs (Play with Kubernetes)
