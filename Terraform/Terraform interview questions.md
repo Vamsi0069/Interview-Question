@@ -81,3 +81,12 @@ Then on next `terraform apply`, Terraform will destroy and recreate that instanc
 ```bash
 terraform apply -replace=aws_instance.example
 ```
+####  How to run terraform plan and terraform apply from Jenkins for different environments?
+
+* Use environment-specific `.tfvars` and Jenkins parameters:
+
+```sh
+terraform init
+terraform plan -var-file=dev.tfvars
+terraform apply -var-file=dev.tfvars
+```
