@@ -21,3 +21,25 @@ Suppose you are a team lead and your team member is having some issue and he had
 What do you expect from a Team Lead in your project?
 
 How will you handle the production issue?
+
+Why do we use a private subnet in a VPC?
+
+For enhanced security. Resources (like databases) in private subnets are not accessible from the internet.
+
+#### How many AWS accounts are used in your current project?
+
+Usually at least 3: Dev, Staging, Prod. Sometimes separate accounts for Security, Billing, or Sandbox.
+
+#### How can you download files from an S3 bucket within AWS while keeping public access completely blocked?
+
+Use pre-signed URLs, IAM roles, or VPC endpoints to download securely without public access.
+
+#### How do you monitor your applications and EC2 instances using Amazon CloudWatch?
+
+Use CloudWatch metrics, custom dashboards, alarms, and logs agents to monitor CPU, memory, disk, logs, and custom app metrics.
+
+#### Have you worked with AWS Transit Gateway in your project?
+
+Transit Gateway helps in centralized VPC-to-VPC and on-prem connectivity across accounts. It simplifies the network mesh.
+
+
