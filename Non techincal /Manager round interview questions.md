@@ -17,6 +17,10 @@ DevOps/Cloud Engineer with 3+ years of experience
 
 ###  Why do you want to join our company?
 
+- Do little research about company before interview , identitfy few positive points about company
+-  like awards ..etc
+-  explain those poitns 
+
 "I’ve researched your company and really admire your focus on innovation, DevOps maturity, and team culture. I’m particularly drawn to the opportunities for growth, exposure to modern cloud-native technologies, and the chance to contribute meaningfully. I see this as a place where I can both contribute and grow."
 
 ###  Do you have any offers in hand?
