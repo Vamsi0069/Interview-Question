@@ -124,4 +124,81 @@ Use CloudWatch metrics, custom dashboards, alarms, and logs agents to monitor CP
 
 Transit Gateway helps in centralized VPC-to-VPC and on-prem connectivity across accounts. It simplifies the network mesh.
 
+#### How should developers write code to access AWS services (S3, SQS, SNS, RDS)?
+A:
+- Use AWS SDKs
+- Access via IAM roles with least privilege
+- Store secrets in Secrets Manager
+- Follow retry/backoff logic
+- Use env variables for config
+- Log via CloudWatch
 
+#### How to handle developer authentication to AWS?
+A:
+- Use IAM users/groups with MFA
+- Prefer IAM roles with temporary STS credentials
+- Use AWS SSO or federation
+- Manage secrets via AWS Vault or CLI profiles
+- Rotate creds, no hardcoding
+
+#### How to enable communication between different VPCs?
+A:
+- VPC Peering: Direct, simple, but no transitive routing
+- Transit Gateway: Centralized hub, scalable
+- PrivateLink: For exposing services, not full VPC access
+- VPN: For secure cross-region or hybrid setups
+
+#### What is an Internet Gateway, and where is it placed?
+Answer:
+An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet.
+It is attached at the VPC level, not the subnet level.
+
+#### What is VPC Peering, and how do you configure it?
+Answer:
+VPC Peering connects two VPCs to route traffic using private IPs.
+Steps to configure:
+Create a VPC peering connection.
+Accept the request from the target VPC.
+Add route table entries in both VPCs.
+Ensure security groups and NACLs allow traffic.
+
+#### How do you give private access to an S3 bucket?
+Answer:
+
+Remove public access settings.
+Attach bucket policy that allows access from specific VPC or IAM roles.
+Use VPC endpoint for S3 for private access without using the internet.
+
+#### What is CloudFront?
+Answer:
+CloudFront is AWS’s Content Delivery Network (CDN) that caches content at edge locations to reduce latency and speed up delivery.
+
+#### What is a NAT Gateway, and where do you place it?
+Answer:
+A NAT Gateway enables instances in a private subnet to access the internet (for updates, etc.) while remaining unreachable from the outside.
+It is placed in a public subnet and requires a route from private subnets to the NAT Gateway.
+
+#### What are bucket policies in AWS S3?
+Answer:
+Bucket policies are JSON-based rules that control access to an entire S3 bucket or objects inside.
+
+Example:
+
+{
+  "Effect": "Allow",
+  "Principal": "*",
+  "Action": ["s3:GetObject"],
+  "Resource": "arn:aws:s3:::mybucket/*"
+}
+#### If you get a 403 error (Access Denied) in S3, what do you check?
+Answer:
+
+Check bucket policy
+Check IAM role/user permissions
+Verify if object ACL is private
+Ensure correct Region and signed URL, if applicable
+
+#### We check the policy: GetObject, PutObject — why?
+Answer:
+These are the S3 actions needed to download (GetObject) or upload (PutObject) files.
+Without them, you’ll get 403 errors.
