@@ -1,21 +1,4 @@
-
-
-###  1. What is a StorageClass in Kubernetes?
-
-A StorageClass defines how dynamic storage volumes are provisioned.
-It abstracts the underlying storage type, allowing Kubernetes to automatically create volumes.
-Example (AWS): `gp2`, `gp3`, `io1` provision EBS volumes with specific performance characteristics.
-
-
-###  2. Where is the Terraform state stored?
-
-Terraform stores its state file (`terraform.tfstate`) to track infrastructure changes.
-
-* Locally: In the working directory by default.
-* Remotely: For teams and safety, store in Amazon S3 with DynamoDB for state locking and consistency.
-
-
-###  3. Difference between Security Group and NACL in AWS?
+####  Difference between Security Group and NACL in AWS?
 
 | Feature            | Security Group (SG)                     | Network ACL (NACL)                    |
 | ------------------ | --------------------------------------- | ------------------------------------- |
@@ -25,7 +8,7 @@ Terraform stores its state file (`terraform.tfstate`) to track infrastructure ch
 | Rule Evaluation    | Evaluated as a whole                    | Evaluated per rule (numbered)         |
 
 
-###  4. What is AWS Session Manager?
+#### What is AWS Session Manager?
 
 A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
 
@@ -34,7 +17,7 @@ A service under AWS Systems Manager that allows secure shell-less access to EC2 
 * Ideal for secure, auditable access
 
 
-###  5. What is an AMI (Amazon Machine Image)?
+#### What is an AMI (Amazon Machine Image)?
 
 An AMI is a template used to launch EC2 instances.
 It includes the OS, application server, and application.
@@ -42,7 +25,7 @@ To create:
 AWS Console → EC2 → Actions → "Create Image"
 
 
-###  6. EBS vs EFS
+####  EBS vs EFS
 
 | Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
 | --------------- | ------------------------- | ----------------------------- |
@@ -51,7 +34,7 @@ AWS Console → EC2 → Actions → "Create Image"
 | Use Case        | Databases, boot volumes   | Shared storage, web content   |
 
 
-###  7. What is AWS Backup?
+####  What is AWS Backup?
 
 A centralized backup service to automate backup of AWS resources:
 
@@ -60,7 +43,7 @@ A centralized backup service to automate backup of AWS resources:
 * Integrates with AWS Organizations for centralized control
 
 
-###  8. What is RDS MySQL?
+####  What is RDS MySQL?
 
 A managed MySQL database hosted on Amazon RDS.
 
@@ -69,7 +52,7 @@ A managed MySQL database hosted on Amazon RDS.
 * No OS-level maintenance required
 
 
-###  9. What is AWS Lambda?
+####  What is AWS Lambda?
 
 A serverless compute service that runs code in response to events.
 
@@ -78,7 +61,7 @@ A serverless compute service that runs code in response to events.
 * Common triggers: API Gateway, S3 uploads, DynamoDB streams
 
 
-###  10. VPC Peering (3-way: A ↔ B ↔ C)?
+####  VPC Peering (3-way: A ↔ B ↔ C)?
 
 To enable full communication among 3 VPCs (A, B, C), you need:
 
@@ -88,7 +71,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
   Each VPC peering is bidirectional but not transitive — you must explicitly peer each pair.
 
 
-###  11. Elastic IP vs Public IP in AWS
+####  Elastic IP vs Public IP in AWS
 
 | Feature     | Elastic IP (EIP)        | Public IP                    |
 | ----------- | ----------------------- | ---------------------------- |
@@ -96,7 +79,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
 | Association | User-managed            | AWS-assigned                 |
 | Persistence | Remains unless released | Released when instance stops |
 
-###  12. ECS Launch Types
+####  ECS Launch Types
 
 * EC2 Launch Type:
 
@@ -108,7 +91,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
   * Pay for task-level CPU and memory usage
 
 
-###  13. How to Monitor EC2 with CloudWatch?
+####  How to Monitor EC2 with CloudWatch?
 
 * Enable Detailed Monitoring for 1-minute metrics
 * Use CloudWatch Agent to monitor:
@@ -119,7 +102,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
 * Create alarms for CPU, status checks, etc.
 
 
-###  14. What are AWS Step Functions?
+####  What are AWS Step Functions?
 
 A serverless orchestration service that connects AWS services using state machines.
 
@@ -490,3 +473,17 @@ EC2 instances are categorized based on their hardware capabilities and use cases
 | Real-time?       | Yes                         | No                               |
 | Retention        | Configurable                | 90 days default + S3 archival    |
 
+
+#### What is a StorageClass in Kubernetes?
+
+A StorageClass defines how dynamic storage volumes are provisioned.
+It abstracts the underlying storage type, allowing Kubernetes to automatically create volumes.
+Example (AWS): `gp2`, `gp3`, `io1` provision EBS volumes with specific performance characteristics.
+
+
+### Where is the Terraform state stored?
+
+Terraform stores its state file (`terraform.tfstate`) to track infrastructure changes.
+
+* Locally: In the working directory by default.
+* Remotely: For teams and safety, store in Amazon S3 with DynamoDB for state locking and consistency.
