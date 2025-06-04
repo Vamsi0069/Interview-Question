@@ -7,7 +7,7 @@
 
 * Locally (`terraform.tfstate`) or remotely (e.g., S3 + DynamoDB for locking).
 
-####  Security Group vs NACL?
+#### what is the differences between Security Group and NACL?
 
 * SG: stateful, instance-level.
 * NACL: stateless, subnet-level.
