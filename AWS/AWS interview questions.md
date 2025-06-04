@@ -1,3 +1,68 @@
+####  What is StorageClass?
+
+* Abstracts dynamic volume provisioning (e.g., gp2, io1 in AWS EBS).
+
+
+####  Where is the Terraform state stored?
+
+* Locally (`terraform.tfstate`) or remotely (e.g., S3 + DynamoDB for locking).
+
+####  Security Group vs NACL?
+
+* SG: stateful, instance-level.
+* NACL: stateless, subnet-level.
+
+####  What is AWS Session Manager?
+
+* Connect to EC2 without SSH/key, via Systems Manager.
+
+####  What is AMI?
+
+* Amazon Machine Image: snapshot/template for EC2.
+
+####  Create AMI from EC2?
+
+* AWS Console > Actions > Create Image.
+
+####  EBS vs EFS?
+
+* EBS: block storage for one instance.
+* EFS: NFS-based, shared across instances.
+
+####  What is AWS Backup?
+
+* Centralized service to automate backup of AWS resources (RDS, EBS, etc).
+
+####  What is RDS MySQL?
+
+* Managed MySQL DB service.
+
+####  What is AWS Lambda?
+
+* Serverless compute that runs code on triggers.
+
+####  VPC Peering (A-B-C)?
+
+* Create peerings: A↔B, B↔C, A↔C (fully meshed).
+
+####  Elastic IP vs Public IP?
+
+* Elastic IP: static.
+* Public IP: dynamic unless associated.
+
+####  ECS launch types?
+
+* EC2 (self-managed) and Fargate (serverless).
+
+####  Monitor EC2 with CloudWatch?
+
+* Enable detailed monitoring.
+* Use custom metrics or CloudWatch Agent.
+
+####  AWS Step Functions?
+
+* Serverless workflow orchestration (like state machines).
+
 #### What is a NAT Gateway? And what is its use?
 A NAT Gateway (Network Address Translation Gateway) allows private subnet instances to initiate outbound internet traffic (like installing packages, pulling updates) without exposing them to incoming connections from the public internet.
 
