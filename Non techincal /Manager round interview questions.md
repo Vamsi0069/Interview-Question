@@ -168,7 +168,7 @@ Great chance to mention:
 
 * Blogs: DevOps.com, AWS blogs
 * YouTube: TechWorld with Nana, AWS official
-* Udemy, KodeKloud, or hands-on labs (Katacoda, Play with Kubernetes)
+* Hands-on labs (Play with Kubernetes)
 * Community groups or meetups
 
 
