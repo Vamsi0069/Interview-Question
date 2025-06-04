@@ -233,6 +233,7 @@ Bucket policy restricts access
 #### What is AWS Serverless and what are its key benefits?
 
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
+
 •	AWS Lambda – run code in response to events.
 
 •	Amazon API Gateway – expose APIs.
@@ -302,6 +303,7 @@ Use Case	Web apps, HTTP APIs	Low latency apps, real-time systems
 
 #### How do you connect to a private subnet?
 Answer:
+
 •	Use a bastion host (jump box) in the public subnet.
 
 •	Or use Session Manager (SSM) if agents are installed.
@@ -373,6 +375,7 @@ You cannot directly rename a database when restoring a snapshot. Instead:
 
 #### How can you connect S3 to an EC2 instance?
 Answer:
+
 •	Attach an IAM Role to EC2 with S3 access permissions (e.g., AmazonS3ReadOnlyAccess).
 
 •	Use AWS CLI or SDK on EC2:
@@ -381,14 +384,15 @@ aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
 Answer:
-| **Feature**          | **Security Group**                              | **Network ACL (NACL)**                                   |
-| -------------------- | ----------------------------------------------- | ---------------------------------------------------------| **Level**            | Instance-level                                  | Subnet-level                                               |
-| **Stateful**         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)           |
-| **Rules**            | Allow rules only                                | Allow and Deny rules                                     |
-| **Applies to**       | EC2 Instances (and other resources)             | Entire Subnets                                           |
-| **Default Behavior** | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default                |
-| **Rule Evaluation**  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)            |
-| **Use Case**         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                  |
+| **Feature**          | **Security Group**                              | **Network ACL (NACL)**                                    |
+| -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
+| **Level**            | Instance-level                                  | Subnet-level                                              |
+| **Stateful**         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
+| **Rules**            | Allow rules only                                | Allow and Deny rules                                      |
+| **Applies to**       | EC2 Instances (and other resources)             | Entire Subnets                                            |
+| **Default Behavior** | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default(can be modified)|
+| **Rule Evaluation**  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)             |
+| **Use Case**         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
 
 #### What are EC2 instance types?
 Answer:
