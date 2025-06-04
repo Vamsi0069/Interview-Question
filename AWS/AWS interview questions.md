@@ -1,28 +1,45 @@
-Explain what is NAT gateway? And what is the use of it? 
+#### What is a NAT Gateway? And what is its use?
+A NAT Gateway (Network Address Translation Gateway) allows private subnet instances to initiate outbound internet traffic (like installing packages, pulling updates) without exposing them to incoming connections from the public internet.
 
-What is the use of cloud trail and how you manage in your project?
+Example: EC2s in a private subnet can yum update via NAT Gateway.
 
-Suppose your team member is accessing the AWS service and you want them to not to access? What can be done? 
+#### Difference between NAT Gateway and Internet Gateway
+Feature	Internet Gateway	NAT Gateway
+Direction	Bidirectional (inbound/outbound)	Outbound only
+Attached To	VPC	Subnet
+Used For	Public Subnet EC2s to connect to internet	Private Subnet EC2s to access internet
+Security	Exposes public IP	No public IP exposed
 
-Difference between NAT gateway and internet gateway? 
+#### What is AWS CloudTrail and how do you manage it in your project?
+CloudTrail logs all API calls and activities across AWS accounts (who did what, when, from where).
+We manage CloudTrail by:
 
-You are managing the EKS service and suddenly you see that all the pods go offline? Where do you check the logs for it? 
+Storing logs in versioned S3 buckets
 
-Someone accidentally deleted the IPs in EKS and where can you see it in Aws?
+Enabling multi-region trails
 
-What can be checked when the API server is down? But the instances are still running
+Using CloudWatch Logs integration to trigger alerts (e.g., for unauthorized actions)
 
-How do you connect from public subnet to a private subnet? 
+Applying S3 bucket policies and encryption with KMS for security
 
-Softskills:
+#### Suppose your team member is accessing an AWS service, and you want to revoke their access?
+Update or remove their IAM policy or role assignment
 
-Suppose you are a team lead and your team member is having some issue and he had all the resources to check but still reaches you for the solution? How will you respond?
+Use Service Control Policies (SCPs) in AWS Organizations (if in multi-account setup)
 
-What do you expect from a Team Lead in your project?
+For immediate revocation: disable or delete the IAM user, or rotate their credentials
 
-How will you handle the production issue?
+#### How do you connect from a public subnet to a private subnet?
+Use bastion host (jump box) in the public subnet
 
-Why do we use a private subnet in a VPC?
+Connect via SSH:
+ssh -i key.pem ec2-user@<bastion-ip> → ssh into private IP
+
+Alternatively, set up:
+
+AWS Systems Manager Session Manager for secure agent-based access (no need to open ports)
+
+#### Why do we use a private subnet in a VPC?
 
 For enhanced security. Resources (like databases) in private subnets are not accessible from the internet.
 
