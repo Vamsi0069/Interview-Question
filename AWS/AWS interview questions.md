@@ -234,8 +234,11 @@ Bucket policy restricts access
 
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
 •	AWS Lambda – run code in response to events.
+
 •	Amazon API Gateway – expose APIs.
+
 •	Amazon DynamoDB – NoSQL database.
+
 •	AWS Step Functions – orchestrate workflows
 
 #### What is a Key Pair in AWS?
@@ -250,47 +253,60 @@ A: VPC peering is a networking connection between two VPCs that enables routing 
 #### What AWS resources have you worked with?
 A:
 I’ve worked with a wide range of AWS resources, including:
+
 •	EC2 (virtual machines)
+
 •	S3 (object storage)
+
 •	RDS (managed databases)
+
 •	ECS/Fargate (containers)
+
 •	Lambda (serverless compute)
+
 •	IAM (access control)
+
 •	CloudWatch (monitoring/logs)
+
 •	VPC (networking)
+
 •	Route 53 (DNS)
+
 •	Auto Scaling Groups
+
 •	ALB/NLB (load balancers)
+
 •	Elastic Beanstalk, CloudFormation, and Terraform for provisioning
 
 #### What AWS services do you use for scaling instances?
 A:
 For automatic and manual scaling, I’ve used:
+
 •	Auto Scaling Groups (ASG): Automatically add/remove EC2 instances based on CPU, memory, or custom metrics.
+
 •	Elastic Load Balancer (ELB): Distributes traffic across instances to balance load.
+
 •	CloudWatch Alarms: Used to trigger scaling actions.
+
 •	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
 
 #### Difference between ALB and NLB
 Answer:
 Feature	ALB (Application Load Balancer)	NLB (Network Load Balancer)
+
 Layer	Layer7 (HTTP/HTTPS)	Layer4 (TCP/UDP)
+
 Features	Path-based, host-based routing	Fast TCP handling, static IP
+
 Use Case	Web apps, HTTP APIs	Low latency apps, real-time systems
 
 #### How do you connect to a private subnet?
 Answer:
 •	Use a bastion host (jump box) in the public subnet.
-•	Or use Session Manager (SSM) if agents are installed.
-•	Optionally use a VPN or Direct Connect.
 
-#### AWS Lambda vs AWS Fargate
-Answer:
-Feature	AWS Lambda	AWS Fargate
-Type	Serverless functions	Serverless containers
-Use Case	Short event-driven tasks	Long-running container apps
-Timeout	Max15 minutes	No hard timeout
-Pricing	Per request + duration	Based on vCPU and memory used
+•	Or use Session Manager (SSM) if agents are installed.
+
+•	Optionally use a VPN or Direct Connect.
 
 #### What is OAI (Origin Access Identity) in CloudFront?
 Answer:
@@ -317,9 +333,13 @@ A: A public subnet has a route to the internet via an internet gateway (IGW). A 
 #### How do you secure a 3-tier architecture?
 Q: How do you secure a 3-tier app (web, app, DB)?
 A: I use security groups and NACLs to isolate layers:
+
 •	Web tier: Public subnet with limited inbound (HTTP/HTTPS).
+
 •	App tier: Private subnet, allows traffic only from web tier.
+
 •	DB tier: Private subnet, accessible only by app tier.
+
 Enable encryption (TLS, KMS), IAM roles, and monitoring (CloudWatch, GuardDuty).
 
 #### How many VPCs can you create per region?
@@ -329,6 +349,7 @@ By default, you can create 5 VPCs per region per AWS account. This limit can be 
 #### What is the difference between a private and public subnet?
 Answer:
 •	Public Subnet: A subnet that is associated with a route table that has a route to an Internet Gateway (IGW). Resources in this subnet can access the internet.
+
 •	Private Subnet: A subnet that does not have a route to the Internet Gateway. Used for internal resources like databases.
 
 #### What is a Transit Gateway?
@@ -353,29 +374,35 @@ You cannot directly rename a database when restoring a snapshot. Instead:
 #### How can you connect S3 to an EC2 instance?
 Answer:
 •	Attach an IAM Role to EC2 with S3 access permissions (e.g., AmazonS3ReadOnlyAccess).
+
 •	Use AWS CLI or SDK on EC2:
+
 aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
 Answer:
-Feature	Security Group	NACL
-Level	Instance-level	Subnet-level
-Stateful	Yes	No
-Rules	Allow only	Allow and Deny
-Applies to	EC2 Instances	Subnets
-Default Behavior	Deny all unless allowed	Allow all unless changed
+| **Feature**          | **Security Group**                              | **Network ACL (NACL)**                                   |
+| -------------------- | ----------------------------------------------- | ---------------------------------------------------------| **Level**            | Instance-level                                  | Subnet-level                                               |
+| **Stateful**         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)           |
+| **Rules**            | Allow rules only                                | Allow and Deny rules                                     |
+| **Applies to**       | EC2 Instances (and other resources)             | Entire Subnets                                           |
+| **Default Behavior** | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default                |
+| **Rule Evaluation**  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)            |
+| **Use Case**         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                  |
 
 #### What are EC2 instance types?
 Answer:
 EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
-Instance      Series	Type	                 Use Case	                             Examples
-t-series	Burstable general purpose	   Low-cost, spiky workloads	         t2.micro, t3.small
-m-series	General purpose	               Balanced compute, memory, network	 m5.large, m6g.medium
-c-series	Compute optimized	           High-performance compute workloads	 c5.large, c6g.xlarge
-r-series	Memory optimized	           In-memory databases, caching	         r5.large, r6g.xlarge
-i-series	Storage optimized	           High IOPS storage workloads	         i3.large, i4i.xlarge
-g/p-series	GPU/Accelerated computing	   ML, AI, video processing	             g4dn.xlarge, p3.2xlarge
+| **Instance Series** | **Type**                    | **Use Case**                               | **Examples**                |
+| ------------------- | --------------------------- | ------------------------------------------ | --------------------------- |
+| **t-series**        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
+| **m-series**        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
+| **c-series**        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
+| **r-series**        | Memory Optimized            | In-memory databases, real-time big data    | `r5.large`, `r6g.xlarge`    |
+| **i-series**        | Storage Optimized           | High IOPS, low-latency storage workloads   | `i3.large`, `i4i.xlarge`    |
+| **g/p-series**      | GPU / Accelerated Computing | ML training/inference, AI, video rendering | `g4dn.xlarge`, `p3.2xlarge` |
+
 
 #### What is nslookup?
 - nslookup is a command-line tool to query DNS for domain or IP info, older than dig. Example: nslookup google.com.
