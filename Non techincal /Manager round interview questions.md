@@ -2,11 +2,8 @@ DevOps/Cloud Engineer with 3+ years of experience
 
 ###  Strengths
 
-* Quick learner and adaptable to new technologies
-* Strong foundation in Linux and scripting
-* Proactive team player who believes in knowledge sharing
-* Strong focus on automation and optimization
-
+* Quick learner and adaptable to new technologies  - MUST BE ABLE TO JUSTIFY WITH SOME EXAMPLE IF THEY ASK 
+* Proactive team player who believes in knowledge sharing - MUST BE ABLE TO JUSTIFY WITH SOME EXAMPLE IF THEY ASK 
 
 
 ###  Weakness
