@@ -1,67 +1,131 @@
-####  What is StorageClass?
-
-* Abstracts dynamic volume provisioning (e.g., gp2, io1 in AWS EBS).
 
 
-####  Where is the Terraform state stored?
+###  1. What is a StorageClass in Kubernetes?
 
-* Locally (`terraform.tfstate`) or remotely (e.g., S3 + DynamoDB for locking).
+A StorageClass defines how dynamic storage volumes are provisioned.
+It abstracts the underlying storage type, allowing Kubernetes to automatically create volumes.
+Example (AWS): `gp2`, `gp3`, `io1` provision EBS volumes with specific performance characteristics.
 
-#### what is the differences between Security Group and NACL?
 
-* SG: stateful, instance-level.
-* NACL: stateless, subnet-level.
+###  2. Where is the Terraform state stored?
 
-####  What is AWS Session Manager?
+Terraform stores its state file (`terraform.tfstate`) to track infrastructure changes.
 
-* Connect to EC2 without SSH/key, via Systems Manager.
+* Locally: In the working directory by default.
+* Remotely: For teams and safety, store in Amazon S3 with DynamoDB for state locking and consistency.
 
-####  What is AMI?
 
-* Amazon Machine Image: snapshot/template for EC2.
+###  3. Difference between Security Group and NACL in AWS?
 
-####  Create AMI from EC2?
+| Feature            | Security Group (SG)                     | Network ACL (NACL)                    |
+| ------------------ | --------------------------------------- | ------------------------------------- |
+| Scope              | Attached to EC2 instances               | Attached to subnets                   |
+| Stateful/Stateless | Stateful (remembers return traffic) | Stateless (explicit rules needed) |
+| Rules              | Only allow rules                        | Allow and deny rules                  |
+| Rule Evaluation    | Evaluated as a whole                    | Evaluated per rule (numbered)         |
 
-* AWS Console > Actions > Create Image.
 
-####  EBS vs EFS?
+###  4. What is AWS Session Manager?
 
-* EBS: block storage for one instance.
-* EFS: NFS-based, shared across instances.
+A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
 
-####  What is AWS Backup?
+* No need for SSH or key pairs
+* Logs sessions to CloudWatch or S3
+* Ideal for secure, auditable access
 
-* Centralized service to automate backup of AWS resources (RDS, EBS, etc).
 
-####  What is RDS MySQL?
+###  5. What is an AMI (Amazon Machine Image)?
 
-* Managed MySQL DB service.
+An AMI is a template used to launch EC2 instances.
+It includes the OS, application server, and application.
+To create:
+AWS Console → EC2 → Actions → "Create Image"
 
-####  What is AWS Lambda?
 
-* Serverless compute that runs code on triggers.
+###  6. EBS vs EFS
 
-####  VPC Peering (A-B-C)?
+| Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
+| --------------- | ------------------------- | ----------------------------- |
+| Type            | Block storage             | NFS-based shared file storage |
+| Instance Access | Single EC2 instance       | Multiple EC2 instances        |
+| Use Case        | Databases, boot volumes   | Shared storage, web content   |
 
-* Create peerings: A↔B, B↔C, A↔C (fully meshed).
 
-####  Elastic IP vs Public IP?
+###  7. What is AWS Backup?
 
-* Elastic IP: static.
-* Public IP: dynamic unless associated.
+A centralized backup service to automate backup of AWS resources:
 
-####  ECS launch types?
+* Supports RDS, EBS, DynamoDB, EFS, etc.
+* Enables scheduled, compliant, and encrypted backups
+* Integrates with AWS Organizations for centralized control
 
-* EC2 (self-managed) and Fargate (serverless).
 
-####  Monitor EC2 with CloudWatch?
+###  8. What is RDS MySQL?
 
-* Enable detailed monitoring.
-* Use custom metrics or CloudWatch Agent.
+A managed MySQL database hosted on Amazon RDS.
 
-####  AWS Step Functions?
+* Automated backups, patching, and failover
+* Supports Multi-AZ and read replicas
+* No OS-level maintenance required
 
-* Serverless workflow orchestration (like state machines).
+
+###  9. What is AWS Lambda?
+
+A serverless compute service that runs code in response to events.
+
+* No provisioning or managing servers
+* Pay only for execution time
+* Common triggers: API Gateway, S3 uploads, DynamoDB streams
+
+
+###  10. VPC Peering (3-way: A ↔ B ↔ C)?
+
+To enable full communication among 3 VPCs (A, B, C), you need:
+
+* A ↔ B
+* B ↔ C
+* A ↔ C
+  Each VPC peering is bidirectional but not transitive — you must explicitly peer each pair.
+
+
+###  11. Elastic IP vs Public IP in AWS
+
+| Feature     | Elastic IP (EIP)        | Public IP                    |
+| ----------- | ----------------------- | ---------------------------- |
+| Type        | Static                  | Dynamic (changes on restart) |
+| Association | User-managed            | AWS-assigned                 |
+| Persistence | Remains unless released | Released when instance stops |
+
+###  12. ECS Launch Types
+
+* EC2 Launch Type:
+
+  * You manage the EC2 instances
+  * More control over infra and networking
+* Fargate Launch Type:
+
+  * Serverless: no need to manage servers
+  * Pay for task-level CPU and memory usage
+
+
+###  13. How to Monitor EC2 with CloudWatch?
+
+* Enable Detailed Monitoring for 1-minute metrics
+* Use CloudWatch Agent to monitor:
+
+  * Memory
+  * Disk
+  * Custom application logs
+* Create alarms for CPU, status checks, etc.
+
+
+###  14. What are AWS Step Functions?
+
+A serverless orchestration service that connects AWS services using state machines.
+
+* Automates workflows like data processing, ETL, microservices coordination
+* Supports retries, branching, and parallel execution
+* Visual workflow editor available
 
 #### What is a NAT Gateway? And what is its use?
 A NAT Gateway (Network Address Translation Gateway) allows private subnet instances to initiate outbound internet traffic (like installing packages, pulling updates) without exposing them to incoming connections from the public internet.
@@ -384,28 +448,28 @@ aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
 Answer:
-| **Feature**          | **Security Group**                              | **Network ACL (NACL)**                                    |
+| Feature          | Security Group                              | Network ACL (NACL)                                    |
 | -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
-| **Level**            | Instance-level                                  | Subnet-level                                              |
-| **Stateful**         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
-| **Rules**            | Allow rules only                                | Allow and Deny rules                                      |
-| **Applies to**       | EC2 Instances (and other resources)             | Entire Subnets                                            |
-| **Default Behavior** | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default(can be modified)|
-| **Rule Evaluation**  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)             |
-| **Use Case**         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
+| Level            | Instance-level                                  | Subnet-level                                              |
+| Stateful         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
+| Rules            | Allow rules only                                | Allow and Deny rules                                      |
+| Applies to       | EC2 Instances (and other resources)             | Entire Subnets                                            |
+| Default Behavior | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default(can be modified)|
+| Rule Evaluation  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)             |
+| Use Case         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
 
 #### What are EC2 instance types?
 Answer:
 EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
-| **Instance Series** | **Type**                    | **Use Case**                               | **Examples**                |
+| Instance Series | Type                    | Use Case                               | Examples                |
 | ------------------- | --------------------------- | ------------------------------------------ | --------------------------- |
-| **t-series**        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
-| **m-series**        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
-| **c-series**        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
-| **r-series**        | Memory Optimized            | In-memory databases, real-time big data    | `r5.large`, `r6g.xlarge`    |
-| **i-series**        | Storage Optimized           | High IOPS, low-latency storage workloads   | `i3.large`, `i4i.xlarge`    |
-| **g/p-series**      | GPU / Accelerated Computing | ML training/inference, AI, video rendering | `g4dn.xlarge`, `p3.2xlarge` |
+| t-series        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
+| m-series        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
+| c-series        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
+| r-series        | Memory Optimized            | In-memory databases, real-time big data    | `r5.large`, `r6g.xlarge`    |
+| i-series        | Storage Optimized           | High IOPS, low-latency storage workloads   | `i3.large`, `i4i.xlarge`    |
+| g/p-series      | GPU / Accelerated Computing | ML training/inference, AI, video rendering | `g4dn.xlarge`, `p3.2xlarge` |
 
 
 #### What is nslookup?
