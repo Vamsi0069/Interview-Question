@@ -25,7 +25,7 @@ To create:
 AWS Console → EC2 → Actions → "Create Image"
 
 
-####  EBS vs EFS
+#### Difference between EBS and EFS
 
 | Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
 | --------------- | ------------------------- | ----------------------------- |
@@ -61,7 +61,7 @@ A serverless compute service that runs code in response to events.
 * Common triggers: API Gateway, S3 uploads, DynamoDB streams
 
 
-####  VPC Peering (3-way: A ↔ B ↔ C)?
+####  Explain VPC Peering (3-way: A ↔ B ↔ C)?
 
 To enable full communication among 3 VPCs (A, B, C), you need:
 
@@ -78,18 +78,6 @@ To enable full communication among 3 VPCs (A, B, C), you need:
 | Type        | Static                  | Dynamic (changes on restart) |
 | Association | User-managed            | AWS-assigned                 |
 | Persistence | Remains unless released | Released when instance stops |
-
-####  ECS Launch Types
-
-* EC2 Launch Type:
-
-  * You manage the EC2 instances
-  * More control over infra and networking
-* Fargate Launch Type:
-
-  * Serverless: no need to manage servers
-  * Pay for task-level CPU and memory usage
-
 
 ####  How to Monitor EC2 with CloudWatch?
 
