@@ -18,7 +18,7 @@ AWS Console → EC2 → Actions → "Create Image"
 #### Difference between EBS and EFS
 
 | Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
-| --------------- | ------------------------- | ----------------------------- |
+|  | - | -- |
 | Type            | Block storage             | NFS-based shared file storage |
 | Instance Access | Single EC2 instance       | Multiple EC2 instances        |
 | Use Case        | Databases, boot volumes   | Shared storage, web content   |
@@ -64,7 +64,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
 ####  Difference between  Elastic IP and Public IP in AWS
 
 | Feature     | Elastic IP (EIP)        | Public IP                    |
-| ----------- | ----------------------- | ---------------------------- |
+| -- | -- | - |
 | Type        | Static                  | Dynamic (changes on restart) |
 | Association | User-managed            | AWS-assigned                 |
 | Persistence | Remains unless released | Released when instance stops |
@@ -104,15 +104,15 @@ It needs to install software from the internet.
 The traffic goes through the NAT Gateway, which sits in a public subnet, and then out to the internet.
 
 #### Difference between NAT Gateway and Internet Gateway
-| Feature              | **NAT Gateway**                                             | **Internet Gateway**                                                         |
-| -------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| **Purpose**          | Allows **outbound internet access** for **private subnets** | Enables **both inbound and outbound** internet access for **public subnets** |
-| **Used By**          | Private instances (no public IP)                            | Public instances (with public IP)                                            |
-| **Inbound Traffic**  |  Not allowed                                               |  Allowed (if security groups allow)                                         |
-| **Outbound Traffic** |  Allowed                                                   |  Allowed                                                                    |
-| **Placement**        | In a **public subnet**                                      | Attached to the **VPC**                                                      |
-| **Managed by AWS**   |  Yes                                                       |  Yes                                                                        |
-| **Needs Public IP?** |  No (for private EC2s)                                     |  Yes (for EC2 to be reachable)    
+| Feature              | NAT Gateway                                             | Internet Gateway                                                         |
+| -- | -- | - |
+| Purpose          | Allows outbound internet access for private subnets | Enables both inbound and outbound internet access for public subnets |
+| Used By          | Private instances (no public IP)                            | Public instances (with public IP)                                            |
+| Inbound Traffic  |  Not allowed                                               |  Allowed (if security groups allow)                                         |
+| Outbound Traffic |  Allowed                                                   |  Allowed                                                                    |
+| Placement        | In a public subnet                                      | Attached to the VPC                                                      |
+| Managed by AWS   |  Yes                                                       |  Yes                                                                        |
+| Needs Public IP? |  No (for private EC2s)                                     |  Yes (for EC2 to be reachable)    
                                           |
 
 #### What is AWS CloudTrail and how do you manage it in your project?
@@ -334,17 +334,17 @@ For automatic and manual scaling, I’ve used:
 
 #### Difference between ALB and NLB
 
-| Feature               | **ALB (Application Load Balancer)**                   | **NLB (Network Load Balancer)**          |
-| --------------------- | ----------------------------------------------------- | ---------------------------------------- |
-| **Layer**             | Layer 7 (Application Layer)                           | Layer 4 (Transport Layer)                |
-| **Protocol**          | HTTP, HTTPS, WebSocket                                | TCP, UDP, TLS                            |
-| **Use Case**          | For web apps, APIs (content-based routing)            | For high-performance or low-latency apps |
-| **Routing**           | Smart routing – based on URL, headers, hostname, etc. | Basic routing – based on IP and port     |
-| **Target Types**      | EC2, IP, Lambda                                       | EC2, IP                                  |
-| **TLS Termination**   |  Yes                                                  |  Yes                                     |
-| **Health Checks**     | Application-level (HTTP)                              | Network-level (TCP)                      |
-| **Static IP Support** |  No (uses DNS name)                                   |  Yes (can assign Elastic IPs)            |
-| **Performance**       | Good for HTTP apps                                    | Best for high-throughput, real-time apps |
+| Feature               | ALB (Application Load Balancer)                   | NLB (Network Load Balancer)          |
+|  | -- | - |
+| Layer             | Layer 7 (Application Layer)                           | Layer 4 (Transport Layer)                |
+| Protocol          | HTTP, HTTPS, WebSocket                                | TCP, UDP, TLS                            |
+| Use Case          | For web apps, APIs (content-based routing)            | For high-performance or low-latency apps |
+| Routing           | Smart routing – based on URL, headers, hostname, etc. | Basic routing – based on IP and port     |
+| Target Types      | EC2, IP, Lambda                                       | EC2, IP                                  |
+| TLS Termination   |  Yes                                                  |  Yes                                     |
+| Health Checks     | Application-level (HTTP)                              | Network-level (TCP)                      |
+| Static IP Support |  No (uses DNS name)                                   |  Yes (can assign Elastic IPs)            |
+| Performance       | Good for HTTP apps                                    | Best for high-throughput, real-time apps |
 
 
 #### How do you connect to a private subnet?
@@ -423,7 +423,7 @@ aws s3 ls s3://your-bucket-name
 #### What is the difference between Security Group and Network ACL (NACL)?
 
 | Feature          | Security Group                              | Network ACL (NACL)                                    |
-| -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
+| -- | -- |  |
 | Level            | Instance-level                                  | Subnet-level                                              |
 | Stateful         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
 | Rules            | Allow rules only                                | Allow and Deny rules                                      |
@@ -437,7 +437,7 @@ aws s3 ls s3://your-bucket-name
 EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
 | Instance Series | Type                    | Use Case                               | Examples                |
-| ------------------- | --------------------------- | ------------------------------------------ | --------------------------- |
+| - |  |  |  |
 | t-series        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
 | m-series        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
 | c-series        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
@@ -457,12 +457,129 @@ EC2 instances are categorized based on their hardware capabilities and use cases
 
 #### Difference between  CloudWatch and CloudTrail
 | Feature          | CloudWatch                  | CloudTrail                       |
-|------------------|-----------------------------|----------------------------------|
+||--|-|
 | Purpose          | Monitoring & metrics        | API call logging & auditing      |
 | Data Type        | Metrics, logs               | Management API event logs        |
 | Use Case         | Performance & alerts        | Security, compliance, auditing   |
 | Real-time?       | Yes                         | No                               |
 | Retention        | Configurable                | 90 days default + S3 archival    |
+
+
+
+#### Difference between IAM Role and IAM Policy?
+
+IAM Role: A set of permissions that can be assumed by AWS services or users. It is used to grant access to AWS resources without using permanent credentials.
+IAM Policy: A JSON document that defines permissions. It is attached to users, groups, or roles to control what actions they can perform.
+
+
+
+#### What are the types of IAM policies?
+
+AWS Managed Policies: Predefined and maintained by AWS.
+Customer Managed Policies: Custom policies created and managed by you.
+Inline Policies: Embedded directly into a single IAM user, group, or role.
+
+
+
+#### What is MFA and how do you use it?
+
+MFA (Multi-Factor Authentication) adds an extra layer of security by requiring a second form of verification (e.g., a temporary code from a mobile app).
+* You enable it through the IAM console for the root account or individual IAM users.
+
+
+
+### 4. How do you secure your AWS account?
+
+* Enable MFA on the root and all IAM users.
+* Use IAM roles and follow the principle of least privilege.
+* Regularly rotate access keys.
+* Enable CloudTrail for auditing.
+* Use AWS Organizations and Service Control Policies (SCPs) if managing multiple accounts.
+
+
+
+### 5. What is Lifecycle policy in S3?
+
+* A lifecycle policy automatically transitions objects to different storage classes (e.g., to Glacier) or deletes them after a defined period.
+* Useful for managing cost and data retention.
+
+
+
+### 6. What are S3 bucket policies and ACLs?
+
+S3 Bucket Policy: A JSON document that defines access permissions for the entire bucket or specific objects. It supports fine-grained access control.
+ACL (Access Control List): A legacy feature used to grant basic access to users at the object or bucket level.
+
+
+
+### 7. What is Glacier?
+
+Amazon S3 Glacier is a low-cost cloud storage service for data archiving and long-term backup.
+* Retrieval times can range from minutes to hours, depending on the retrieval option.
+
+
+
+### 8. Difference between EBS and EFS?
+
+| Feature     | EBS                        | EFS                                 |
+| -- | -- | -- |
+| Type        | Block storage              | File storage (NFS)                  |
+| Access      | One EC2 instance at a time | Multiple EC2 instances concurrently |
+| Scalability | Predefined volume size     | Scales automatically                |
+| Use Case    | Databases, boot volumes    | Shared file storage                 |
+
+
+
+### 9. What is a spot instance vs on-demand vs reserved instance?
+
+| Type      | Description                                         | Cost        |
+|  |  | -- |
+| Spot      | Uses unused EC2 capacity, can be terminated anytime | Lowest      |
+| On-Demand | Pay-per-use with no commitment                      | Flexible    |
+| Reserved  | Commit for 1–3 years for discounted pricing         | Cost-saving |
+
+
+
+### 10. Difference between RDS and DynamoDB?
+
+| Feature    | RDS                               | DynamoDB                         |
+| - |  | -- |
+| Type       | Relational (SQL) database         | NoSQL (Key-Value/Document)       |
+| Scaling    | Vertical scaling                  | Horizontal auto-scaling          |
+| Use Case   | Structured data, complex queries  | Fast access to unstructured data |
+| Management | Managed service, but needs tuning | Fully managed by AWS             |
+
+
+
+### 11. What is Auto Scaling and how does it work?
+
+* Auto Scaling automatically adjusts the number of EC2 instances in response to traffic or load.
+* It uses scaling policies and CloudWatch alarms to launch or terminate instances as needed.
+
+
+
+### 12. What is a Target Group?
+
+* A target group is a collection of resources (such as EC2 instances or IPs) that a load balancer routes traffic to.
+* Used with ALB and NLB to manage traffic and apply health checks.
+
+
+
+### 13. How do health checks work in ALB?
+
+* ALB sends health check requests (e.g., HTTP GET) to each target at a specific path and port.
+* If a target fails health checks repeatedly, it is marked unhealthy and removed from the routing pool until it recovers.
+
+
+
+### 14. Difference between EBS and S3?
+
+| Feature    | EBS                   | S3                           |
+| - |  | - |
+| Type       | Block storage         | Object storage               |
+| Access     | Mount as disk to EC2  | Access via API or console    |
+| Durability | 99.999%               | 99.999999999%                |
+| Use Case   | Databases, OS volumes | Backups, media, static files |
 
 
 #### What is a StorageClass in Kubernetes?
