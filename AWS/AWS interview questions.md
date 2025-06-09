@@ -1,13 +1,3 @@
-####  Difference between Security Group and NACL in AWS?
-
-| Feature            | Security Group (SG)                     | Network ACL (NACL)                    |
-| ------------------ | --------------------------------------- | ------------------------------------- |
-| Scope              | Attached to EC2 instances               | Attached to subnets                   |
-| Stateful/Stateless | Stateful (remembers return traffic) | Stateless (explicit rules needed) |
-| Rules              | Only allow rules                        | Allow and deny rules                  |
-| Rule Evaluation    | Evaluated as a whole                    | Evaluated per rule (numbered)         |
-
-
 #### What is AWS Session Manager?
 
 A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
@@ -71,7 +61,7 @@ To enable full communication among 3 VPCs (A, B, C), you need:
   Each VPC peering is bidirectional but not transitive — you must explicitly peer each pair.
 
 
-####  Elastic IP vs Public IP in AWS
+####  Difference between  Elastic IP and Public IP in AWS
 
 | Feature     | Elastic IP (EIP)        | Public IP                    |
 | ----------- | ----------------------- | ---------------------------- |
@@ -99,18 +89,34 @@ A serverless orchestration service that connects AWS services using state machin
 * Visual workflow editor available
 
 #### What is a NAT Gateway? And what is its use?
-A NAT Gateway (Network Address Translation Gateway) allows private subnet instances to initiate outbound internet traffic (like installing packages, pulling updates) without exposing them to incoming connections from the public internet.
+A NAT Gateway is a service in AWS that lets servers in a private subnet connect to the internet, but it blocks internet traffic from coming in.
 
-Example: EC2s in a private subnet can yum update via NAT Gateway.
+- Why is it used?
+To allow private servers (like app servers or databases) to download updates or connect to the internet (e.g., for APIs).
+
+To keep those servers safe by not exposing them directly to the internet.
+
+Example:
+You have a private EC2 instance with no public IP.
+
+It needs to install software from the internet.
+
+The traffic goes through the NAT Gateway, which sits in a public subnet, and then out to the internet.
 
 #### Difference between NAT Gateway and Internet Gateway
-Feature	Internet Gateway	NAT Gateway
-Direction	Bidirectional (inbound/outbound)	Outbound only
-Attached To	VPC	Subnet
-Used For	Public Subnet EC2s to connect to internet	Private Subnet EC2s to access internet
-Security	Exposes public IP	No public IP exposed
+| Feature              | **NAT Gateway**                                             | **Internet Gateway**                                                         |
+| -------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Purpose**          | Allows **outbound internet access** for **private subnets** | Enables **both inbound and outbound** internet access for **public subnets** |
+| **Used By**          | Private instances (no public IP)                            | Public instances (with public IP)                                            |
+| **Inbound Traffic**  |  Not allowed                                               |  Allowed (if security groups allow)                                         |
+| **Outbound Traffic** |  Allowed                                                   |  Allowed                                                                    |
+| **Placement**        | In a **public subnet**                                      | Attached to the **VPC**                                                      |
+| **Managed by AWS**   |  Yes                                                       |  Yes                                                                        |
+| **Needs Public IP?** |  No (for private EC2s)                                     |  Yes (for EC2 to be reachable)    
+                                          |
 
 #### What is AWS CloudTrail and how do you manage it in your project?
+
 CloudTrail logs all API calls and activities across AWS accounts (who did what, when, from where).
 We manage CloudTrail by:
 
@@ -123,6 +129,7 @@ Using CloudWatch Logs integration to trigger alerts (e.g., for unauthorized acti
 Applying S3 bucket policies and encryption with KMS for security
 
 #### Suppose your team member is accessing an AWS service, and you want to revoke their access?
+
 Update or remove their IAM policy or role assignment
 
 Use Service Control Policies (SCPs) in AWS Organizations (if in multi-account setup)
@@ -130,14 +137,11 @@ Use Service Control Policies (SCPs) in AWS Organizations (if in multi-account se
 For immediate revocation: disable or delete the IAM user, or rotate their credentials
 
 #### How do you connect from a public subnet to a private subnet?
-Use bastion host (jump box) in the public subnet
+Use bastion host (jump server) in the public subnet
 
 Connect via SSH:
 ```ssh -i key.pem ec2-user@<bastion-ip> → ssh into private IP```
 
-Alternatively, set up:
-
-AWS Systems Manager Session Manager for secure agent-based access (no need to open ports)
 
 #### Why do we use a private subnet in a VPC?
 
@@ -151,16 +155,12 @@ Usually at least 3: Dev, Staging, Prod. Sometimes separate accounts for Security
 
 Use pre-signed URLs, IAM roles, or VPC endpoints to download securely without public access.
 
-#### How do you monitor your applications and EC2 instances using Amazon CloudWatch?
-
-Use CloudWatch metrics, custom dashboards, alarms, and logs agents to monitor CPU, memory, disk, logs, and custom app metrics.
-
 #### Have you worked with AWS Transit Gateway in your project?
 
 Transit Gateway helps in centralized VPC-to-VPC and on-prem connectivity across accounts. It simplifies the network mesh.
 
 #### How should developers write code to access AWS services (S3, SQS, SNS, RDS)?
-A:
+
 - Use AWS SDKs
 - Access via IAM roles with least privilege
 - Store secrets in Secrets Manager
@@ -169,7 +169,7 @@ A:
 - Log via CloudWatch
 
 #### How to handle developer authentication to AWS?
-A:
+
 - Use IAM users/groups with MFA
 - Prefer IAM roles with temporary STS credentials
 - Use AWS SSO or federation
@@ -177,19 +177,19 @@ A:
 - Rotate creds, no hardcoding
 
 #### How to enable communication between different VPCs?
-A:
+
 - VPC Peering: Direct, simple, but no transitive routing
 - Transit Gateway: Centralized hub, scalable
 - PrivateLink: For exposing services, not full VPC access
 - VPN: For secure cross-region or hybrid setups
 
 #### What is an Internet Gateway, and where is it placed?
-Answer:
+
 An Internet Gateway (IGW) is a horizontally scaled, redundant, and highly available VPC component that allows communication between instances in your VPC and the internet.
 It is attached at the VPC level, not the subnet level.
 
 #### What is VPC Peering, and how do you configure it?
-Answer:
+
 VPC Peering connects two VPCs to route traffic using private IPs.
 Steps to configure:
 Create a VPC peering connection.
@@ -198,23 +198,18 @@ Add route table entries in both VPCs.
 Ensure security groups and NACLs allow traffic.
 
 #### How do you give private access to an S3 bucket?
-Answer:
+
 
 Remove public access settings.
 Attach bucket policy that allows access from specific VPC or IAM roles.
 Use VPC endpoint for S3 for private access without using the internet.
 
 #### What is CloudFront?
-Answer:
+
 CloudFront is AWS’s Content Delivery Network (CDN) that caches content at edge locations to reduce latency and speed up delivery.
 
-#### What is a NAT Gateway, and where do you place it?
-Answer:
-A NAT Gateway enables instances in a private subnet to access the internet (for updates, etc.) while remaining unreachable from the outside.
-It is placed in a public subnet and requires a route from private subnets to the NAT Gateway.
-
 #### What are bucket policies in AWS S3?
-Answer:
+Answer
 Bucket policies are JSON-based rules that control access to an entire S3 bucket or objects inside.
 
 Example:
@@ -227,7 +222,7 @@ Example:
 }
 ```
 #### If you get a 403 error (Access Denied) in S3, what do you check?
-Answer:
+
 
 Check bucket policy
 Check IAM role/user permissions
@@ -235,31 +230,44 @@ Verify if object ACL is private
 Ensure correct Region and signed URL, if applicable
 
 #### We check the policy: GetObject, PutObject — why?
-Answer:
 These are the S3 actions needed to download (GetObject) or upload (PutObject) files.
 Without them, you’ll get 403 errors.
 
 #### 81Q. What is 2/2 check in AWS EC2?
-Answer:
-
 EC2 passes 2 checks:
 System status check
 Instance status check
 Both must be "2/2 checks passed" for healthy status.
 
 #### Why did you use S3 in your project?
-Answer:
+Amazon S3 to store and manage static assets such as:
 
-Store logs, backups, artifacts.
-Host static websites.
-Use as Terraform backend (state file storage).
+Images
+
+Logs
+
+Backups
+
+Application data (like JSON, CSV, etc.)
+
+The main reasons were:
+
+Durability & Availability: S3 provides 99.999999999% durability, so my data was safe.
+
+Scalability: I didn't have to worry about storage limits.
+
+Cost-effective: I only paid for what I used, and it's cheaper than running EC2 for storage.
+
+Integration: Easily integrates with other AWS services like Lambda, CloudFront, and EC2.
+
+Access control: I could control access using IAM policies or pre-signed URLs.
 
 #### What is a bucket policy in AWS?
-Answer:
+
 JSON document attached to a bucket to define access rules for users, roles, or the public.
 
 #### What is 403 error in S3 object permission?
-Answer:
+
 It means access denied. Possible causes:
 Missing s3:GetObject permission
 Object is private
@@ -278,16 +286,14 @@ AWS Serverless refers to a cloud-native development model that allows you to bui
 •	AWS Step Functions – orchestrate workflows
 
 #### What is a Key Pair in AWS?
-A:
 A Key Pair is used for secure SSH access to EC2 instances. It includes a public key (stored in AWS) and a private key (downloaded by the user).
 You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
 
 
 #### What is AWS VPC peering?
-A: VPC peering is a networking connection between two VPCs that enables routing traffic between them using private IPs. Peering works across regions and accounts but does not support transitive peering.
+ VPC peering is a networking connection between two VPCs that enables routing traffic between them using private IPs. Peering works across regions and accounts but does not support transitive peering.
 
 #### What AWS resources have you worked with?
-A:
 I’ve worked with a wide range of AWS resources, including:
 
 •	EC2 (virtual machines)
@@ -315,7 +321,7 @@ I’ve worked with a wide range of AWS resources, including:
 •	Elastic Beanstalk, CloudFormation, and Terraform for provisioning
 
 #### What AWS services do you use for scaling instances?
-A:
+
 For automatic and manual scaling, I’ve used:
 
 •	Auto Scaling Groups (ASG): Automatically add/remove EC2 instances based on CPU, memory, or custom metrics.
@@ -327,17 +333,22 @@ For automatic and manual scaling, I’ve used:
 •	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
 
 #### Difference between ALB and NLB
-Answer:
-Feature	ALB (Application Load Balancer)	NLB (Network Load Balancer)
 
-Layer	Layer7 (HTTP/HTTPS)	Layer4 (TCP/UDP)
+| Feature               | **ALB (Application Load Balancer)**                   | **NLB (Network Load Balancer)**          |
+| --------------------- | ----------------------------------------------------- | ---------------------------------------- |
+| **Layer**             | Layer 7 (Application Layer)                           | Layer 4 (Transport Layer)                |
+| **Protocol**          | HTTP, HTTPS, WebSocket                                | TCP, UDP, TLS                            |
+| **Use Case**          | For web apps, APIs (content-based routing)            | For high-performance or low-latency apps |
+| **Routing**           | Smart routing – based on URL, headers, hostname, etc. | Basic routing – based on IP and port     |
+| **Target Types**      | EC2, IP, Lambda                                       | EC2, IP                                  |
+| **TLS Termination**   |  Yes                                                  |  Yes                                     |
+| **Health Checks**     | Application-level (HTTP)                              | Network-level (TCP)                      |
+| **Static IP Support** |  No (uses DNS name)                                   |  Yes (can assign Elastic IPs)            |
+| **Performance**       | Good for HTTP apps                                    | Best for high-throughput, real-time apps |
 
-Features	Path-based, host-based routing	Fast TCP handling, static IP
-
-Use Case	Web apps, HTTP APIs	Low latency apps, real-time systems
 
 #### How do you connect to a private subnet?
-Answer:
+
 
 •	Use a bastion host (jump box) in the public subnet.
 
@@ -346,11 +357,11 @@ Answer:
 •	Optionally use a VPN or Direct Connect.
 
 #### What is OAI (Origin Access Identity) in CloudFront?
-Answer:
+
 OAI is used to restrict access to an S3 bucket so only CloudFront can fetch content, preventing direct access via S3 URL.
 
 #### What is SNS and how do you create it?
-A:
+
 SNS (Simple Notification Service) is an AWS service used to send notifications via email, SMS, HTTP, or Lambda.
 To create it:
 
@@ -360,16 +371,12 @@ Name the topic and click Create.
 To add a subscriber, choose the topic → Create subscription → select protocol (e.g., Email) and provide the endpoint.
 
 #### How can you recover a deleted S3 object?
-Q: How do you restore a deleted S3 object?
-A: If versioning was enabled, I can retrieve the deleted object using a previous version. Without versioning, the object is permanently deleted unless S3 backup (e.g., replication or lifecycle rule to Glacier) is configured.
-
-#### How do you differentiate between a public and a private subnet in AWS?
-Q: How do you identify a public vs private subnet?
-A: A public subnet has a route to the internet via an internet gateway (IGW). A private subnet lacks this route and usually uses a NAT gateway for internet access. I verify this by checking route tables.
+ How do you restore a deleted S3 object?
+ If versioning was enabled, I can retrieve the deleted object using a previous version. Without versioning, the object is permanently deleted unless S3 backup (e.g., replication or lifecycle rule to Glacier) is configured.
 
 #### How do you secure a 3-tier architecture?
-Q: How do you secure a 3-tier app (web, app, DB)?
-A: I use security groups and NACLs to isolate layers:
+ How do you secure a 3-tier app (web, app, DB)?
+ I use security groups and NACLs to isolate layers:
 
 •	Web tier: Public subnet with limited inbound (HTTP/HTTPS).
 
@@ -380,36 +387,32 @@ A: I use security groups and NACLs to isolate layers:
 Enable encryption (TLS, KMS), IAM roles, and monitoring (CloudWatch, GuardDuty).
 
 #### How many VPCs can you create per region?
-Answer:
+
 By default, you can create 5 VPCs per region per AWS account. This limit can be increased by requesting a quota increase from AWS.
 
 #### What is the difference between a private and public subnet?
-Answer:
+
 •	Public Subnet: A subnet that is associated with a route table that has a route to an Internet Gateway (IGW). Resources in this subnet can access the internet.
 
 •	Private Subnet: A subnet that does not have a route to the Internet Gateway. Used for internal resources like databases.
 
 #### What is a Transit Gateway?
-Answer:
+
 An AWS Transit Gateway enables you to connect multiple VPCs and on-premises networks through a central hub, simplifying your network architecture and reducing the number of peering connections.
 
-#### What is VPC Peering?
-Answer:
-VPC Peering allows direct communication between two VPCs in the same or different AWS accounts/regions. It’s non-transitive and is used for point-to-point connectivity.
-
 #### What is a VPC Endpoint?
-Answer:
+
 A VPC Endpoint allows private connection between your VPC and AWS services (like S3, DynamoDB) without using the internet, improving security and performance.
 
 #### How can you restore an RDS snapshot with a custom database name?
-Answer:
+
 You cannot directly rename a database when restoring a snapshot. Instead:
 #### 1.	Restore the snapshot.
 #### 2.	Create a new DB instance.
 #### 3.	Use tools like pg_dump/mysqldump, or AWS DMS to export and import data into a DB with the desired name.
 
 #### How can you connect S3 to an EC2 instance?
-Answer:
+
 
 •	Attach an IAM Role to EC2 with S3 access permissions (e.g., AmazonS3ReadOnlyAccess).
 
@@ -418,7 +421,7 @@ Answer:
 aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
-Answer:
+
 | Feature          | Security Group                              | Network ACL (NACL)                                    |
 | -------------------- | ----------------------------------------------- | --------------------------------------------------------- |
 | Level            | Instance-level                                  | Subnet-level                                              |
@@ -430,7 +433,7 @@ Answer:
 | Use Case         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
 
 #### What are EC2 instance types?
-Answer:
+
 EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
 | Instance Series | Type                    | Use Case                               | Examples                |
@@ -452,7 +455,7 @@ EC2 instances are categorized based on their hardware capabilities and use cases
 #### Inode of Lambda function?
 - AWS Lambda functions don’t have inodes. Inodes are filesystem metadata; Lambda runs serverless, so no direct inode.
 
-#### CloudWatch vs CloudTrail comparison:
+#### Difference between  CloudWatch and CloudTrail
 | Feature          | CloudWatch                  | CloudTrail                       |
 |------------------|-----------------------------|----------------------------------|
 | Purpose          | Monitoring & metrics        | API call logging & auditing      |
