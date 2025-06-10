@@ -370,3 +370,7 @@ git push origin main
 git remote set-url origin https://github.com/username/new-repo.git
 git push origin main
 ````
+
+#### 56. If developer want to mirror a repo from 'A' location to 'B' location we use below commands?
+
+git push --mirror <git_URL>
