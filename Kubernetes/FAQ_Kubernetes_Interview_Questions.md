@@ -377,3 +377,140 @@ If you need different pods/containers, use:
 * Multiple Deployments
 * A Pod with multiple containers (sidecar pattern)
 
+### 32. How do you back up and restore a Kubernetes cluster?
+
+Use tools like etcdctl for etcd backup
+
+Velero for backup/restore of resources and volumes
+
+Take regular snapshots of critical configs and secrets
+
+### 33. How do you integrate CI/CD with Kubernetes?
+
+Use Jenkins, GitHub Actions, or GitLab CI
+
+Build & push container image
+
+Use kubectl or ArgoCD to deploy to the cluster
+
+Apply manifests via Helm or Kustomize
+
+
+### 34. What is a Service in Kubernetes?
+
+
+A Service is a Kubernetes object that exposes a set of pods as a network service. It ensures stable access to pods using selectors and DNS.
+
+Types of Services:
+
+* ClusterIP – default, internal access only
+* NodePort – exposes via static port on each node
+* LoadBalancer – provisions an external load balancer (in cloud)
+* ExternalName – maps a service to an external DNS name
+
+
+
+### 35. What is a Namespace in Kubernetes?
+
+
+Namespaces provide a way to divide cluster resources between multiple users. Useful in multi-team environments to separate concerns.
+
+
+
+### 36. What is a ConfigMap and how is it different from a Secret?
+
+
+
+* ConfigMap stores non-sensitive configuration data as key-value pairs.
+* Secret stores sensitive data (e.g., passwords, tokens) in base64 encoded format.
+
+Both can be mounted as environment variables or volumes in pods.
+
+
+### 37. How do you perform rolling updates in Kubernetes?
+
+
+Using a Deployment object:
+
+```bash
+kubectl set image deployment/my-deploy my-container=myimage:v2
+```
+
+Kubernetes will gradually update pods to the new version.
+
+
+### 38. What is the role of `etcd` in Kubernetes?
+
+
+`etcd` is a distributed key-value store used by Kubernetes to store all cluster data (state, configurations, secrets).
+
+
+
+### 39. How does Kubernetes handle container failures?
+
+
+Kubernetes uses health checks, restart policies, and controller loops to:
+
+* Detect failed pods
+* Restart them
+* Reschedule to other nodes if needed
+
+
+### 40. How do you upgrade a Kubernetes cluster?
+
+
+
+* For EKS: Use AWS Console or `eksctl upgrade cluster`
+* For kubeadm:
+
+  1. Drain and cordon nodes
+  2. Upgrade control plane using `kubeadm upgrade`
+  3. Upgrade kubelet and kubectl
+  4. Uncordon nodes
+
+
+
+### 41. What is a Job and CronJob in Kubernetes?
+
+
+
+* Job: Runs a task until completion (e.g., batch processing).
+* CronJob: Schedules jobs at specific times using cron syntax.
+
+### 42. What is the use of `kube-proxy`?
+
+
+`kube-proxy` maintains network rules on nodes and enables communication to pods from inside and outside the cluster.
+
+
+### 43. What is Pod Affinity and Anti-Affinity?
+
+
+* Affinity: Schedule pods close to each other (e.g., for low latency).
+* Anti-Affinity: Schedule pods on different nodes (e.g., for high availability).
+
+### 44. How to debug container CrashLoopBackOff?
+
+
+* Check logs:
+
+  ```bash
+  kubectl logs <pod-name>
+  ```
+* Describe the pod:
+
+  ```bash
+  kubectl describe pod <pod-name>
+  ```
+* Check for wrong image, env issues, or missing files/configs.
+
+
+
+### 45. What are LimitRange and ResourceQuota?
+
+
+
+* LimitRange: Sets default/min/max CPU/memory per pod/container.
+* ResourceQuota: Enforces limits on total resource usage in a namespace.
+
+
