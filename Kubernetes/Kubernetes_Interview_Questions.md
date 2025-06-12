@@ -193,59 +193,107 @@ Indentation errors happen when YAML syntax is not properly aligned. YAML uses sp
   ```
 
 
+### 16. Why ArgoCD?
 
 
-####  Managing secrets?
+ArgoCD is a GitOps tool used for declarative deployment in Kubernetes. It:
 
-* Use `kubectl create secret` or `Secrets` YAML.
-* For encryption: enable secret encryption at rest + use tools like HashiCorp Vault.
+* Automatically syncs your cluster state with a Git repository.
+* Supports version control for infrastructure and apps.
+* Enables secure, auditable, and automated deployments.
 
-####  Why ArgoCD?
 
-* GitOps tool for declarative deployment.
-* Auto-syncs cluster state with Git repo.
 
-####  Using kubectl logs?
+### 17. How do you use `kubectl logs`?
+
+
 
 ```bash
-kubectl logs <pod-name> [-c container-name]  
+kubectl logs <pod-name> [-c container-name]
 ```
 
-####  Prometheus + Grafana Setup?
+* View logs of a pod.
+* If the pod has multiple containers, use `-c` to specify the container name.
 
-* Use `kube-prometheus-stack` Helm chart.
-* Prometheus scrapes metrics; Grafana visualizes.
 
-####  ReplicaSet vs Deployment?
 
-* Deployment = ReplicaSet + rollout strategy.
-* Use Deployment for updates and scaling.
+### 18. How do you set up Prometheus and Grafana in Kubernetes?
 
-####  Canary vs Rolling?
 
-* Canary: Route traffic partially to new version.
-* Rolling: Replace pods gradually.
 
-####  Blue-Green Deployment?
+* Use the kube-prometheus-stack Helm chart for installation.
+* Prometheus scrapes metrics from nodes and services.
+* Grafana is used to visualize these metrics using dashboards.
 
-* Run 2 identical environments (blue & green).
-* Switch traffic to green when ready.
 
-####  StatefulSet vs DaemonSet?
 
-* StatefulSet: stable identities, persistent storage.
-* DaemonSet: one pod per node (e.g., logs, monitoring).
+### 19. ReplicaSet vs Deployment?
 
-####  Attach PV to Deployment?
 
-* Yes, using `PersistentVolumeClaim` in pod spec.
 
-####  Init vs Sidecar containers?
+* ReplicaSet ensures the desired number of pod replicas.
+* Deployment manages ReplicaSets and adds rollout strategies (e.g., updates, rollbacks).
+* Always use Deployment for better control over application lifecycle.
 
-* Init: Runs before app starts (e.g., setup).
-* Sidecar: Runs alongside (e.g., logging agent).
 
-####  Create PV?
+
+### 20. Canary vs Rolling Deployment?
+
+
+
+* Canary: Sends a small % of traffic to the new version for testing.
+* Rolling: Gradually replaces old pods with new ones without downtime.
+
+
+
+### 21. What is Blue-Green Deployment?
+
+
+
+* Maintain two environments: Blue (current) and Green (new).
+* After testing, switch traffic to Green to complete deployment.
+* Easy rollback by switching back to Blue.
+
+
+
+### 22. Differentiate StatefulSet vs DaemonSet?
+
+
+
+* StatefulSet:
+
+  * Stable pod names and persistent volumes
+  * Useful for databases like MySQL, Kafka, etc.
+* DaemonSet:
+
+  * Ensures one pod per node
+  * Ideal for logging, monitoring, and network agents
+
+
+
+### 23. Can you attach a PV to a Deployment?
+
+
+Yes. Use a `PersistentVolumeClaim` in the pod spec, and Kubernetes binds it to a `PersistentVolume`.
+
+
+
+### 24. Init Containers vs Sidecar Containers?
+
+* Init Containers:
+
+  * Run before the main container starts
+  * Used for setup or waiting for dependencies
+* Sidecar Containers:
+
+  * Run alongside the main app
+  * Used for logging, monitoring, proxying, etc.
+
+
+
+### 25. How do you create a PersistentVolume (PV)?
+
+
 
 ```yaml
 apiVersion: v1
@@ -261,58 +309,71 @@ spec:
     path: /data
 ```
 
-## Kubernetes (EKS) Troubleshooting
-
-####   You are managing EKS and all pods go offline.Where do you check logs?
-kubectl get pods --all-namespaces → Check pod status
-
-kubectl logs <pod-name> → View pod logs
-
-kubectl describe node/pod → Check for scheduling or node issues
-
-CloudWatch Logs → Centralized logging (if integrated)
-
-Check Cluster Autoscaler and node group health
-
-VPC CNI Plugin logs (for network-level issues)
-
-####   Someone accidentally deleted IPs in EKS — where can you trace it in AWS?
-Use CloudTrail: Filter logs for DeleteNetworkInterface, DetachNetworkInterface, or eks.amazonaws.com activities.
-
-Look for source IP, IAM user, and time of action.
-
-Also check VPC → ENI logs and EC2 Network Interfaces.
-
-####   What can you check when the API server is down, but the EC2 nodes are running?
-kubectl is not responding → Check if the EKS control plane is healthy
-
-Go to EKS Console → Cluster status
-
-Check VPC endpoint reachability or if the VPC/subnet/network ACLs allow control plane communication
-
-Check for IAM role misconfigurations
-
-Use CloudWatch Logs or aws eks describe-cluster to troubleshoot
 
 
-####   Can you describe a recent issue you troubleshooted in Kubernetes?
+### 26. All pods go offline in EKS. Where do you check logs?
 
-Example: Pod crash-looping due to incorrect image tag → checked logs with kubectl logs, fixed the image in deployment YAML.
 
-####   What Kubernetes services are you using in your project and what is their purpose?
 
-ClusterIP: Internal communication
+* `kubectl get pods --all-namespaces`: Check pod status
+* `kubectl logs`: View logs
+* `kubectl describe node/pod`: View resource/scheduling issues
+* CloudWatch Logs: If integrated
+* Check Cluster Autoscaler, node groups, and VPC CNI plugin logs
 
-NodePort: External access via static port
 
-LoadBalancer: Public access via cloud provider's LB
 
-Ingress: Route HTTP/HTTPS traffic with path-based routing
+### 27. Someone deleted IPs in EKS. How do you trace it in AWS?
 
-####   Can multiple pods run under a single deployment in Kubernetes?
 
-No
+* Use AWS CloudTrail
+* Filter for actions like `DeleteNetworkInterface`, `DetachNetworkInterface`
+* Check the IAM user, IP, and time of deletion
+* Also review VPC and EC2 Network Interface logs
 
-####  A Deployment manages a set of replicas of the same Pod template
 
-####  If you need different containers, use a Pod with multiple containers or multiple Deployments.
+
+### 28. API Server is down, but EC2 nodes are up. What to check?
+
+
+
+* EKS Console → Cluster health
+* VPC endpoints → Ensure control plane can communicate
+* Network ACLs, Route tables, Subnets
+* IAM role attached to nodes
+* Use `aws eks describe-cluster` and CloudWatch Logs
+
+
+
+### 29. Example of a recent Kubernetes issue you resolved?
+
+
+A pod was in a CrashLoopBackOff state due to an incorrect image tag.
+
+* Checked logs with `kubectl logs`
+* Found `ImagePullBackOff`
+* Updated the correct image in the deployment YAML
+* Applied changes and verified success
+
+
+
+### 30. What Kubernetes services are you using and why?
+
+
+
+* ClusterIP: For internal communication between pods
+* NodePort: Exposes service on a static port across all nodes
+* LoadBalancer: Public access via cloud provider's LB
+* Ingress: For path-based or domain-based routing using HTTP/HTTPS
+
+
+
+### 31. Can multiple pods run under a single Deployment?
+
+
+No. A Deployment manages multiple replicas of the same pod template.
+If you need different pods/containers, use:
+
+* Multiple Deployments
+* A Pod with multiple containers (sidecar pattern)
+
