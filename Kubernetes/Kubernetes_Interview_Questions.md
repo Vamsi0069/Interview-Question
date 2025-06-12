@@ -1,14 +1,14 @@
 
 ### 1. What is Kubernetes?
 
-Answer:
+
 Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. It helps manage clusters of containers in a reliable and scalable way.
 
 
 
 ### 2. Write a Kubernetes Deployment manifest to create an Nginx pod with 3 replicas.
 
-Answer:
+
 
 ```yaml
 apiVersion: apps/v1
@@ -36,7 +36,7 @@ spec:
 
 ### 3. Write a Kubernetes ConfigMap YAML to store database configuration with keys `DB_HOST=db.example.com` and `DB_PORT=5432`.
 
-Answer:
+
 
 ```yaml
 apiVersion: v1
@@ -52,14 +52,14 @@ data:
 
 ### 4. What is HPA (Horizontal Pod Autoscaler)?
 
-Answer:
+
 HPA automatically scales the number of pod replicas in a deployment or replica set based on observed CPU utilization or other custom metrics.
 
 
 
 ### 5. How do you scale up the replicas in a deployment using a command?
 
-Answer:
+
 
 ```bash
 kubectl scale deployment nginx-deployment --replicas=5
@@ -69,7 +69,7 @@ kubectl scale deployment nginx-deployment --replicas=5
 
 ### 6. How to copy files from the host to a container using a command?
 
-Answer:
+
 
 ```bash
 kubectl cp /path/on/host <pod-name>:/path/in/container
@@ -79,7 +79,7 @@ kubectl cp /path/on/host <pod-name>:/path/in/container
 
 ### 7. How to restart a pod without stopping the deployment?
 
-Answer:
+
 
 ```bash
 kubectl rollout restart deployment <deployment-name>
@@ -89,14 +89,14 @@ kubectl rollout restart deployment <deployment-name>
 
 ### 8. How do pods communicate with each other?
 
-Answer:
+
 Pods communicate using internal IPs assigned by the Kubernetes network. Services provide stable DNS names and load balancing to enable communication between pods.
 
 
 
 ### 9. What are the security best practices for a Kubernetes cluster?
 
-Answer:
+
 
 * Use RBAC to control access
 * Run containers as non-root
@@ -110,7 +110,7 @@ Answer:
 
 ### 10. How do you ensure the application is highly available and scalable?
 
-Answer:
+
 
 * Use Deployments with multiple replicas
 * Distribute pods across multiple nodes
@@ -122,7 +122,7 @@ Answer:
 
 ### 11. How do you troubleshoot a pod in a Pending state?
 
-Answer:
+
 
 * Run:
 
@@ -140,7 +140,7 @@ Answer:
 
 ### 12. How do you create a Kubernetes cluster? Explain the steps.
 
-Answer:
+
 
 * Using Minikube (for local testing):
 
@@ -159,7 +159,7 @@ Answer:
 
 ### 13. What critical issues have you faced with a Kubernetes cluster?
 
-Answer:
+
 
 * Pods stuck in Pending due to lack of resources
 * CrashLoopBackOff due to bad image or config
@@ -171,14 +171,14 @@ Answer:
 
 ### 14. What is an indentation error in a YAML file?
 
-Answer:
+
 Indentation errors happen when YAML syntax is not properly aligned. YAML uses spaces (not tabs) and expects consistent indentation. Misaligned sections cause parsing failures in Kubernetes.
 
 
 
 ### 15. How do you enter into a running pod or container in Kubernetes and Docker?
 
-Answer:
+
 
 * Kubernetes:
 
