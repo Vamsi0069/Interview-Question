@@ -595,3 +595,121 @@ Terraform stores its state file (`terraform.tfstate`) to track infrastructure ch
 
 * Locally: In the working directory by default.
 * Remotely: For teams and safety, store in Amazon S3 with DynamoDB for state locking and consistency.
+
+### How to Manage Multiple AWS Accounts
+
+Use AWS Organizations:
+
+- Create accounts centrally under a Management Account
+
+- Apply Service Control Policies (SCPs)
+
+- Use Organizational Units (OUs) for grouping
+
+- Enable Consolidated Billing
+
+Tools:
+- AWS Control Tower
+
+- IAM Role Switching (sts:AssumeRole)
+
+- AWS CLI Profiles:
+
+[dev]
+
+aws_access_key_id=...
+
+aws_secret_access_key=...
+
+[prod]
+
+aws_access_key_id=...
+
+aws_secret_access_key=...
+
+### Whitelisting SCP on a Server
+
+ 1. SSH Port is Open (SCP runs over SSH)
+
+SCP uses port 22 (TCP) by default. To whitelist it:
+
+a. On AWS (Security Group)
+
+* Go to the EC2 console → Security Groups.
+* Edit Inbound Rules.
+* Add a rule:
+
+  * Type: SSH
+  * Protocol: TCP
+  * Port Range: 22
+  * Source: `<your IP or CIDR>` (e.g., `203.0.113.5/32`)
+
+b. With iptables (Linux firewall)
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s <your_ip_address> -j ACCEPT
+```
+
+ 2. Ensure SSH is Running
+
+Make sure the `sshd` service is active:
+
+```bash
+sudo systemctl status sshd
+```
+
+
+ 3. Use SCP for File Transfer
+
+Example:
+
+```bash
+scp -i key.pem file.txt user@server:/path/to/destination/
+```
+
+### Different Types of AWS Policies
+-----------------------------------------------------------------------------------------
+| Policy Type           | Attached To          | Purpose                                 |
+|-----------------------|----------------------|-----------------------------------------|
+| IAM Policies          | Users, Roles         | Grants permissions                      |
+| Resource Policies     | S3, SNS, Lambda      | Grants access to the resource           |
+| SCPs                  | Accounts / OUs       | Max boundary for Org accounts           |
+| Permission Boundaries | IAM Roles/Users      | Limit what the role/user can do         |
+| Session Policies      | STS sessions         | Temporary session-level limits          |
+| ACLs                  | Legacy (e.g. S3)     | Basic allow/deny access                 | 
+-----------------------------------------------------------------------------------------
+
+### Bash Script to Update Packages (for AMIs)
+Amazon Linux:
+#!/bin/bash
+yum update -y
+yum upgrade -y
+
+Ubuntu:
+#!/bin/bash
+apt-get update -y
+apt-get upgrade -y
+
+Use via user-data or systemd service
+
+### How to Update a Stale EC2 Instance (1 Year Old)
+
+1. Update packages (yum/apt)
+
+2. Reboot if kernel was updated
+
+3. Update SSM and CloudWatch agents
+
+4. Patch application code
+
+5. Replace with latest AMI if outdated
+
+6. Use SSM Patch Manager for automation
+
+### Copy File from S3 to EC2
+
+aws s3 cp s3://your-bucket-name/file.txt /home/ec2-user/file.txt
+
+Ensure EC2 instance has IAM role with s3:GetObject permission
+
+
