@@ -10,19 +10,29 @@ A service under AWS Systems Manager that allows secure shell-less access to EC2 
 #### What is an AMI (Amazon Machine Image)?
 
 An AMI is a template used to launch EC2 instances.
+
 It includes the OS, application server, and application.
+
 To create:
+
 AWS Console → EC2 → Actions → "Create Image"
 
 
-#### Difference between EBS and EFS
+Here's a corrected and complete version of the comparison table:
 
-| Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
-|  | - | -- |
-| Type            | Block storage             | NFS-based shared file storage |
-| Instance Access | Single EC2 instance       | Multiple EC2 instances        |
-| Use Case        | Databases, boot volumes   | Shared storage, web content   |
+---
 
+###  Difference between EBS and EFS
+
+| Feature         | EBS (Elastic Block Store)                             | EFS (Elastic File System)                         |
+| ------------------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| Type            | Block storage                                             | NFS-based shared file storage                         |
+| Instance Access | Attached to a single EC2 instance at a time (in one AZ)   | Can be mounted on multiple EC2 instances (across AZs) |
+| Performance     | High performance for a single instance                    | Scales automatically with many instances              |
+| Use Case        | Databases, boot volumes, applications needing low latency | Shared storage, web servers, container storage        |
+| Pricing         | Pay for provisioned size                                  | Pay for actual storage used                           |
+| Scalability     | Must manually increase volume size                        | Automatically scales with storage needs               |
+| Availability    | Limited to a single AZ (can use snapshots for backup)     | Accessible across multiple AZs (high availability)    |
 
 ####  What is AWS Backup?
 
@@ -89,6 +99,7 @@ A serverless orchestration service that connects AWS services using state machin
 * Visual workflow editor available
 
 #### What is a NAT Gateway? And what is its use?
+
 A NAT Gateway is a service in AWS that lets servers in a private subnet connect to the internet, but it blocks internet traffic from coming in.
 
 - Why is it used?
