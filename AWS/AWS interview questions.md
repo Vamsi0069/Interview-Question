@@ -42,6 +42,73 @@ A centralized backup service to automate backup of AWS resources:
 * Enables scheduled, compliant, and encrypted backups
 * Integrates with AWS Organizations for centralized control
 
+#### What is the difference between IAM Role and IAM User?
+
+IAM User: An entity representing a person or service with long-term credentials.
+
+IAM Role: A temporary identity assumed by users/services, useful for cross-account access or EC2, Lambda, etc.
+
+#### What are the types of storage in AWS?
+
+EBS – Block storage for EC2.
+
+EFS – Shared file storage across EC2.
+
+S3 – Object storage for any type of file.
+
+Glacier – Archive storage for long-term backups.
+
+Instance Store – Temporary storage tied to EC2 lifecycle.
+
+#### What is Auto Scaling?
+
+Auto Scaling automatically adjusts the number of EC2 instances based on demand using scaling policies (CPU usage, memory, etc.), improving availability and cost-efficiency.
+
+#### What are the types of Load Balancers in AWS?
+
+Application Load Balancer (ALB) – Layer 7 (HTTP/HTTPS), path-based routing.
+
+Network Load Balancer (NLB) – Layer 4, high performance, static IP.
+
+Classic Load Balancer (CLB) – Legacy, supports both L4 & L7 (not recommended).
+
+#### What is Route 53?
+
+Route 53 is AWS’s scalable DNS and domain management service. It supports:
+
+Domain registration
+
+Routing traffic (e.g., latency, geo-based)
+
+Health checks
+
+Private DNS within VPCs
+
+#### How do you secure an S3 bucket?
+
+Enable Block Public Access
+
+Use IAM policies or bucket policies
+
+Enable versioning and encryption (SSE-KMS)
+
+Enable MFA Delete
+
+Use CloudTrail for logging access
+
+#### What is VPC and what components does it have?
+
+VPC (Virtual Private Cloud) is your isolated AWS network. Components include:
+
+Subnets
+
+Route Tables
+
+Internet Gateway / NAT Gateway
+
+NACLs & Security Groups
+
+VPC Peering / Transit Gateway
 
 ####  What is RDS MySQL?
 
@@ -716,4 +783,7 @@ aws s3 cp s3://your-bucket-name/file.txt /home/ec2-user/file.txt
 
 Ensure EC2 instance has IAM role with s3:GetObject permission
 
+#### What is Elastic Beanstalk?
+
+Elastic Beanstalk is a PaaS offering that deploys applications (Java, Python, .NET, etc.) automatically with provisioning of EC2, ALB, Auto Scaling, and monitoring.
 
