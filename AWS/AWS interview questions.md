@@ -277,13 +277,6 @@ Access control: I could control access using IAM policies or pre-signed URLs.
 
 JSON document attached to a bucket to define access rules for users, roles, or the public.
 
-#### What is 403 error in S3 object permission?
-
-It means access denied. Possible causes:
-Missing s3:GetObject permission
-Object is private
-Bucket policy restricts access
-
 #### What is AWS Serverless and what are its key benefits?
 
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
@@ -297,11 +290,15 @@ AWS Serverless refers to a cloud-native development model that allows you to bui
 •	AWS Step Functions – orchestrate workflows
 
 #### What is a Key Pair in AWS?
-A Key Pair is used for secure SSH access to EC2 instances. It includes a public key (stored in AWS) and a private key (downloaded by the user).
+A Key Pair is used for secure SSH access to EC2 instances. 
+
+It includes a public key (stored in AWS) and a private key (downloaded by the user).
+
 You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
 
 
 #### What is AWS VPC peering?
+
  VPC peering is a networking connection between two VPCs that enables routing traffic between them using private IPs. Peering works across regions and accounts but does not support transitive peering.
 
 #### What AWS resources have you worked with?
@@ -374,18 +371,23 @@ OAI is used to restrict access to an S3 bucket so only CloudFront can fetch cont
 #### What is SNS and how do you create it?
 
 SNS (Simple Notification Service) is an AWS service used to send notifications via email, SMS, HTTP, or Lambda.
+
 To create it:
 
 Go to AWS SNS in the console.
+
 Click “Create topic” → Choose Standard or FIFO.
+
 Name the topic and click Create.
+
 To add a subscriber, choose the topic → Create subscription → select protocol (e.g., Email) and provide the endpoint.
 
 #### How can you recover a deleted S3 object?
- How do you restore a deleted S3 object?
+
  If versioning was enabled, I can retrieve the deleted object using a previous version. Without versioning, the object is permanently deleted unless S3 backup (e.g., replication or lifecycle rule to Glacier) is configured.
 
 #### How do you secure a 3-tier architecture?
+
  How do you secure a 3-tier app (web, app, DB)?
  I use security groups and NACLs to isolate layers:
 
@@ -487,7 +489,9 @@ IAM Policy: A JSON document that defines permissions. It is attached to users, g
 #### What are the types of IAM policies?
 
 AWS Managed Policies: Predefined and maintained by AWS.
+
 Customer Managed Policies: Custom policies created and managed by you.
+
 Inline Policies: Embedded directly into a single IAM user, group, or role.
 
 
@@ -499,7 +503,7 @@ MFA (Multi-Factor Authentication) adds an extra layer of security by requiring a
 
 
 
-### 4. How do you secure your AWS account?
+###  How do you secure your AWS account?
 
 * Enable MFA on the root and all IAM users.
 * Use IAM roles and follow the principle of least privilege.
@@ -509,7 +513,7 @@ MFA (Multi-Factor Authentication) adds an extra layer of security by requiring a
 
 
 
-### 5. What is Lifecycle policy in S3?
+###  What is Lifecycle policy in S3?
 
 * A lifecycle policy automatically transitions objects to different storage classes (e.g., to Glacier) or deletes them after a defined period.
 * Useful for managing cost and data retention.
@@ -530,18 +534,7 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 
 
-### 8. Difference between EBS and EFS?
-
-| Feature     | EBS                        | EFS                                 |
-| -- | -- | -- |
-| Type        | Block storage              | File storage (NFS)                  |
-| Access      | One EC2 instance at a time | Multiple EC2 instances concurrently |
-| Scalability | Predefined volume size     | Scales automatically                |
-| Use Case    | Databases, boot volumes    | Shared file storage                 |
-
-
-
-### 9. What is a spot instance vs on-demand vs reserved instance?
+###  What is a spot instance vs on-demand vs reserved instance?
 
 | Type      | Description                                         | Cost        |
 |  |  | -- |
@@ -551,7 +544,7 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 
 
-### 10. Difference between RDS and DynamoDB?
+###  Difference between RDS and DynamoDB?
 
 | Feature    | RDS                               | DynamoDB                         |
 | - |  | -- |
@@ -562,28 +555,28 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 
 
-### 11. What is Auto Scaling and how does it work?
+###  What is Auto Scaling and how does it work?
 
 * Auto Scaling automatically adjusts the number of EC2 instances in response to traffic or load.
 * It uses scaling policies and CloudWatch alarms to launch or terminate instances as needed.
 
 
 
-### 12. What is a Target Group?
+###  What is a Target Group?
 
 * A target group is a collection of resources (such as EC2 instances or IPs) that a load balancer routes traffic to.
 * Used with ALB and NLB to manage traffic and apply health checks.
 
 
 
-### 13. How do health checks work in ALB?
+###  How do health checks work in ALB?
 
 * ALB sends health check requests (e.g., HTTP GET) to each target at a specific path and port.
 * If a target fails health checks repeatedly, it is marked unhealthy and removed from the routing pool until it recovers.
 
 
 
-### 14. Difference between EBS and S3?
+###  Difference between EBS and S3?
 
 | Feature    | EBS                   | S3                           |
 | - |  | - |
