@@ -147,6 +147,8 @@ git branch -a
 ```bash
 git fetch origin branch_name
 ```
+This will fetch the branch from the remote origin but won’t merge or checkout it.
+
 #### 28.How to merge a branch?
 
 Be in the target branch, then: git merge source_branch
@@ -165,7 +167,14 @@ git merge --abort
 ```
 #### 32.What does git rm do?
 
-Deletes files from working directory and stages the deletion.
+`git rm` is used to remove files from the working directory and the staging area (index) in Git.
+
+```bash
+git rm <file>
+```
+
+* Deletes the file from your local project.
+* Stages the deletion for the next commit.
 
 #### 33.	How to check which branches have been merged into master?
 ```bash
@@ -253,9 +262,64 @@ When HEAD points to a specific commit instead of a branch.
 git cherry-pick <commit_id>
 ```
 #### 48.How to rebase interactively?
+
+```bash
+git rebase -i HEAD~n
+```
+
+This command lets you interactively edit, squash, reword, or reorder the last `n` commits.
+
+### 🔹 Real-Time Use Case:
+
+Scenario:
+You’ve made 5 messy commits while working on a feature (`fix typo`, `update function`, `add logging`, etc.), and now before pushing, you want to clean up the history into meaningful commits.
+
+### 💡 Steps to Rebase Interactively:
+
+1. Rebase the last 5 commits:
+
+   ```bash
+   git rebase -i HEAD~5
+   ```
+
+2. In the interactive editor, you'll see:
+
+   ```
+   pick 123abc add logging
+   pick 456def update function
+   pick 789ghi fix typo
+   pick abc123 refactor logic
+   pick def456 add comments
+   ```
+
+3. Change `pick` to:
+
+   * `squash` (combine into the commit above),
+   * `reword` (edit commit message),
+   * `drop` (remove the commit), etc.
+
+   Example:
+
+   ```
+   pick 123abc add logging
+   squash 456def update function
+   reword 789ghi fix typo
+   ```
+
+4. Save and follow the prompts to edit commit messages.
+
+###  Benefit:
+
+Cleans up commit history before merge or push, making it easier to read, review, and debug.
+
+Let me know if you want a sample repo to practice or automate this in a script.
+
+
 ```
 git rebase -i HEAD~n to squash/reword commits.
 ```
+
+
 #### 49.How do you lock a branch in GitHub?
 
 In repository settings → Branches → Add branch protection rules.
