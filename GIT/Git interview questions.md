@@ -296,6 +296,39 @@ A request to merge changes from one branch to another, usually with a code revie
 
 A merge where the target branch pointer is simply moved forward to the latest commit.
 
+A fast-forward merge happens when the branch being merged is directly ahead of the current branch, with no diverging commits.
+
+In this case, Git simply moves the branch pointer forward — no new merge commit is created.
+
+
+### Example:
+
+```bash
+main:    A---B
+feature:     \---C---D
+```
+
+If `main` hasn’t changed since `B`, merging `feature` results in:
+
+```bash
+main:    A---B---C---D
+```
+
+Command:
+
+```bash
+git checkout main
+git merge feature
+```
+
+If it's a fast-forward, no merge commit will be created.
+
+### Use Case:
+
+* No changes have been made on the target branch (e.g., `main`)
+* You want a clean, linear history
+
+
 #### 42.How to force push changes?
 ```bash
 git push origin branch_name --force
@@ -308,7 +341,40 @@ Push tags: git push origin v1.0
 ```
 #### 44.Difference between annotated and lightweight tags?
 
-Annotated has metadata and is stored in Git history. Lightweight is just a pointer.
+### ✅ Q44. Difference between Annotated and Lightweight Tags in Git
+
+Git supports two types of tags: Annotated and Lightweight. Here's a detailed comparison:
+
+
+### 1. Annotated Tag
+
+* Stored as a full Git object.
+* Contains:
+
+  * Tag name
+  * Tagger name, email, and date
+  * Commit hash
+  * Optional message
+  * GPG signature (optional)
+* Good for releases and official versioning.
+
+Create:
+
+```bash
+git tag -a v1.0 -m "Release version 1.0"
+```
+
+### 2. Lightweight Tag
+
+* Just a pointer to a commit (like a branch).
+* No metadata (no message, date, or tagger info).
+* Useful for temporary bookmarks or internal use.
+
+Create:
+
+```bash
+git tag v1.0
+```
 
 #### 45.How to list and delete tags?
 
@@ -318,7 +384,48 @@ Annotated has metadata and is stored in Git history. Lightweight is just a point
 
 #### 46.What is a detached HEAD state?
 
-When HEAD points to a specific commit instead of a branch.
+A detached HEAD state occurs when `HEAD` points directly to a commit, tag, or remote branch — not to a local branch.
+
+In this state, you're not working on any branch, so new commits won't be associated with a branch unless you create one.
+
+
+###  Example:
+
+```bash
+git checkout 7e3a2f5
+```
+
+This checks out a specific commit — not a branch. Now you're in a detached HEAD state.
+
+### 🔹 What happens here:
+
+* You can view or test an old version of the code.
+* You can make changes and commit, but those commits are not attached to any branch.
+* If you switch branches or exit, your work may be lost.
+
+
+### 🔹 How to Save Work in Detached HEAD:
+
+If you've made commits and want to keep them:
+
+```bash
+git checkout -b new-branch-name
+```
+
+This moves the commits onto a new branch so they won't be lost.
+
+
+### 🔹 Real-Time Use Case:
+
+Scenario:
+You're debugging a bug introduced in a recent release. You check out a commit from an earlier working state:
+
+```bash
+git checkout abc1234
+```
+
+You're now in a detached HEAD state and can test code at that commit.
+
 
 #### 47.How to cherry-pick a commit from another branch?
 ```
@@ -337,7 +444,7 @@ This command lets you interactively edit, squash, reword, or reorder the last `n
 Scenario:
 You’ve made 5 messy commits while working on a feature (`fix typo`, `update function`, `add logging`, etc.), and now before pushing, you want to clean up the history into meaningful commits.
 
-### 💡 Steps to Rebase Interactively:
+### Steps to Rebase Interactively:
 
 1. Rebase the last 5 commits:
 
