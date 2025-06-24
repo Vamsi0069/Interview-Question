@@ -149,6 +149,34 @@ git fetch origin branch_name
 ```
 This will fetch the branch from the remote origin but won’t merge or checkout it.
 
+### 27. How to fetch a remote branch without merging? 
+
+Use the `git fetch` command. It downloads the branch from the remote without merging it into your current branch.
+
+###  Command:
+
+```bash
+git fetch origin <branch-name>
+```
+
+This only fetches the branch. To view or switch to it:
+
+```bash
+git checkout <branch-name>
+```
+
+###  Example:
+
+```bash
+git fetch origin feature/login
+git checkout feature/login
+```
+
+###  Use Case :
+
+You want to review a teammate’s branch before merging. So you fetch it first, check it out, test the code, and then decide whether to merge.
+
+
 #### 28.How to merge a branch?
 
 Be in the target branch, then: git merge source_branch
@@ -176,10 +204,45 @@ git rm <file>
 * Deletes the file from your local project.
 * Stages the deletion for the next commit.
 
-#### 33.	How to check which branches have been merged into master?
+#### 33.	How to check which branches have been merged into main?
 ```bash
 git branch --merged
 ```
+
+| Command               | Purpose                                                     |
+|  | -- |
+| `git branch`          | Lists all local branches                                |
+| `git branch --merged` | Lists local branches already merged into current branch |
+
+
+
+###  Example:
+
+```bash
+$ git branch
+* main
+  feature/login
+  feature/signup
+```
+
+```bash
+$ git branch --merged
+* main
+  feature/login
+```
+
+This means:
+
+* `feature/login` is already merged into `main`
+* `feature/signup` is not merged yet
+
+
+###  Use Case:
+
+* Use `git branch` to see all branches
+* Use `git branch --merged` to safely delete merged branches
+
+
 #### 34.Describe Git branching strategy you've used.
 
 Feature, Task, and Release branching (explain with real project use).
@@ -269,7 +332,7 @@ git rebase -i HEAD~n
 
 This command lets you interactively edit, squash, reword, or reorder the last `n` commits.
 
-### 🔹 Real-Time Use Case:
+###  Real-Time Use Case:
 
 Scenario:
 You’ve made 5 messy commits while working on a feature (`fix typo`, `update function`, `add logging`, etc.), and now before pushing, you want to clean up the history into meaningful commits.
