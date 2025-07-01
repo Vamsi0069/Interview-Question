@@ -113,15 +113,25 @@ sudo usermod -aG devteam username
 groups username
 
 #### 19 List top 10 most commonly used linux commands?
+
 ls -l           # Long listing of files
+
 cd /var/log     # Navigate to /var/log directory
+
 pwd             # Show current path
+
 cp file1 file2  # Copy file1 to file2
+
 mv file1 dir/   # Move file1 to directory
+
 rm file1        # Delete file1
+
 cat file1       # Show contents of file1
+
 grep "text" file1  # Search for 'text' in file1
+
 find . -name "*.log"  # Find .log files in current directory
+
 chmod +x script.sh    # Make script executable
 
 #### 20:Slowness is observed due to high CPU utilization. What would you do?
@@ -244,19 +254,9 @@ find /target/folder -type f -size +100M -delete
 * `-size +100M`: over 100 MB
 * `-delete`: remove them
 
-#### 27 How do you list users who logged in today if some packages (e.g., `who`) are missing?
+#### 27 How do you list users who logged in today ?
 
-Use `last` (if available):
-
-```bash
-last | grep "$(date +%F)"
-```
-
-Alternatively check `/var/log/auth.log` or `/var/log/secure`:
-
-```bash
-grep "$(date +'%b %e')" /var/log/auth.log | awk '{print $1}' | sort -u
-```
+ check `/var/log/auth.log` or `/var/log/secure`:
 
 
 #### 28 A website isn't loading—how do you troubleshoot?
