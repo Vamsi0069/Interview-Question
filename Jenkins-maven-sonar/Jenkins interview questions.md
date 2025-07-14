@@ -1,5 +1,6 @@
 
 1. **What is Jenkins?**
+
    Jenkins is an open-source automation server used to automate parts of the software development process like building, testing, and deploying.
 
 2. **What are the key features of Jenkins?**
@@ -11,12 +12,15 @@
 * Extensible via plugins
 
 3. **How does Jenkins work?**
+
    Jenkins polls the version control system (e.g., Git) for changes, and when changes are detected, it triggers a build and executes defined steps like build, test, and deploy.
 
 4. **What is a Jenkins pipeline?**
+
    A pipeline is a suite of plugins that supports integrating and implementing continuous delivery pipelines using code.
 
 5. **What is the difference between freestyle project and pipeline?**
+
    Freestyle: UI-based and limited customization.
    Pipeline: Scripted and supports complex workflows as code.
 
@@ -26,27 +30,35 @@
 * Scripted Pipeline
 
 7. **What is Jenkinsfile?**
+
    It’s a text file that contains the definition of a Jenkins pipeline and is checked into source control.
 
 8. **Where is Jenkins installed?**
+
    Typically as a WAR file on Java, or using system packages like `.rpm`, `.deb`, or Docker.
 
 9. **How do you configure a job in Jenkins?**
+
    By creating a new job, choosing project type (freestyle/pipeline), and setting steps like source control, build steps, post-build actions.
 
 10. **What is the use of Jenkins executor?**
+
     Executor is a computational slot for running builds on an agent.
 
 11. **How do you trigger a Jenkins job automatically?**
+
     Using SCM polling, webhook triggers, or scheduling (CRON syntax).
 
 12. **What is a build trigger?**
+
     A mechanism to start a job (e.g., after another job, SCM change, webhook).
 
 13. **What is an agent in Jenkins?**
+
     An agent is a node (machine) where Jenkins runs jobs.
 
 14. **Difference between master and agent?**
+
     Master: controls Jenkins setup and job scheduling.
     Agent: executes jobs as per master’s direction.
 
@@ -58,34 +70,44 @@
 * Use Role-Based Access Control plugin
 
 16. **How do you integrate Jenkins with GitHub?**
+
     Using GitHub plugin and webhooks to trigger jobs on commit/pull request.
 
 17. **What plugins have you used in Jenkins?**
+
     Git, Docker, Slack, Pipeline, Blue Ocean, Email Extension, Role Strategy, Kubernetes.
 
 18. **How do you install a plugin in Jenkins?**
+
     Go to: Manage Jenkins → Manage Plugins → Available → Search → Install.
 
 19. **How do you monitor Jenkins?**
+
     Using monitoring plugins (e.g., Prometheus), logs, and alerts.
 
 20. **What is a parameterized build?**
+
     Allows passing parameters (string, choice, boolean) to customize job behavior.
 
 21. **Explain declarative pipeline syntax.**
+
     Structured format using `pipeline {}` block. Easier to read and validate.
 
 22. **Explain scripted pipeline syntax.**
+
     Groovy-based flexible syntax using `node {}` blocks.
 
 23. **What is the use of `stage` and `steps`?**
+
     `stage`: logical section in the pipeline
     `steps`: actual commands/tasks within a stage
 
 24. **How do you handle errors in a pipeline?**
+
     Using `try-catch`, `catchError`, or `when` blocks.
 
 25. **What is post section in pipeline?**
+
     Executes tasks regardless of build result:
 
 ```groovy
@@ -97,15 +119,19 @@ post {
 ```
 
 26. **How to send email notifications in Jenkins?**
+
     Using Email Extension plugin in post-build or pipeline post block.
 
 27. **What is input step in Jenkins pipeline?**
+
     Pauses the pipeline for manual intervention/approval.
 
 28. **What is `when` condition in declarative pipeline?**
+
     Used to control whether a stage should run.
 
 29. **What are shared libraries in Jenkins?**
+
     Reusable Groovy scripts stored in SCM to be used across pipelines.
 
 30. **How to define environment variables in pipeline?**
@@ -117,16 +143,20 @@ environment {
 ```
 
 31. **What is the difference between `node` and `agent`?**
+
     `node` is used in scripted pipelines.
     `agent` is used in declarative pipelines to assign where the job runs.
 
 32. **How do you deploy code using Jenkins?**
+
     By defining deployment stages using scripts or plugins (e.g., SSH, Ansible, Helm, etc.)
 
 33. **How do you rollback in Jenkins pipeline?**
+
     Use versioning, tagging, and rollback scripts or previous stable deployments.
 
 34. **What is Blue Ocean in Jenkins?**
+
     Modern UI for Jenkins pipelines with better visualization.
 
 35. **How to run parallel stages in pipeline?**
@@ -139,18 +169,23 @@ parallel {
 ```
 
 36. **What is `stash` and `unstash` in Jenkins?**
+
     Used to share files between pipeline stages.
 
 37. **How do you pass credentials in Jenkins securely?**
+
     Using Jenkins credentials store and referencing them via `withCredentials`.
 
 38. **How do you archive artifacts in Jenkins?**
+
     Use `archiveArtifacts` step in pipeline or post-build action in freestyle.
 
 39. **How do you clean workspace before/after build?**
+
     Use `cleanWs()` plugin or configure build environment.
 
 40. **How do you integrate Docker with Jenkins?**
+
     Install Docker plugin, run Docker commands in build steps, or use Docker agents.
 
 41. **What to do if Jenkins build fails suddenly?**
@@ -161,15 +196,19 @@ parallel {
 * Look at plugin versions or system changes
 
 42. **How do you handle flaky tests in Jenkins?**
+
     Isolate tests, retry strategy, improve test stability, or move to separate stage.
 
 43. **How to run a pipeline on multiple environments?**
+
     Use `matrix` or environment-specific stages with conditions.
 
 44. **How do you use Jenkins with Kubernetes?**
+
     Use Kubernetes plugin to dynamically provision pods as Jenkins agents.
 
 45. **How do you maintain Jenkins jobs in large environments?**
+
     Use Job DSL or pipelines with shared libraries to define jobs as code.
 
 46. **How to handle credentials in pipeline?**
@@ -182,15 +221,19 @@ withCredentials([string(credentialsId: 'id', variable: 'VAR')]) {
 ```
 
 47. **How do you integrate Jenkins with Slack or MS Teams?**
+
     Using notifier plugins and webhook URLs.
 
 48. **What is the role of SCM in Jenkins pipeline?**
+
     SCM provides source code, pipeline definitions (Jenkinsfile), and triggers for builds.
 
 49. **How do you avoid hardcoding values in pipeline?**
+
     Use parameters, environment variables, and external config files.
 
 50. **How do you back up Jenkins configuration?**
+
     Regularly back up `$JENKINS_HOME`, or use backup plugins.
 
 #### How do you configure AWS security credentials in Jenkins?
@@ -238,7 +281,7 @@ Folder / Matrix Job
 Scripted pipelines offer more control; declarative pipelines are preferred for structured, readable, and version-controlled CI/CD.
 
 #### Key difference when configuring a new CI/CD pipeline?
-A:
+
 - Jenkins: Customizable but manual setup (Jenkinsfile, agents, plugins).
 - GitLab: Easy, tightly integrated with Git, uses .gitlab-ci.yml.
 
@@ -302,14 +345,14 @@ They are stored in a separate Git repo or directory structure and loaded using:
 @Library('library-name') _( in shell script)
 
 #### Explain Jenkins architecture.
-A: Jenkins follows a master-agent architecture.
+ Jenkins follows a master-agent architecture.
 
 The master schedules builds, manages agents, and handles web UI.
 
 Agents execute build jobs on different platforms or environments.
 
 #### What is the difference between Jenkins agents and labels?
-A: Agents are machines (nodes) that run jobs.
+ Agents are machines (nodes) that run jobs.
 
 Labels are tags you assign to agents to group them for job scheduling (e.g., linux, docker).
 
@@ -330,5 +373,5 @@ Via webhooks, polling SCM, Git push triggers, or GitHub Actions → Jenkins inte
 #### How do you connect Jenkins to the cloud (AWS)?
 Q: How do you connect Jenkins to cloud environments like AWS?
 
-A: I configure Jenkins with AWS CLI/SDK or IAM credentials (via credentials plugin). I install plugins like AWS EC2, use IAM roles (on EC2 agents), and store secrets in AWS Secrets Manager or Jenkins credentials.
+ I configure Jenkins with AWS CLI/SDK or IAM credentials (via credentials plugin). I install plugins like AWS EC2, use IAM roles (on EC2 agents), and store secrets in AWS Secrets Manager or Jenkins credentials.
 
