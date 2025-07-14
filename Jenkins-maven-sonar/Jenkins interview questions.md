@@ -174,6 +174,7 @@ parallel {
 
 46. **How to handle credentials in pipeline?**
 
+
 ```groovy
 withCredentials([string(credentialsId: 'id', variable: 'VAR')]) {
   sh 'echo $VAR'
