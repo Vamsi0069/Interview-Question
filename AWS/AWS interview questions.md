@@ -191,8 +191,7 @@ The traffic goes through the NAT Gateway, which sits in a public subnet, and the
 | Placement        | In a public subnet                                      | Attached to the VPC                                                      |
 | Managed by AWS   |  Yes                                                       |  Yes                                                                        |
 | Needs Public IP? |  No (for private EC2s)                                     |  Yes (for EC2 to be reachable)    
-                                          |
-
+                                          
 #### What is AWS CloudTrail and how do you manage it in your project?
 
 CloudTrail logs all API calls and activities across AWS accounts (who did what, when, from where).
@@ -407,19 +406,20 @@ For automatic and manual scaling, I’ve used:
 
 •	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
 
-#### Difference between ALB and NLB
+### Difference between ALB and NLB
 
-| Feature               | ALB (Application Load Balancer)                   | NLB (Network Load Balancer)          |
-|  | -- | - |
-| Layer             | Layer 7 (Application Layer)                           | Layer 4 (Transport Layer)                |
-| Protocol          | HTTP, HTTPS, WebSocket                                | TCP, UDP, TLS                            |
-| Use Case          | For web apps, APIs (content-based routing)            | For high-performance or low-latency apps |
-| Routing           | Smart routing – based on URL, headers, hostname, etc. | Basic routing – based on IP and port     |
-| Target Types      | EC2, IP, Lambda                                       | EC2, IP                                  |
-| TLS Termination   |  Yes                                                  |  Yes                                     |
-| Health Checks     | Application-level (HTTP)                              | Network-level (TCP)                      |
-| Static IP Support |  No (uses DNS name)                                   |  Yes (can assign Elastic IPs)            |
-| Performance       | Good for HTTP apps                                    | Best for high-throughput, real-time apps |
+| **Feature**             | **ALB (Application Load Balancer)**              | **NLB (Network Load Balancer)**                       |
+| ----------------------- | ------------------------------------------------ | ----------------------------------------------------- |
+| **Layer**               | Layer 7 (Application Layer)                      | Layer 4 (Transport Layer)                             |
+| **Protocols Supported** | HTTP, HTTPS, WebSocket                           | TCP, UDP, TLS                                         |
+| **Use Case**            | Web apps, microservices, APIs (advanced routing) | High-performance, low-latency, real-time applications |
+| **Routing Type**        | Content-based routing (URL, host, headers, etc.) | Forwarding based on IP address and port               |
+| **Target Types**        | EC2 instances, IP addresses, Lambda functions    | EC2 instances, IP addresses                           |
+| **TLS Termination**     | Supported                                        | Supported                                             |
+| **Health Checks**       | Application-level (HTTP/HTTPS)                   | Network-level (TCP/HTTP/HTTPS)                        |
+| **Static IP Support**   | Not directly (uses DNS name)                     | Yes (supports Elastic IPs)                            |
+| **Performance**         | Optimized for HTTP/S traffic                     | Optimized for extreme performance and high throughput |
+
 
 
 #### How do you connect to a private subnet?
@@ -502,28 +502,28 @@ aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
 
-| Feature          | Security Group                              | Network ACL (NACL)                                    |
-| -- | -- |  |
-| Level            | Instance-level                                  | Subnet-level                                              |
-| Stateful         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
-| Rules            | Allow rules only                                | Allow and Deny rules                                      |
-| Applies to       | EC2 Instances (and other resources)             | Entire Subnets                                            |
-| Default Behavior | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default(can be modified)|
-| Rule Evaluation  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)             |
-| Use Case         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
 
-#### What are EC2 instance types?
+| **Feature**          | **Security Group**                               | **Network ACL (NACL)**                                    |
+| -------------------- | ------------------------------------------------ | --------------------------------------------------------- |
+| **Level**            | Instance-level                                   | Subnet-level                                              |
+| **Stateful**         | Yes (automatically allows return traffic)        | No (return traffic must be explicitly allowed)            |
+| **Rules**            | Allow rules only                                 | Allow and Deny rules                                      |
+| **Applies to**       | EC2 instances and ENIs                           | Entire subnets                                            |
+| **Default Behavior** | Deny all inbound, allow all outbound             | Allow all inbound and outbound (by default; customizable) |
+| **Rule Evaluation**  | All rules evaluated together (no priority order) | Rules evaluated in number order; first match wins         |
+| **Use Case**         | Fine-grained control over instance traffic       | Broad control over subnet-level traffic                   |
 
-EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
-| Instance Series | Type                    | Use Case                               | Examples                |
-| - |  |  |  |
-| t-series        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
-| m-series        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
-| c-series        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
-| r-series        | Memory Optimized            | In-memory databases, real-time big data    | `r5.large`, `r6g.xlarge`    |
-| i-series        | Storage Optimized           | High IOPS, low-latency storage workloads   | `i3.large`, `i4i.xlarge`    |
-| g/p-series      | GPU / Accelerated Computing | ML training/inference, AI, video rendering | `g4dn.xlarge`, `p3.2xlarge` |
+### EC2 Instance Types (Based on Use Case)
+
+| **Instance Series** | **Type**                    | **Use Case**                                  | **Examples**                |
+| ------------------- | --------------------------- | --------------------------------------------- | --------------------------- |
+| `t-series`          | Burstable General Purpose   | Low-cost, spiky workloads                     | `t2.micro`, `t3.small`      |
+| `m-series`          | General Purpose             | Balanced compute, memory, networking          | `m5.large`, `m6g.medium`    |
+| `c-series`          | Compute Optimized           | High-performance compute workloads            | `c5.large`, `c6g.xlarge`    |
+| `r-series`          | Memory Optimized            | In-memory DBs, real-time analytics            | `r5.large`, `r6g.xlarge`    |
+| `i-series`          | Storage Optimized           | High IOPS, low-latency storage workloads      | `i3.large`, `i4i.xlarge`    |
+| `g/p-series`        | GPU / Accelerated Computing | ML training, AI inference, graphics rendering | `g4dn.xlarge`, `p3.2xlarge` |
 
 
 #### What is nslookup?
@@ -536,21 +536,20 @@ EC2 instances are categorized based on their hardware capabilities and use cases
 - AWS Lambda functions don’t have inodes. Inodes are filesystem metadata; Lambda runs serverless, so no direct inode.
 
 #### Difference between  CloudWatch and CloudTrail
-| Feature          | CloudWatch                  | CloudTrail                       |
-||--|-|
-| Purpose          | Monitoring & metrics        | API call logging & auditing      |
-| Data Type        | Metrics, logs               | Management API event logs        |
-| Use Case         | Performance & alerts        | Security, compliance, auditing   |
-| Real-time?       | Yes                         | No                               |
-| Retention        | Configurable                | 90 days default + S3 archival    |
 
+| **Feature**    | **CloudWatch**                               | **CloudTrail**                                 |
+| -------------- | -------------------------------------------- | ---------------------------------------------- |
+| **Purpose**    | Monitoring performance and resource metrics  | Logging and auditing AWS API calls             |
+| **Data Type**  | Metrics, logs, dashboards, alarms            | Management events, API activity logs           |
+| **Use Case**   | Operational monitoring, alerting, automation | Security analysis, compliance, governance      |
+| **Real-time?** | Yes (near real-time metrics & alarms)        | No (delayed event delivery)                    |
+| **Retention**  | Configurable (based on metric/log settings)  | 90 days (default) + long-term in S3 (optional) |
 
 
 #### Difference between IAM Role and IAM Policy?
 
 IAM Role: A set of permissions that can be assumed by AWS services or users. It is used to grant access to AWS resources without using permanent credentials.
 IAM Policy: A JSON document that defines permissions. It is attached to users, groups, or roles to control what actions they can perform.
-
 
 
 #### What are the types of IAM policies?
@@ -560,7 +559,6 @@ AWS Managed Policies: Predefined and maintained by AWS.
 Customer Managed Policies: Custom policies created and managed by you.
 
 Inline Policies: Embedded directly into a single IAM user, group, or role.
-
 
 
 #### What is MFA and how do you use it?
@@ -603,23 +601,21 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 ###  What is a spot instance vs on-demand vs reserved instance?
 
-| Type      | Description                                         | Cost        |
-|  |  | -- |
-| Spot      | Uses unused EC2 capacity, can be terminated anytime | Lowest      |
-| On-Demand | Pay-per-use with no commitment                      | Flexible    |
-| Reserved  | Commit for 1–3 years for discounted pricing         | Cost-saving |
+| **Type**      | **Description**                                            | **Cost**         |
+| ------------- | ---------------------------------------------------------- | ---------------- |
+| **Spot**      | Uses unused EC2 capacity; can be interrupted anytime       |  *Lowest*      |
+| **On-Demand** | Pay-as-you-go with no upfront commitment                   |  *Flexible*    |
+| **Reserved**  | Commit for 1 or 3 years in exchange for discounted pricing |  *Cost-saving* |
 
 
+###  **Difference Between RDS and DynamoDB**
 
-###  Difference between RDS and DynamoDB?
-
-| Feature    | RDS                               | DynamoDB                         |
-| - |  | -- |
-| Type       | Relational (SQL) database         | NoSQL (Key-Value/Document)       |
-| Scaling    | Vertical scaling                  | Horizontal auto-scaling          |
-| Use Case   | Structured data, complex queries  | Fast access to unstructured data |
-| Management | Managed service, but needs tuning | Fully managed by AWS             |
-
+| **Feature**    | **RDS**                                      | **DynamoDB**                              |
+| -------------- | -------------------------------------------- | ----------------------------------------- |
+| **Type**       | Relational (SQL-based) database              | NoSQL (Key-Value and Document model)      |
+| **Scaling**    | Vertical scaling (manual or limited auto)    | Horizontal scaling (automatic)            |
+| **Use Case**   | Structured data, complex joins, transactions | Real-time access to unstructured data     |
+| **Management** | Managed service (requires DB engine tuning)  | Fully managed (serverless and auto-tuned) |
 
 
 ###  What is Auto Scaling and how does it work?
@@ -645,12 +641,13 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 ###  Difference between EBS and S3?
 
-| Feature    | EBS                   | S3                           |
-| - |  | - |
-| Type       | Block storage         | Object storage               |
-| Access     | Mount as disk to EC2  | Access via API or console    |
-| Durability | 99.999%               | 99.999999999%                |
-| Use Case   | Databases, OS volumes | Backups, media, static files |
+
+| **Feature**    | **EBS (Elastic Block Store)**               | **S3 (Simple Storage Service)**            |
+| -------------- | ------------------------------------------- | ------------------------------------------ |
+| **Type**       | Block storage                               | Object storage                             |
+| **Access**     | Mount as a disk to EC2 instance             | Access via APIs, SDKs, or AWS Console      |
+| **Durability** | 99.999%                                     | 99.999999999% (11 nines)                   |
+| **Use Case**   | Databases, boot volumes, transactional apps | Backups, static website assets, data lakes |
 
 
 #### What is a StorageClass in Kubernetes?
@@ -739,7 +736,7 @@ scp -i key.pem file.txt user@server:/path/to/destination/
 ```
 
 ### Different Types of AWS Policies
------------------------------------------------------------------------------------------
+
 | Policy Type           | Attached To          | Purpose                                 |
 |-----------------------|----------------------|-----------------------------------------|
 | IAM Policies          | Users, Roles         | Grants permissions                      |
@@ -748,7 +745,7 @@ scp -i key.pem file.txt user@server:/path/to/destination/
 | Permission Boundaries | IAM Roles/Users      | Limit what the role/user can do         |
 | Session Policies      | STS sessions         | Temporary session-level limits          |
 | ACLs                  | Legacy (e.g. S3)     | Basic allow/deny access                 | 
------------------------------------------------------------------------------------------
+
 
 ### Bash Script to Update Packages (for AMIs)
 Amazon Linux:
