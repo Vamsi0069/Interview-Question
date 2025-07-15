@@ -20,6 +20,7 @@ Not directly involved, but early collaboration with DevOps helps align infrastru
 
 * Translates requirements into a blueprint (architecture).
 * Includes UI/UX design, database schema, infrastructure planning, and technology stack selection.
+  
 
 **DevOps Role:**
 
