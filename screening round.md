@@ -9,7 +9,10 @@ I have \[X years] of experience in \[your field – e.g., DevOps, software devel
 
 From my research, I understand that your company is a leader in \[industry/domain]. You are known for \[mention something notable – innovation, customer-centric approach, specific product or service]. I’ve seen that your recent focus is on \[mention a current initiative or project if known], which really aligns with my interests. I admire the way your organization promotes \[mention values, such as innovation, learning, work culture], and I’m excited about the possibility of being a part of such a team.
 
-
+  - Before every interview , you must do basic research about the company and be ready with few positive points about the company .
+   
+  - Like Company Domain / Awards / Achievements / Values / work Culture ...etc etc .
+   
 
 ### 3. How does your previous role align with this role?
 
