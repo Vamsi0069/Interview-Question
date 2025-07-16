@@ -88,6 +88,9 @@ Not directly involved, but early collaboration with DevOps helps align infrastru
 | **Spiral**    | Risk-based iterative model for large, complex projects.                      |
 
 
+In Real time , majority of the project uses Agile with DevOps Approach .
+
+
 ## 🚀 How DevOps Enhances SDLC
 
 | SDLC Phase  | DevOps Contribution                  |
