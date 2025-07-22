@@ -147,7 +147,3 @@ Frequently used tools to communicate:
 * Slack / Microsoft Teams – for real-time messaging
 * Confluence / Notion – for documentation and knowledge sharing
 * Zoom / Google Meet – for video calls and demos
-
-
-
-Would you like a visual diagram of this workflow or a cheat sheet for quick reference?
