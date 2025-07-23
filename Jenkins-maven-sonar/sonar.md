@@ -1,9 +1,4 @@
-Here are SonarQube interview questions and answers, suitable for 2–4 years of experience (DevOps, Developer, or QA roles):
-
-
-###  Basics of SonarQube
-
-1. What is SonarQube?
+#### 1. What is SonarQube?
 SonarQube is an open-source platform used for continuous inspection of code quality.
 It detects:
 
@@ -13,17 +8,14 @@ It detects:
 * Duplications
 * Code coverage (if integrated with testing tools)
 
-
-###  Key Concepts
-
-2. What are code smells in SonarQube?
+#### 2. What are code smells in SonarQube?
 Code smells are maintainability issues in code. They don’t affect functionality but make the code harder to maintain.
 
-3. What is a quality gate?
+#### 3. What is a quality gate?
 A quality gate is a set of rules and thresholds (e.g., code coverage ≥ 80%, no critical issues).
 It gives a pass/fail result after analysis.
 
-4. What are the types of issues SonarQube detects?
+#### 4. What are the types of issues SonarQube detects?
 
 * Bugs – Logic errors or defects
 * Vulnerabilities – Security issues
@@ -32,9 +24,7 @@ It gives a pass/fail result after analysis.
 * Coverage – Unit test coverage
 
 
-###  Integration & Workflow
-
-5. How does SonarQube integrate into a CI/CD pipeline?
+#### 5. How does SonarQube integrate into a CI/CD pipeline?
 
 * Add SonarQube scanner to Jenkins/GitLab CI/GitHub Actions
 * Run scanner during build or test stage
@@ -44,25 +34,23 @@ It gives a pass/fail result after analysis.
 mvn sonar:sonar -Dsonar.projectKey=myapp -Dsonar.host.url=http://localhost:9000 -Dsonar.login=your_token
 ```
 
-6. What is a SonarQube scanner?
+#### 6. What is a SonarQube scanner?
 It's a command-line tool or plugin (e.g., for Maven/Gradle) that sends code analysis data to the SonarQube server.
 
-7. What languages does SonarQube support?
+#### 7. What languages does SonarQube support?
 Supports 25+ languages: Java, Python, JavaScript, C#, Go, Kotlin, etc.
 
 
-###  Rules, Profiles, and Metrics
-
-8. What are rules and rule sets?
+#### 8. What are rules and rule sets?
 
 * Rules define what SonarQube checks for (e.g., "Avoid hard-coded passwords").
 * Rules are grouped into Quality Profiles.
 
-9. What is a quality profile?
+#### 9. What is a quality profile?
 A collection of rules for a specific language.
 Each project can use a different profile per language.
 
-10. What metrics does SonarQube use to judge code quality?
+#### 10. What metrics does SonarQube use to judge code quality?
 
 * Bugs
 * Vulnerabilities
@@ -73,18 +61,16 @@ Each project can use a different profile per language.
 * Lines of code
 
 
-###  Real-World and Advanced
-
-11. How do you handle false positives in SonarQube?
+#### 11. How do you handle false positives in SonarQube?
 
 * Use `//NOSONAR` comment to suppress a line
 * Mark issue as “Won’t Fix” or “False Positive” via UI
 
-12. What is technical debt in SonarQube?
+#### 12. What is technical debt in SonarQube?
 Time required to fix all maintainability issues (code smells).
 Shown as `x days/hours of work`.
 
-13. How do you analyze code from a Git repo using SonarQube?
+#### 13. How do you analyze code from a Git repo using SonarQube?
 
 * Clone repo in CI/CD
 * Build project
@@ -97,31 +83,27 @@ withSonarQubeEnv('SonarQube') {
 }
 ```
 
-14. What is the difference between SonarQube and SonarCloud?
+#### 14. What is the difference between SonarQube and SonarCloud?
 
 * SonarQube: Self-hosted
 * SonarCloud: SaaS/cloud version, hosted by SonarSource
   (free for public repos)
 
 
-###  Security & Permissions
-
-15. How do you manage user access in SonarQube?
+#### 15. How do you manage user access in SonarQube?
 
 * Use built-in roles (Admin, User)
 * Integrate with LDAP/SAML
 * Configure project permissions (Browse, Admin, Execute Analysis)
 
-16. How do you handle PR analysis in SonarQube?
+#### 16. How do you handle PR analysis in SonarQube?
 
 * Use branch or pull request analysis feature
 * Requires Developer Edition+
 * Shows new issues introduced by the PR
 
 
-###  Common Commands
-
-17. How to trigger SonarQube analysis manually?
+#### 17. How to trigger SonarQube analysis manually?
 
 ```bash
 sonar-scanner \
@@ -130,15 +112,3 @@ sonar-scanner \
   -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.login=your_token
 ```
-
-18. How to install SonarQube locally?
-
-1. Download from [https://www.sonarsource.com](https://www.sonarsource.com)
-2. Extract and start the server:
-
-   ```bash
-   ./bin/linux-x86-64/sonar.sh start
-   ```
-3. Access UI at `http://localhost:9000`
-
-
