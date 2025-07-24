@@ -1,5 +1,6 @@
 #### 1. What is SonarQube?
 SonarQube is an open-source platform used for continuous inspection of code quality.
+
 It detects:
 
 * Bugs
