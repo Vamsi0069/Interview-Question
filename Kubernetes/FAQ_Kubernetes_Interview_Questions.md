@@ -504,13 +504,20 @@ Kubernetes uses health checks, restart policies, and controller loops to:
   ```
 * Check for wrong image, env issues, or missing files/configs.
 
-
-
 ### 45. What are LimitRange and ResourceQuota?
-
-
 
 * LimitRange: Sets default/min/max CPU/memory per pod/container.
 * ResourceQuota: Enforces limits on total resource usage in a namespace.
+
+### 46. What is pdb in k8s?
+
+In Kubernetes (k8s), PDB stands for Pod Disruption Budget.
+
+A Pod Disruption Budget (PDB) is a Kubernetes resource that ensures a minimum number or percentage of pods in a replicated application remain available during voluntary disruptions.
+
+* Why Use a PDB?
+Without a PDB, Kubernetes might evict too many pods at once, possibly causing application downtime. A PDB helps maintain application availability during routine operations.
+
+### 47. 
 
 
