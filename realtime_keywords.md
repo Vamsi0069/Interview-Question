@@ -1,4 +1,3 @@
-
 ##  Project & Communication:
 
 ### 1. Agile
@@ -133,7 +132,7 @@ Promotes continuous improvement.
 
 ###  13. Review / Approval
 
-* Most tasks go through a code review or QA review process before being marked done.
+  * Most tasks go through a code review or QA review process before being marked done.
 
   * “This ticket is done, waiting for QA approval.”
   * “Please review my PR.”
@@ -141,8 +140,6 @@ Promotes continuous improvement.
 
 
 ###  14. Collaboration Tools
-
-Frequently used tools to communicate:
 
 * Slack / Microsoft Teams – for real-time messaging
 * Confluence / Notion – for documentation and knowledge sharing
