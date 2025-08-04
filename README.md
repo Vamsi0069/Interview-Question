@@ -51,4 +51,4 @@ Let’s make this repo better together!
 ## 📜 License
 
 This repo is for learning purposes.
-Free to use and share — just give credit.
+Free to use and share
