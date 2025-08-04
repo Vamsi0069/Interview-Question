@@ -39,9 +39,13 @@ Let’s make this repo better together!
 ## **🌍 Community & Support**  
 
 🔗 **GitHub:** [@devopstraininghub](https://github.com/devopstraininghub)  
+
 📝 **Youtube:** [@madhukiran_mindcircuit](http://www.youtube.com/@madhukiran_mindcircuit)  
-💼 **LinkedIn:** [madhukiran-gorekar](http://www.linkedin.com/in/madhukiran-gorekar)
-🌐 **website:** [mindcircuit.in](https://mindcircuit.in/)
+
+💼 **LinkedIn:** [madhukiran-gorekar](http://www.linkedin.com/in/madhukiran-gorekar) 
+
+🌐 **website:** [mindcircuit.in](https://mindcircuit.in/) 
+
 💬 **whatapp Community:** [Join Here](https://chat.whatsapp.com/IIn9SThrmdHEJ8KjUmPuWD)  
 
 ## 📜 License
