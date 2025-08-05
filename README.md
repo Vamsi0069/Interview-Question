@@ -48,7 +48,3 @@ Let’s make this repo better together!
 
 💬 **whatapp Community:** [Join Here](https://chat.whatsapp.com/IIn9SThrmdHEJ8KjUmPuWD)  
 
-## 📜 License
-
-This repo is for learning purposes.
-Free to use and share
