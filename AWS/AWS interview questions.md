@@ -8,11 +8,6 @@ To create:
 
 AWS Console → EC2 → Actions → "Create Image"
 
-
-Here's a corrected and complete version of the comparison table:
-
----
-
 ###  Difference between EBS and EFS
 
 | Feature         | EBS (Elastic Block Store)                             | EFS (Elastic File System)                         |
