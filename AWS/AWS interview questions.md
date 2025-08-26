@@ -1,3 +1,10 @@
+#### What is a Key Pair in AWS?
+A Key Pair is used for secure SSH access to EC2 instances. 
+
+It includes a public key (stored in AWS) and a private key (downloaded by the user).
+
+You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
+
 #### What is an AMI (Amazon Machine Image)?
 
 An AMI is a template used to launch EC2 instances.
@@ -20,13 +27,6 @@ AWS Console → EC2 → Actions → "Create Image"
 | Scalability     | Must manually increase volume size                        | Automatically scales with storage needs               |
 | Availability    | Limited to a single AZ (can use snapshots for backup)     | Accessible across multiple AZs (high availability)    |
 
-####  What is AWS Backup?
-
-A centralized backup service to automate backup of AWS resources:
-
-* Supports RDS, EBS, DynamoDB, EFS, etc.
-* Enables scheduled, compliant, and encrypted backups
-* Integrates with AWS Organizations for centralized control
 
 #### What is the difference between IAM Role and IAM User?
 
@@ -103,16 +103,6 @@ A managed MySQL database hosted on Amazon RDS.
 * Automated backups, patching, and failover
 * Supports Multi-AZ and read replicas
 * No OS-level maintenance required
-
-
-####  What is AWS Lambda?
-
-A serverless compute service that runs code in response to events.
-
-* No provisioning or managing servers
-* Pay only for execution time
-* Common triggers: API Gateway, S3 uploads, DynamoDB streams
-
 
 ####  Explain VPC Peering (3-way: A ↔ B ↔ C)?
 
@@ -340,13 +330,6 @@ AWS Serverless refers to a cloud-native development model that allows you to bui
 •	Amazon DynamoDB – NoSQL database.
 
 •	AWS Step Functions – orchestrate workflows
-
-#### What is a Key Pair in AWS?
-A Key Pair is used for secure SSH access to EC2 instances. 
-
-It includes a public key (stored in AWS) and a private key (downloaded by the user).
-
-You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
 
 
 #### What is AWS VPC peering?
@@ -777,4 +760,20 @@ A service under AWS Systems Manager that allows secure shell-less access to EC2 
 * No need for SSH or key pairs
 * Logs sessions to CloudWatch or S3
 * Ideal for secure, auditable access
+
+####  What is AWS Backup?
+
+A centralized backup service to automate backup of AWS resources:
+
+* Supports RDS, EBS, DynamoDB, EFS, etc.
+* Enables scheduled, compliant, and encrypted backups
+* Integrates with AWS Organizations for centralized control
+  
+####  What is AWS Lambda?
+
+A serverless compute service that runs code in response to events.
+
+* No provisioning or managing servers
+* Pay only for execution time
+* Common triggers: API Gateway, S3 uploads, DynamoDB streams
 
