@@ -1,12 +1,3 @@
-#### What is AWS Session Manager?
-
-A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
-
-* No need for SSH or key pairs
-* Logs sessions to CloudWatch or S3
-* Ideal for secure, auditable access
-
-
 #### What is an AMI (Amazon Machine Image)?
 
 An AMI is a template used to launch EC2 instances.
@@ -783,4 +774,12 @@ Ensure EC2 instance has IAM role with s3:GetObject permission
 #### What is Elastic Beanstalk?
 
 Elastic Beanstalk is a PaaS offering that deploys applications (Java, Python, .NET, etc.) automatically with provisioning of EC2, ALB, Auto Scaling, and monitoring.
+
+#### What is AWS Session Manager?
+
+A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
+
+* No need for SSH or key pairs
+* Logs sessions to CloudWatch or S3
+* Ideal for secure, auditable access
 
