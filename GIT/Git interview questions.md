@@ -30,8 +30,6 @@ git init --bare myproject.git
    
  -  It avoids confusion or merge conflicts caused by someone accidentally editing files in a shared repo. 
 
-
-
 #### 7.How do you configure Git user details globally?
 ```
 git config --global user.name "Your Name"
