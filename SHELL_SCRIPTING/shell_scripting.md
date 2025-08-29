@@ -1,6 +1,7 @@
 ## **Basic Shell Scripting Questions**
 
 **1. What is a shell script?**
+
 A shell script is a text file containing a series of commands that the Unix/Linux shell interprets and executes sequentially.
 
 ---
@@ -17,6 +18,7 @@ chmod +x script.sh
 **3. Difference between `sh` and `bash`?**
 
 * `sh`: Bourne shell, minimal features.
+* 
 * `bash`: Bourne Again Shell, enhanced features (functions, arrays, arithmetic, better scripting).
 
 ---
@@ -37,6 +39,7 @@ echo "All args: $@"
 It stores the **exit status** of the last executed command.
 
 * `0` → success
+  
 * Non-zero → failure
 
 ---
@@ -199,6 +202,7 @@ fi
 ```
 
 Perfect 👌 Since you’re preparing as a **DevOps & Cloud Engineer**, let’s go deeper.
+
 Here’s a **second set of shell scripting Q\&A** — focusing more on **real-time, tricky, and advanced interview scenarios**.
 
 ---
