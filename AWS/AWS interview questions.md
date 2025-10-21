@@ -1,37 +1,100 @@
-#### What is AWS Session Manager?
+#### What is a Key Pair in AWS?
+A Key Pair is used for secure SSH access to EC2 instances. 
 
-A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
+It includes a public key (stored in AWS) and a private key (downloaded by the user).
 
-* No need for SSH or key pairs
-* Logs sessions to CloudWatch or S3
-* Ideal for secure, auditable access
-
+You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
 
 #### What is an AMI (Amazon Machine Image)?
 
 An AMI is a template used to launch EC2 instances.
+
 It includes the OS, application server, and application.
+
 To create:
+
 AWS Console → EC2 → Actions → "Create Image"
 
+###  Difference between EBS and EFS
 
-#### Difference between EBS and EFS
+| Feature         | EBS (Elastic Block Store)                             | EFS (Elastic File System)                         |
+| ------------------- | --------------------------------------------------------- | ----------------------------------------------------- |
+| Type            | Block storage                                             | NFS-based shared file storage                         |
+| Instance Access | Attached to a single EC2 instance at a time (in one AZ)   | Can be mounted on multiple EC2 instances (across AZs) |
+| Performance     | High performance for a single instance                    | Scales automatically with many instances              |
+| Use Case        | Databases, boot volumes, applications needing low latency | Shared storage, web servers, container storage        |
+| Pricing         | Pay for provisioned size                                  | Pay for actual storage used                           |
+| Scalability     | Must manually increase volume size                        | Automatically scales with storage needs               |
+| Availability    | Limited to a single AZ (can use snapshots for backup)     | Accessible across multiple AZs (high availability)    |
 
-| Feature         | EBS (Elastic Block Store) | EFS (Elastic File System)     |
-|  | - | -- |
-| Type            | Block storage             | NFS-based shared file storage |
-| Instance Access | Single EC2 instance       | Multiple EC2 instances        |
-| Use Case        | Databases, boot volumes   | Shared storage, web content   |
 
+#### What is the difference between IAM Role and IAM User?
 
-####  What is AWS Backup?
+IAM User: An entity representing a person or service with long-term credentials.
 
-A centralized backup service to automate backup of AWS resources:
+IAM Role: A temporary identity assumed by users/services, useful for cross-account access or EC2, Lambda, etc.
 
-* Supports RDS, EBS, DynamoDB, EFS, etc.
-* Enables scheduled, compliant, and encrypted backups
-* Integrates with AWS Organizations for centralized control
+#### What are the types of storage in AWS?
 
+EBS – Block storage for EC2.
+
+EFS – Shared file storage across EC2.
+
+S3 – Object storage for any type of file.
+
+Glacier – Archive storage for long-term backups.
+
+Instance Store – Temporary storage tied to EC2 lifecycle.
+
+#### What is Auto Scaling?
+
+Auto Scaling automatically adjusts the number of EC2 instances based on demand using scaling policies (CPU usage, memory, etc.), improving availability and cost-efficiency.
+
+#### What are the types of Load Balancers in AWS?
+
+Application Load Balancer (ALB) – Layer 7 (HTTP/HTTPS), path-based routing.
+
+Network Load Balancer (NLB) – Layer 4, high performance, static IP.
+
+Classic Load Balancer (CLB) – Legacy, supports both L4 & L7 (not recommended).
+
+#### What is Route 53?
+
+Route 53 is AWS’s scalable DNS and domain management service. It supports:
+
+Domain registration
+
+Routing traffic (e.g., latency, geo-based)
+
+Health checks
+
+Private DNS within VPCs
+
+#### How do you secure an S3 bucket?
+
+Enable Block Public Access
+
+Use IAM policies or bucket policies
+
+Enable versioning and encryption (SSE-KMS)
+
+Enable MFA Delete
+
+Use CloudTrail for logging access
+
+#### What is VPC and what components does it have?
+
+VPC (Virtual Private Cloud) is your isolated AWS network. Components include:
+
+Subnets
+
+Route Tables
+
+Internet Gateway / NAT Gateway
+
+NACLs & Security Groups
+
+VPC Peering / Transit Gateway
 
 ####  What is RDS MySQL?
 
@@ -40,16 +103,6 @@ A managed MySQL database hosted on Amazon RDS.
 * Automated backups, patching, and failover
 * Supports Multi-AZ and read replicas
 * No OS-level maintenance required
-
-
-####  What is AWS Lambda?
-
-A serverless compute service that runs code in response to events.
-
-* No provisioning or managing servers
-* Pay only for execution time
-* Common triggers: API Gateway, S3 uploads, DynamoDB streams
-
 
 ####  Explain VPC Peering (3-way: A ↔ B ↔ C)?
 
@@ -89,6 +142,7 @@ A serverless orchestration service that connects AWS services using state machin
 * Visual workflow editor available
 
 #### What is a NAT Gateway? And what is its use?
+
 A NAT Gateway is a service in AWS that lets servers in a private subnet connect to the internet, but it blocks internet traffic from coming in.
 
 - Why is it used?
@@ -113,8 +167,7 @@ The traffic goes through the NAT Gateway, which sits in a public subnet, and the
 | Placement        | In a public subnet                                      | Attached to the VPC                                                      |
 | Managed by AWS   |  Yes                                                       |  Yes                                                                        |
 | Needs Public IP? |  No (for private EC2s)                                     |  Yes (for EC2 to be reachable)    
-                                          |
-
+                                          
 #### What is AWS CloudTrail and how do you manage it in your project?
 
 CloudTrail logs all API calls and activities across AWS accounts (who did what, when, from where).
@@ -266,13 +319,6 @@ Access control: I could control access using IAM policies or pre-signed URLs.
 
 JSON document attached to a bucket to define access rules for users, roles, or the public.
 
-#### What is 403 error in S3 object permission?
-
-It means access denied. Possible causes:
-Missing s3:GetObject permission
-Object is private
-Bucket policy restricts access
-
 #### What is AWS Serverless and what are its key benefits?
 
 AWS Serverless refers to a cloud-native development model that allows you to build and run applications without managing servers. Key services include:
@@ -285,12 +331,9 @@ AWS Serverless refers to a cloud-native development model that allows you to bui
 
 •	AWS Step Functions – orchestrate workflows
 
-#### What is a Key Pair in AWS?
-A Key Pair is used for secure SSH access to EC2 instances. It includes a public key (stored in AWS) and a private key (downloaded by the user).
-You create it in EC2 Dashboard → Key Pairs → Create Key Pair, and use it when launching an EC2 instance.
-
 
 #### What is AWS VPC peering?
+
  VPC peering is a networking connection between two VPCs that enables routing traffic between them using private IPs. Peering works across regions and accounts but does not support transitive peering.
 
 #### What AWS resources have you worked with?
@@ -332,19 +375,20 @@ For automatic and manual scaling, I’ve used:
 
 •	ECS with Fargate or EC2: Task-based scaling based on request load or queue depth.
 
-#### Difference between ALB and NLB
+### Difference between ALB and NLB
 
-| Feature               | ALB (Application Load Balancer)                   | NLB (Network Load Balancer)          |
-|  | -- | - |
-| Layer             | Layer 7 (Application Layer)                           | Layer 4 (Transport Layer)                |
-| Protocol          | HTTP, HTTPS, WebSocket                                | TCP, UDP, TLS                            |
-| Use Case          | For web apps, APIs (content-based routing)            | For high-performance or low-latency apps |
-| Routing           | Smart routing – based on URL, headers, hostname, etc. | Basic routing – based on IP and port     |
-| Target Types      | EC2, IP, Lambda                                       | EC2, IP                                  |
-| TLS Termination   |  Yes                                                  |  Yes                                     |
-| Health Checks     | Application-level (HTTP)                              | Network-level (TCP)                      |
-| Static IP Support |  No (uses DNS name)                                   |  Yes (can assign Elastic IPs)            |
-| Performance       | Good for HTTP apps                                    | Best for high-throughput, real-time apps |
+| **Feature**             | **ALB (Application Load Balancer)**              | **NLB (Network Load Balancer)**                       |
+| ----------------------- | ------------------------------------------------ | ----------------------------------------------------- |
+| **Layer**               | Layer 7 (Application Layer)                      | Layer 4 (Transport Layer)                             |
+| **Protocols Supported** | HTTP, HTTPS, WebSocket                           | TCP, UDP, TLS                                         |
+| **Use Case**            | Web apps, microservices, APIs (advanced routing) | High-performance, low-latency, real-time applications |
+| **Routing Type**        | Content-based routing (URL, host, headers, etc.) | Forwarding based on IP address and port               |
+| **Target Types**        | EC2 instances, IP addresses, Lambda functions    | EC2 instances, IP addresses                           |
+| **TLS Termination**     | Supported                                        | Supported                                             |
+| **Health Checks**       | Application-level (HTTP/HTTPS)                   | Network-level (TCP/HTTP/HTTPS)                        |
+| **Static IP Support**   | Not directly (uses DNS name)                     | Yes (supports Elastic IPs)                            |
+| **Performance**         | Optimized for HTTP/S traffic                     | Optimized for extreme performance and high throughput |
+
 
 
 #### How do you connect to a private subnet?
@@ -363,18 +407,23 @@ OAI is used to restrict access to an S3 bucket so only CloudFront can fetch cont
 #### What is SNS and how do you create it?
 
 SNS (Simple Notification Service) is an AWS service used to send notifications via email, SMS, HTTP, or Lambda.
+
 To create it:
 
 Go to AWS SNS in the console.
+
 Click “Create topic” → Choose Standard or FIFO.
+
 Name the topic and click Create.
+
 To add a subscriber, choose the topic → Create subscription → select protocol (e.g., Email) and provide the endpoint.
 
 #### How can you recover a deleted S3 object?
- How do you restore a deleted S3 object?
+
  If versioning was enabled, I can retrieve the deleted object using a previous version. Without versioning, the object is permanently deleted unless S3 backup (e.g., replication or lifecycle rule to Glacier) is configured.
 
 #### How do you secure a 3-tier architecture?
+
  How do you secure a 3-tier app (web, app, DB)?
  I use security groups and NACLs to isolate layers:
 
@@ -422,28 +471,28 @@ aws s3 ls s3://your-bucket-name
 
 #### What is the difference between Security Group and Network ACL (NACL)?
 
-| Feature          | Security Group                              | Network ACL (NACL)                                    |
-| -- | -- |  |
-| Level            | Instance-level                                  | Subnet-level                                              |
-| Stateful         | Yes (automatically allows return traffic)       | No (return traffic must be explicitly allowed)            |
-| Rules            | Allow rules only                                | Allow and Deny rules                                      |
-| Applies to       | EC2 Instances (and other resources)             | Entire Subnets                                            |
-| Default Behavior | Deny all inbound, allow all outbound by default | Allow all inbound and outbound by default(can be modified)|
-| Rule Evaluation  | All rules are evaluated collectively            | Rules are evaluated in order (by rule number)             |
-| Use Case         | Fine-grained control over instance traffic      | Broad control over subnet-level traffic                   |
 
-#### What are EC2 instance types?
+| **Feature**          | **Security Group**                               | **Network ACL (NACL)**                                    |
+| -------------------- | ------------------------------------------------ | --------------------------------------------------------- |
+| **Level**            | Instance-level                                   | Subnet-level                                              |
+| **Stateful**         | Yes (automatically allows return traffic)        | No (return traffic must be explicitly allowed)            |
+| **Rules**            | Allow rules only                                 | Allow and Deny rules                                      |
+| **Applies to**       | EC2 instances and ENIs                           | Entire subnets                                            |
+| **Default Behavior** | Deny all inbound, allow all outbound             | Allow all inbound and outbound (by default; customizable) |
+| **Rule Evaluation**  | All rules evaluated together (no priority order) | Rules evaluated in number order; first match wins         |
+| **Use Case**         | Fine-grained control over instance traffic       | Broad control over subnet-level traffic                   |
 
-EC2 instances are categorized based on their hardware capabilities and use cases. Below is a corrected and properly aligned table:
 
-| Instance Series | Type                    | Use Case                               | Examples                |
-| - |  |  |  |
-| t-series        | Burstable General Purpose   | Low-cost, spiky workloads                  | `t2.micro`, `t3.small`      |
-| m-series        | General Purpose             | Balanced compute, memory, and networking   | `m5.large`, `m6g.medium`    |
-| c-series        | Compute Optimized           | High-performance compute workloads         | `c5.large`, `c6g.xlarge`    |
-| r-series        | Memory Optimized            | In-memory databases, real-time big data    | `r5.large`, `r6g.xlarge`    |
-| i-series        | Storage Optimized           | High IOPS, low-latency storage workloads   | `i3.large`, `i4i.xlarge`    |
-| g/p-series      | GPU / Accelerated Computing | ML training/inference, AI, video rendering | `g4dn.xlarge`, `p3.2xlarge` |
+### EC2 Instance Types (Based on Use Case)
+
+| **Instance Series** | **Type**                    | **Use Case**                                  | **Examples**                |
+| ------------------- | --------------------------- | --------------------------------------------- | --------------------------- |
+| `t-series`          | Burstable General Purpose   | Low-cost, spiky workloads                     | `t2.micro`, `t3.small`      |
+| `m-series`          | General Purpose             | Balanced compute, memory, networking          | `m5.large`, `m6g.medium`    |
+| `c-series`          | Compute Optimized           | High-performance compute workloads            | `c5.large`, `c6g.xlarge`    |
+| `r-series`          | Memory Optimized            | In-memory DBs, real-time analytics            | `r5.large`, `r6g.xlarge`    |
+| `i-series`          | Storage Optimized           | High IOPS, low-latency storage workloads      | `i3.large`, `i4i.xlarge`    |
+| `g/p-series`        | GPU / Accelerated Computing | ML training, AI inference, graphics rendering | `g4dn.xlarge`, `p3.2xlarge` |
 
 
 #### What is nslookup?
@@ -456,14 +505,14 @@ EC2 instances are categorized based on their hardware capabilities and use cases
 - AWS Lambda functions don’t have inodes. Inodes are filesystem metadata; Lambda runs serverless, so no direct inode.
 
 #### Difference between  CloudWatch and CloudTrail
-| Feature          | CloudWatch                  | CloudTrail                       |
-||--|-|
-| Purpose          | Monitoring & metrics        | API call logging & auditing      |
-| Data Type        | Metrics, logs               | Management API event logs        |
-| Use Case         | Performance & alerts        | Security, compliance, auditing   |
-| Real-time?       | Yes                         | No                               |
-| Retention        | Configurable                | 90 days default + S3 archival    |
 
+| **Feature**    | **CloudWatch**                               | **CloudTrail**                                 |
+| -------------- | -------------------------------------------- | ---------------------------------------------- |
+| **Purpose**    | Monitoring performance and resource metrics  | Logging and auditing AWS API calls             |
+| **Data Type**  | Metrics, logs, dashboards, alarms            | Management events, API activity logs           |
+| **Use Case**   | Operational monitoring, alerting, automation | Security analysis, compliance, governance      |
+| **Real-time?** | Yes (near real-time metrics & alarms)        | No (delayed event delivery)                    |
+| **Retention**  | Configurable (based on metric/log settings)  | 90 days (default) + long-term in S3 (optional) |
 
 
 #### Difference between IAM Role and IAM Policy?
@@ -472,13 +521,13 @@ IAM Role: A set of permissions that can be assumed by AWS services or users. It 
 IAM Policy: A JSON document that defines permissions. It is attached to users, groups, or roles to control what actions they can perform.
 
 
-
 #### What are the types of IAM policies?
 
 AWS Managed Policies: Predefined and maintained by AWS.
-Customer Managed Policies: Custom policies created and managed by you.
-Inline Policies: Embedded directly into a single IAM user, group, or role.
 
+Customer Managed Policies: Custom policies created and managed by you.
+
+Inline Policies: Embedded directly into a single IAM user, group, or role.
 
 
 #### What is MFA and how do you use it?
@@ -488,7 +537,7 @@ MFA (Multi-Factor Authentication) adds an extra layer of security by requiring a
 
 
 
-### 4. How do you secure your AWS account?
+###  How do you secure your AWS account?
 
 * Enable MFA on the root and all IAM users.
 * Use IAM roles and follow the principle of least privilege.
@@ -498,7 +547,7 @@ MFA (Multi-Factor Authentication) adds an extra layer of security by requiring a
 
 
 
-### 5. What is Lifecycle policy in S3?
+###  What is Lifecycle policy in S3?
 
 * A lifecycle policy automatically transitions objects to different storage classes (e.g., to Glacier) or deletes them after a defined period.
 * Useful for managing cost and data retention.
@@ -519,67 +568,55 @@ Amazon S3 Glacier is a low-cost cloud storage service for data archiving and lon
 
 
 
-### 8. Difference between EBS and EFS?
+###  What is a spot instance vs on-demand vs reserved instance?
 
-| Feature     | EBS                        | EFS                                 |
-| -- | -- | -- |
-| Type        | Block storage              | File storage (NFS)                  |
-| Access      | One EC2 instance at a time | Multiple EC2 instances concurrently |
-| Scalability | Predefined volume size     | Scales automatically                |
-| Use Case    | Databases, boot volumes    | Shared file storage                 |
-
+| **Type**      | **Description**                                            | **Cost**         |
+| ------------- | ---------------------------------------------------------- | ---------------- |
+| **Spot**      | Uses unused EC2 capacity; can be interrupted anytime       |  *Lowest*      |
+| **On-Demand** | Pay-as-you-go with no upfront commitment                   |  *Flexible*    |
+| **Reserved**  | Commit for 1 or 3 years in exchange for discounted pricing |  *Cost-saving* |
 
 
-### 9. What is a spot instance vs on-demand vs reserved instance?
+###  **Difference Between RDS and DynamoDB**
 
-| Type      | Description                                         | Cost        |
-|  |  | -- |
-| Spot      | Uses unused EC2 capacity, can be terminated anytime | Lowest      |
-| On-Demand | Pay-per-use with no commitment                      | Flexible    |
-| Reserved  | Commit for 1–3 years for discounted pricing         | Cost-saving |
-
-
-
-### 10. Difference between RDS and DynamoDB?
-
-| Feature    | RDS                               | DynamoDB                         |
-| - |  | -- |
-| Type       | Relational (SQL) database         | NoSQL (Key-Value/Document)       |
-| Scaling    | Vertical scaling                  | Horizontal auto-scaling          |
-| Use Case   | Structured data, complex queries  | Fast access to unstructured data |
-| Management | Managed service, but needs tuning | Fully managed by AWS             |
+| **Feature**    | **RDS**                                      | **DynamoDB**                              |
+| -------------- | -------------------------------------------- | ----------------------------------------- |
+| **Type**       | Relational (SQL-based) database              | NoSQL (Key-Value and Document model)      |
+| **Scaling**    | Vertical scaling (manual or limited auto)    | Horizontal scaling (automatic)            |
+| **Use Case**   | Structured data, complex joins, transactions | Real-time access to unstructured data     |
+| **Management** | Managed service (requires DB engine tuning)  | Fully managed (serverless and auto-tuned) |
 
 
-
-### 11. What is Auto Scaling and how does it work?
+###  What is Auto Scaling and how does it work?
 
 * Auto Scaling automatically adjusts the number of EC2 instances in response to traffic or load.
 * It uses scaling policies and CloudWatch alarms to launch or terminate instances as needed.
 
 
 
-### 12. What is a Target Group?
+###  What is a Target Group?
 
 * A target group is a collection of resources (such as EC2 instances or IPs) that a load balancer routes traffic to.
 * Used with ALB and NLB to manage traffic and apply health checks.
 
 
 
-### 13. How do health checks work in ALB?
+###  How do health checks work in ALB?
 
 * ALB sends health check requests (e.g., HTTP GET) to each target at a specific path and port.
 * If a target fails health checks repeatedly, it is marked unhealthy and removed from the routing pool until it recovers.
 
 
 
-### 14. Difference between EBS and S3?
+###  Difference between EBS and S3?
 
-| Feature    | EBS                   | S3                           |
-| - |  | - |
-| Type       | Block storage         | Object storage               |
-| Access     | Mount as disk to EC2  | Access via API or console    |
-| Durability | 99.999%               | 99.999999999%                |
-| Use Case   | Databases, OS volumes | Backups, media, static files |
+
+| **Feature**    | **EBS (Elastic Block Store)**               | **S3 (Simple Storage Service)**            |
+| -------------- | ------------------------------------------- | ------------------------------------------ |
+| **Type**       | Block storage                               | Object storage                             |
+| **Access**     | Mount as a disk to EC2 instance             | Access via APIs, SDKs, or AWS Console      |
+| **Durability** | 99.999%                                     | 99.999999999% (11 nines)                   |
+| **Use Case**   | Databases, boot volumes, transactional apps | Backups, static website assets, data lakes |
 
 
 #### What is a StorageClass in Kubernetes?
@@ -595,3 +632,148 @@ Terraform stores its state file (`terraform.tfstate`) to track infrastructure ch
 
 * Locally: In the working directory by default.
 * Remotely: For teams and safety, store in Amazon S3 with DynamoDB for state locking and consistency.
+
+### How to Manage Multiple AWS Accounts
+
+Use AWS Organizations:
+
+- Create accounts centrally under a Management Account
+
+- Apply Service Control Policies (SCPs)
+
+- Use Organizational Units (OUs) for grouping
+
+- Enable Consolidated Billing
+
+Tools:
+- AWS Control Tower
+
+- IAM Role Switching (sts:AssumeRole)
+
+- AWS CLI Profiles:
+
+[dev]
+
+aws_access_key_id=...
+
+aws_secret_access_key=...
+
+[prod]
+
+aws_access_key_id=...
+
+aws_secret_access_key=...
+
+### Whitelisting SCP on a Server
+
+ 1. SSH Port is Open (SCP runs over SSH)
+
+SCP uses port 22 (TCP) by default. To whitelist it:
+
+a. On AWS (Security Group)
+
+* Go to the EC2 console → Security Groups.
+* Edit Inbound Rules.
+* Add a rule:
+
+  * Type: SSH
+  * Protocol: TCP
+  * Port Range: 22
+  * Source: `<your IP or CIDR>` (e.g., `203.0.113.5/32`)
+
+b. With iptables (Linux firewall)
+
+```bash
+sudo iptables -A INPUT -p tcp --dport 22 -s <your_ip_address> -j ACCEPT
+```
+
+ 2. Ensure SSH is Running
+
+Make sure the `sshd` service is active:
+
+```bash
+sudo systemctl status sshd
+```
+
+
+ 3. Use SCP for File Transfer
+
+Example:
+
+```bash
+scp -i key.pem file.txt user@server:/path/to/destination/
+```
+
+### Different Types of AWS Policies
+
+| Policy Type           | Attached To          | Purpose                                 |
+|-----------------------|----------------------|-----------------------------------------|
+| IAM Policies          | Users, Roles         | Grants permissions                      |
+| Resource Policies     | S3, SNS, Lambda      | Grants access to the resource           |
+| SCPs                  | Accounts / OUs       | Max boundary for Org accounts           |
+| Permission Boundaries | IAM Roles/Users      | Limit what the role/user can do         |
+| Session Policies      | STS sessions         | Temporary session-level limits          |
+| ACLs                  | Legacy (e.g. S3)     | Basic allow/deny access                 | 
+
+
+### Bash Script to Update Packages (for AMIs)
+Amazon Linux:
+#!/bin/bash
+yum update -y
+yum upgrade -y
+
+Ubuntu:
+#!/bin/bash
+apt-get update -y
+apt-get upgrade -y
+
+Use via user-data or systemd service
+
+### How to Update a Stale EC2 Instance (1 Year Old)
+
+1. Update packages (yum/apt)
+
+2. Reboot if kernel was updated
+
+3. Update SSM and CloudWatch agents
+
+4. Patch application code
+
+5. Replace with latest AMI if outdated
+
+6. Use SSM Patch Manager for automation
+
+### Copy File from S3 to EC2
+
+aws s3 cp s3://your-bucket-name/file.txt /home/ec2-user/file.txt
+
+Ensure EC2 instance has IAM role with s3:GetObject permission
+
+#### What is Elastic Beanstalk?
+
+Elastic Beanstalk is a PaaS offering that deploys applications (Java, Python, .NET, etc.) automatically with provisioning of EC2, ALB, Auto Scaling, and monitoring.
+
+#### What is AWS Session Manager?
+
+A service under AWS Systems Manager that allows secure shell-less access to EC2 instances.
+
+* No need for SSH or key pairs
+* Logs sessions to CloudWatch or S3
+* Ideal for secure, auditable access
+
+####  What is AWS Backup?
+
+A centralized backup service to automate backup of AWS resources:
+
+* Supports RDS, EBS, DynamoDB, EFS, etc.
+* Enables scheduled, compliant, and encrypted backups
+* Integrates with AWS Organizations for centralized control
+  
+####  What is AWS Lambda?
+
+A serverless compute service that runs code in response to events.
+
+* No provisioning or managing servers
+* Pay only for execution time
+* Common triggers: API Gateway, S3 uploads, DynamoDB streams
+

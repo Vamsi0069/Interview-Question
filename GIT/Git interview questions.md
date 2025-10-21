@@ -30,8 +30,6 @@ git init --bare myproject.git
    
  -  It avoids confusion or merge conflicts caused by someone accidentally editing files in a shared repo. 
 
-
-
 #### 7.How do you configure Git user details globally?
 ```
 git config --global user.name "Your Name"
@@ -147,6 +145,36 @@ git branch -a
 ```bash
 git fetch origin branch_name
 ```
+This will fetch the branch from the remote origin but won’t merge or checkout it.
+
+### 27. How to fetch a remote branch without merging? 
+
+Use the `git fetch` command. It downloads the branch from the remote without merging it into your current branch.
+
+###  Command:
+
+```bash
+git fetch origin <branch-name>
+```
+
+This only fetches the branch. To view or switch to it:
+
+```bash
+git checkout <branch-name>
+```
+
+###  Example:
+
+```bash
+git fetch origin feature/login
+git checkout feature/login
+```
+
+###  Use Case :
+
+You want to review a teammate’s branch before merging. So you fetch it first, check it out, test the code, and then decide whether to merge.
+
+
 #### 28.How to merge a branch?
 
 Be in the target branch, then: git merge source_branch
@@ -165,12 +193,54 @@ git merge --abort
 ```
 #### 32.What does git rm do?
 
-Deletes files from working directory and stages the deletion.
+`git rm` is used to remove files from the working directory and the staging area (index) in Git.
 
-#### 33.	How to check which branches have been merged into master?
+```bash
+git rm <file>
+```
+
+* Deletes the file from your local project.
+* Stages the deletion for the next commit.
+
+#### 33.	How to check which branches have been merged into main?
 ```bash
 git branch --merged
 ```
+
+| Command               | Purpose                                                     |
+|  | -- |
+| `git branch`          | Lists all local branches                                |
+| `git branch --merged` | Lists local branches already merged into current branch |
+
+
+
+###  Example:
+
+```bash
+$ git branch
+* main
+  feature/login
+  feature/signup
+```
+
+```bash
+$ git branch --merged
+* main
+  feature/login
+```
+
+This means:
+
+* `feature/login` is already merged into `main`
+* `feature/signup` is not merged yet
+
+
+###  Use Case:
+
+* Use `git branch` to see all branches
+* Use `git branch --merged` to safely delete merged branches
+
+
 #### 34.Describe Git branching strategy you've used.
 
 Feature, Task, and Release branching (explain with real project use).
@@ -224,6 +294,39 @@ A request to merge changes from one branch to another, usually with a code revie
 
 A merge where the target branch pointer is simply moved forward to the latest commit.
 
+A fast-forward merge happens when the branch being merged is directly ahead of the current branch, with no diverging commits.
+
+In this case, Git simply moves the branch pointer forward — no new merge commit is created.
+
+
+### Example:
+
+```bash
+main:    A---B
+feature:     \---C---D
+```
+
+If `main` hasn’t changed since `B`, merging `feature` results in:
+
+```bash
+main:    A---B---C---D
+```
+
+Command:
+
+```bash
+git checkout main
+git merge feature
+```
+
+If it's a fast-forward, no merge commit will be created.
+
+### Use Case:
+
+* No changes have been made on the target branch (e.g., `main`)
+* You want a clean, linear history
+
+
 #### 42.How to force push changes?
 ```bash
 git push origin branch_name --force
@@ -236,7 +339,40 @@ Push tags: git push origin v1.0
 ```
 #### 44.Difference between annotated and lightweight tags?
 
-Annotated has metadata and is stored in Git history. Lightweight is just a pointer.
+### ✅ Q44. Difference between Annotated and Lightweight Tags in Git
+
+Git supports two types of tags: Annotated and Lightweight. Here's a detailed comparison:
+
+
+### 1. Annotated Tag
+
+* Stored as a full Git object.
+* Contains:
+
+  * Tag name
+  * Tagger name, email, and date
+  * Commit hash
+  * Optional message
+  * GPG signature (optional)
+* Good for releases and official versioning.
+
+Create:
+
+```bash
+git tag -a v1.0 -m "Release version 1.0"
+```
+
+### 2. Lightweight Tag
+
+* Just a pointer to a commit (like a branch).
+* No metadata (no message, date, or tagger info).
+* Useful for temporary bookmarks or internal use.
+
+Create:
+
+```bash
+git tag v1.0
+```
 
 #### 45.How to list and delete tags?
 
@@ -246,16 +382,112 @@ Annotated has metadata and is stored in Git history. Lightweight is just a point
 
 #### 46.What is a detached HEAD state?
 
-When HEAD points to a specific commit instead of a branch.
+A detached HEAD state occurs when `HEAD` points directly to a commit, tag, or remote branch — not to a local branch.
+
+In this state, you're not working on any branch, so new commits won't be associated with a branch unless you create one.
+
+
+###  Example:
+
+```bash
+git checkout 7e3a2f5
+```
+
+This checks out a specific commit — not a branch. Now you're in a detached HEAD state.
+
+### 🔹 What happens here:
+
+* You can view or test an old version of the code.
+* You can make changes and commit, but those commits are not attached to any branch.
+* If you switch branches or exit, your work may be lost.
+
+
+### 🔹 How to Save Work in Detached HEAD:
+
+If you've made commits and want to keep them:
+
+```bash
+git checkout -b new-branch-name
+```
+
+This moves the commits onto a new branch so they won't be lost.
+
+
+### 🔹 Real-Time Use Case:
+
+Scenario:
+You're debugging a bug introduced in a recent release. You check out a commit from an earlier working state:
+
+```bash
+git checkout abc1234
+```
+
+You're now in a detached HEAD state and can test code at that commit.
+
 
 #### 47.How to cherry-pick a commit from another branch?
 ```
 git cherry-pick <commit_id>
 ```
 #### 48.How to rebase interactively?
+
+```bash
+git rebase -i HEAD~n
+```
+
+This command lets you interactively edit, squash, reword, or reorder the last `n` commits.
+
+###  Real-Time Use Case:
+
+Scenario:
+You’ve made 5 messy commits while working on a feature (`fix typo`, `update function`, `add logging`, etc.), and now before pushing, you want to clean up the history into meaningful commits.
+
+### Steps to Rebase Interactively:
+
+1. Rebase the last 5 commits:
+
+   ```bash
+   git rebase -i HEAD~5
+   ```
+
+2. In the interactive editor, you'll see:
+
+   ```
+   pick 123abc add logging
+   pick 456def update function
+   pick 789ghi fix typo
+   pick abc123 refactor logic
+   pick def456 add comments
+   ```
+
+3. Change `pick` to:
+
+   * `squash` (combine into the commit above),
+   * `reword` (edit commit message),
+   * `drop` (remove the commit), etc.
+
+   Example:
+
+   ```
+   pick 123abc add logging
+   squash 456def update function
+   reword 789ghi fix typo
+   ```
+
+4. Save and follow the prompts to edit commit messages.
+
+###  Benefit:
+
+Cleans up commit history before merge or push, making it easier to read, review, and debug.
+
+Let me know if you want a sample repo to practice or automate this in a script.
+
+
 ```
 git rebase -i HEAD~n to squash/reword commits.
 ```
+
+
 #### 49.How do you lock a branch in GitHub?
 
 In repository settings → Branches → Add branch protection rules.
