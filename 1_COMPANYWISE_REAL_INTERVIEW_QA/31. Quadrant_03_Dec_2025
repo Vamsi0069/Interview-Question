@@ -1,0 +1,10 @@
+Self-introduction.
+What is Prometheus and how does it work?
+What is Grafana?
+How do you create dashboards in Grafana?
+What are Kibana and Elasticsearch? Explain how they work together.
+How do you pull metrics into Prometheus?
+How many master (control plane) Kubernetes nodes have you used in your projects?
+What tools have you used in your previous projects?	
+What access security mechanisms have you used in your projects?
+Explain the CI/CD automation setup from scratch.
