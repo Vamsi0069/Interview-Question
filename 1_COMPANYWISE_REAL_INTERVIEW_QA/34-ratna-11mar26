@@ -1,0 +1,212 @@
+DEVOPS INTERVIEW Q&A 
+
+------------------------------------------------------------
+
+QUESTION: What is Disaster Recovery (DR) for Jenkins running on EC2?
+
+ANSWER:
+
+Disaster Recovery for Jenkins ensures Jenkins can be restored quickly if the EC2 instance fails.
+
+Main DR components:
+
+1. Backup Jenkins Home Directory
+
+Jenkins stores all configuration and job data in:
+
+/var/lib/jenkins
+
+Backup example:
+
+aws s3 sync /var/lib/jenkins s3://jenkins-backup/
+
+2. EBS Snapshot
+
+Create automated snapshots for Jenkins EBS volume so the entire instance state can be restored.
+
+3. Infrastructure as Code
+
+Use Terraform or CloudFormation to recreate Jenkins EC2 automatically.
+
+4. Restore Process
+
+Steps:
+- Launch new EC2 instance
+- Install Jenkins
+- Restore /var/lib/jenkins from S3 or EBS snapshot
+- Restart Jenkins
+
+Best Practice:
+Store Jenkins home directory on EFS for high availability.
+
+------------------------------------------------------------
+
+QUESTION: Terraform script to terminate EC2 instances that are in stopped state.
+
+ANSWER:
+
+Terraform can query stopped instances and run AWS CLI to terminate them.
+
+Terraform Script:
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+data "aws_instances" "stopped_instances" {
+  filter {
+    name   = "instance-state-name"
+    values = ["stopped"]
+  }
+}
+
+resource "null_resource" "terminate_stopped" {
+
+  provisioner "local-exec" {
+    command = "aws ec2 terminate-instances --instance-ids ${join(" ", data.aws_instances.stopped_instances.ids)}"
+  }
+}
+
+Flow:
+
+Terraform
+→ fetch stopped EC2 instances
+→ collect instance IDs
+→ run terminate command
+
+------------------------------------------------------------
+
+QUESTION: What is an Ansible Role?
+
+ANSWER:
+
+An Ansible Role is a structured way to organize playbooks into reusable components.
+
+Typical Role Directory Structure:
+
+roles/
+  webserver/
+    tasks/
+      main.yml
+    handlers/
+      main.yml
+    files/
+    templates/
+    vars/
+    defaults/
+    meta/
+
+Explanation:
+
+tasks/
+Main automation logic
+
+handlers/
+Triggered tasks (ex: restart service)
+
+templates/
+Jinja2 templates for configuration files
+
+vars/
+Variables used in the role
+
+defaults/
+Default values for variables
+
+Example Playbook using role:
+
+- hosts: web
+  roles:
+    - webserver
+
+------------------------------------------------------------
+
+QUESTION: Python script to detect failed Kubernetes pods and delete them.
+
+ANSWER:
+
+Python Script:
+
+from kubernetes import client, config
+
+config.load_kube_config()
+
+v1 = client.CoreV1Api()
+
+pods = v1.list_pod_for_all_namespaces(watch=False)
+
+for pod in pods.items:
+    if pod.status.phase == "Failed":
+        print(f"Deleting pod: {pod.metadata.name}")
+        v1.delete_namespaced_pod(
+            name=pod.metadata.name,
+            namespace=pod.metadata.namespace
+        )
+
+Explanation:
+
+Step 1
+Load Kubernetes configuration
+
+config.load_kube_config()
+
+Step 2
+Create Kubernetes API client
+
+v1 = client.CoreV1Api()
+
+Step 3
+Fetch pods across all namespaces
+
+list_pod_for_all_namespaces()
+
+Step 4
+Check pod status
+
+pod.status.phase
+
+Step 5
+If status is "Failed", delete the pod.
+
+------------------------------------------------------------
+
+QUESTION: Python script to list deployments where name is NOT equal to "ratnakar".
+
+ANSWER:
+
+Python Script:
+
+from kubernetes import client, config
+
+config.load_kube_config()
+
+apps_v1 = client.AppsV1Api()
+
+deployments = apps_v1.list_deployment_for_all_namespaces()
+
+for deploy in deployments.items:
+    if deploy.metadata.name != "ratnakar":
+        print(deploy.metadata.name)
+
+Explanation:
+
+Step 1
+Load Kubernetes configuration.
+
+Step 2
+Create Apps API client.
+
+apps_v1 = client.AppsV1Api()
+
+Step 3
+Fetch all deployments in cluster.
+
+list_deployment_for_all_namespaces()
+
+Step 4
+Loop through deployments.
+
+Step 5
+Print deployment names except "ratnakar".
+
+------------------------------------------------------------

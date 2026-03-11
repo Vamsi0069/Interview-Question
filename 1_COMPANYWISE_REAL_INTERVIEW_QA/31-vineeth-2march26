@@ -1,0 +1,231 @@
+# DevOps Interview Questions & Answers  
+(Session – From 2:30 PM IST)
+
+---
+
+## 1. How do you deploy an Amazon EKS (Elastic Kubernetes Service) cluster?
+
+I deploy an EKS cluster using either **eksctl**, **Terraform**, or AWS Console, depending on the environment.
+
+### Using eksctl (most common method)
+
+eksctl create cluster \
+  --name my-cluster \
+  --region us-east-1 \
+  --nodegroup-name workers \
+  --node-type t3.medium \
+  --nodes 2
+
+### Deployment Steps:
+- Create VPC and networking components
+- Create EKS control plane
+- Create managed or self-managed node group
+- Configure kubectl using:
+  aws eks update-kubeconfig
+- Verify cluster:
+  kubectl get nodes
+
+### Best Practices:
+- Use private subnets for worker nodes
+- Enable IAM Roles for Service Accounts (IRSA)
+- Enable control plane logging
+
+---
+
+## 2. What is kubelet in Kubernetes?
+
+Kubelet is a node-level agent that runs on every worker node.
+
+### Responsibilities:
+- Registers node with the API Server
+- Receives Pod specifications
+- Starts containers via container runtime
+- Monitors Pod health
+- Reports status back to control plane
+
+Kubelet ensures the desired state matches the actual state on the node.
+
+---
+
+## 3. Explain Kubernetes Architecture.
+
+Kubernetes follows a **Control Plane + Worker Node** architecture.
+
+### Control Plane Components:
+- API Server – Entry point for cluster
+- etcd – Stores cluster state
+- Scheduler – Assigns Pods to nodes
+- Controller Manager – Maintains desired state
+
+### Worker Node Components:
+- kubelet – Manages Pods
+- container runtime – Runs containers (containerd / CRI-O)
+- kube-proxy – Manages networking
+
+### Flow:
+kubectl → API Server → Scheduler → Node → Pod
+
+---
+
+## 4. What is CrashLoopBackOff error in Kubernetes?
+
+CrashLoopBackOff occurs when a container repeatedly crashes and Kubernetes retries restarting it with exponential backoff.
+
+### Common Causes:
+- Application crash
+- Incorrect configuration
+- Missing environment variables
+- OOMKilled (memory issue)
+- Dependency unavailable
+
+### Troubleshooting:
+kubectl describe pod <pod>
+kubectl logs <pod>
+kubectl logs <pod> --previous
+
+---
+
+## 5. What is a ConfigMap in Kubernetes?
+
+A ConfigMap stores **non-sensitive configuration data**.
+
+### Usage:
+- Inject as environment variables
+- Mount as volume inside container
+
+### Purpose:
+- Separate configuration from container image
+- Avoid rebuilding images for config changes
+
+Note: Sensitive data should use Secrets instead.
+
+---
+
+## 6. What is RBAC in Kubernetes?
+
+RBAC (Role-Based Access Control) manages access permissions.
+
+### Components:
+- Role – Namespace-level permissions
+- ClusterRole – Cluster-wide permissions
+- RoleBinding – Binds Role to user/service account
+- ClusterRoleBinding – Binds ClusterRole cluster-wide
+
+### Purpose:
+- Enforce least privilege
+- Secure multi-tenant clusters
+
+---
+
+## 7. What is Terraform Workspace?
+
+Terraform Workspace allows managing multiple environments using the same configuration but separate state files.
+
+### Commands:
+terraform workspace list
+terraform workspace new dev
+terraform workspace select dev
+
+### Use Case:
+- Separate dev, test, prod without duplicating code
+
+---
+
+## 8. If someone manually modifies an EC2 Launch Template, how do you sync it?
+
+This is configuration drift.
+
+### Solution:
+If using Terraform:
+terraform plan
+terraform apply
+
+If using Auto Scaling Group:
+- Create new Launch Template version
+- Update ASG to latest version
+- Perform instance refresh
+
+Best practice: Never allow manual production changes.
+
+---
+
+## 9. How do you monitor application logs using Prometheus and Grafana?
+
+Prometheus collects **metrics**, not logs.
+
+### Correct Stack:
+- Prometheus → Metrics
+- Loki → Logs
+- Grafana → Visualization
+
+### Flow:
+Application → Promtail → Loki → Grafana
+Application → Prometheus → Grafana
+
+Grafana provides unified dashboard for metrics and logs.
+
+---
+
+## 10. What is the difference between IAM Role and IAM Policy?
+
+### IAM Policy:
+- JSON document
+- Defines permissions (Allow/Deny)
+- Attached to user, group, or role
+
+### IAM Role:
+- Identity with no permanent credentials
+- Assumed by EC2, Lambda, EKS
+- Gets permissions via attached policies
+
+Summary:
+Policy defines permissions. Role assumes permissions.
+
+---
+
+## 11. What is the difference between Git Merge and Git Rebase?
+
+### Merge:
+- Combines branches
+- Creates merge commit
+- Preserves history
+
+### Rebase:
+- Moves commits on top of another branch
+- Creates linear history
+- Rewrites commit history
+- Avoid on shared branches
+
+---
+
+## 12. What is the difference between Docker CMD and ENTRYPOINT?
+
+### ENTRYPOINT:
+- Defines main executable
+- Hard to override
+
+### CMD:
+- Provides default arguments
+- Easily overridden
+
+Best practice:
+Use ENTRYPOINT for executable, CMD for default parameters.
+
+---
+
+## 13. What is ResourceQuota in Kubernetes?
+
+ResourceQuota limits resource usage within a namespace.
+
+### Controls:
+- CPU
+- Memory
+- Pods
+- PersistentVolumeClaims
+
+Purpose:
+- Prevent noisy neighbor problem
+- Enforce fair usage in shared clusters
+
+---
+
